@@ -1,9 +1,14 @@
 package fantasy.web;
 
 import com.vaadin.Application;
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
+
+import fantasy.domain.PlayerPos;
+import fantasy.domain.positions.PlayerPosition;
 
 public class FantasyApplication extends Application {
 	
@@ -14,6 +19,9 @@ public class FantasyApplication extends Application {
 	public void init() {
 		Window window = createNewWindow();
 		setMainWindow(window);
+		
+		//usercode
+		initDB();
 	}
 
 	public Window createNewWindow() {
@@ -49,6 +57,18 @@ public class FantasyApplication extends Application {
 		}
 
 		return window;
+	}
+	
+	private void initDB(){
+		JPAContainer<PlayerPos>  positions = JPAContainerFactory.make(PlayerPos.class, PERSISTENCE_UNIT);
+		//positions.setWriteThrough(false);
+		for(PlayerPosition position : PlayerPosition.values()){
+			PlayerPos pos = new PlayerPos();
+			pos.setPlayerPosition(position);
+			positions.addEntity(pos);
+		}
+		positions.commit();
+		
 	}
 
 }

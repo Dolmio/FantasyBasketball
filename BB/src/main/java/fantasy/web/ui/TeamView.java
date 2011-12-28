@@ -10,13 +10,16 @@ public class TeamView extends AbstractEntityView<fantasy.domain.Team> {
 
     @Override
     protected EntityEditor createForm() {
-        return new TeamForm();
+    	EntityEditor editor = new TeamForm();
+    	
+    	return new TeamForm();
     }
 
     @Override
     protected void configureTable(Table table) {
         table.setContainerDataSource(getTableContainer());
-        table.setVisibleColumns(getTableColumns());
+        table.setVisibleColumns(new Object[]{"name", "players"});
+        table.setColumnHeaders(new String[] {"Name", "Players"});
 
         setupGeneratedColumns(table);
     }

@@ -6,7 +6,9 @@ package fantasy.web.ui;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.ui.Table;
 import fantasy.domain.Player;
+import fantasy.web.EntityTableColumnGenerator;
 import java.lang.Class;
 import java.lang.Long;
 import java.lang.Object;
@@ -96,6 +98,13 @@ privileged aspect PlayerView_Roo_VaadinEntityView {
     
     public Object PlayerView.getIdForEntity(Player entity) {
         return entity != null ? entity.getId() : null;
+    }
+    
+    public void PlayerView.setupGeneratedColumns(Table table) {
+        table.removeGeneratedColumn("possiblePositions");
+        table.addGeneratedColumn("possiblePositions", new EntityTableColumnGenerator((String) getPlayerPosCaptionPropertyId()));
+        table.removeGeneratedColumn("team");
+        table.addGeneratedColumn("team", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
     }
     
     public Object PlayerView.getPlayerPosCaptionPropertyId() {

@@ -43,3 +43,8 @@ persistence setup --database MYSQL --provider ECLIPSELINK
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-22 21:37:53
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-22 22:12:11
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-28 17:16:16
+help
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-28 23:29:32
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-28 23:30:33
+vaadin generate all --package fantasy.web.ui --visuallyComposable false
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-28 23:30:53

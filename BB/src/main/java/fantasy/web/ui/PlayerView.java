@@ -16,13 +16,9 @@ public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
     @Override
     protected void configureTable(Table table) {
         table.setContainerDataSource(getTableContainer());
-        table.setVisibleColumns(getTableColumns());
+       table.setVisibleColumns(getTableColumns());
 
         setupGeneratedColumns(table);
-    }
-    
-    public void setupGeneratedColumns(Table table){
-    	
     }
 
 }
