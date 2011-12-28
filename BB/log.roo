@@ -1,0 +1,45 @@
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-20 22:18:51
+project --topLevelPackage fantasy --projectName BB --java 6
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-20 22:18:52
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-20 22:19:03
+persistence setup --database MYSQL --provider HIBERNATE 
+entity --class ~.domain.Player --testAutomatically 
+entity --class ~.domain.Team --testAutomatically 
+perform tests
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-21 00:23:37
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-21 13:12:57
+osgi obr url add --url http://vaadin.com/springroo/repository.xml
+osgi obr start --bundleSymbolicName com.vaadin.spring.roo.addon
+osgi obr url remove --url http://vaadin.com/springroo/repository.xml
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+pgp trust --keyId 0xBF0451C0
+vaadin setup --applicationPackage ~.web --baseName Fantasy --themeName fantasy --useJpaContainer false
+// [failed] vaadin generate all --package ~.web.ui --visuallyComposable true
+// [failed] vaadin generate all --package ~.web.ui --visuallyComposable true
+// [failed] vaadin generate all --package ~.web.ui --visuallyComposable true
+vaadin generate all --package ~.web.ui --visuallyComposable true
+vaadin generate all --package ~.web.ui --visuallyComposable true
+vaadin generate all --package ~.web.ui --visuallyComposable true
+entity --class ~.domain.PlayerPosition --testAutomatically 
+// [failed] field enum --fieldName position --type fantasy.domain.positions.PlayerPosition
+field enum --fieldName playerPosition --type fantasy.domain.positions.PlayerPosition
+// [failed] entity --class ~.domain.PlayerPosition --testAutomatically 
+vaadin generate all --package ~.web.ui --visuallyComposable true
+perform tests
+entity --class ~.domain.PlayerPos --testAutomatically 
+field enum --fieldName playerPosition --type fantasy.domain.positions.PlayerPosition
+perform tests
+perform tests
+perform tests
+perform tests
+vaadin generate all --package ~.web.ui --visuallyComposable true
+vaadin setup --applicationPackage ~.web --baseName Fantasy --themeName fantasy --useJpaContainer false
+persistence setup --provider ECLIPSELINK --database MYSQL 
+perform tests
+// [failed] database introspect --schema unable-to-obtain-connection 
+persistence setup --database MYSQL --provider DATANUCLEUS_2 
+persistence setup --database MYSQL --provider HIBERNATE 
+persistence setup --database MYSQL --provider ECLIPSELINK 
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-12-22 21:37:53
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-22 22:12:11
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-12-28 17:16:16
