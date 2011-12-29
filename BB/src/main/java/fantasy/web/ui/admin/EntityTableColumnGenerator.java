@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui.admin;
 
 import java.util.Collection;
 import java.util.Iterator;

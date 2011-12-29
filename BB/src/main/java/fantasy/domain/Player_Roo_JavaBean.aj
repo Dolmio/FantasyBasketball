@@ -28,6 +28,10 @@ privileged aspect Player_Roo_JavaBean {
         this.lastName = lastName;
     }
     
+    public Set<PlayerPosition> Player.getPossiblePositions() {
+        return this.possiblePositions;
+    }
+    
     public void Player.setPossiblePositions(Set<PlayerPosition> possiblePositions) {
         this.possiblePositions = possiblePositions;
     }
@@ -46,6 +50,10 @@ privileged aspect Player_Roo_JavaBean {
     
     public Team Player.getTeam() {
         return this.team;
+    }
+    
+    public void Player.setTeam(Team team) {
+        this.team = team;
     }
     
 }

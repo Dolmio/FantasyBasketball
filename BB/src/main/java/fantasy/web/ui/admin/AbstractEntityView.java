@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui.admin;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.themes.Reindeer;
+
 
 /**
  * Base class for that defines the common layout and some UI logic for all

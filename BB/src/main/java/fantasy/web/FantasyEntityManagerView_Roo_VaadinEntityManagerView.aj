@@ -3,9 +3,9 @@
 
 package fantasy.web;
 
-import fantasy.web.ui.PlayerPosView;
-import fantasy.web.ui.PlayerView;
-import fantasy.web.ui.TeamView;
+import fantasy.web.ui.admin.PlayerPosView;
+import fantasy.web.ui.admin.PlayerView;
+import fantasy.web.ui.admin.TeamView;
 import java.lang.Class;
 import java.lang.String;
 import java.util.Map;

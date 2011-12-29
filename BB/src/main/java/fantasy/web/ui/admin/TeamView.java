@@ -1,7 +1,5 @@
-package fantasy.web.ui;
+package fantasy.web.ui.admin;
 
-import fantasy.web.AbstractEntityView;
-import fantasy.web.EntityEditor;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 

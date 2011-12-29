@@ -1,4 +1,4 @@
-package fantasy.web.ui;
+package fantasy.web.ui.admin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,6 @@ import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
 
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
-import fantasy.web.AutomaticEntityForm;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;

@@ -1,22 +1,20 @@
-package fantasy.web.ui;
+package fantasy.web.ui.admin;
 
-import fantasy.web.AbstractEntityView;
-import fantasy.web.EntityEditor;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
-@RooVaadinEntityView(formBackingObject = fantasy.domain.PlayerPos.class)
-public class PlayerPosView extends AbstractEntityView<fantasy.domain.PlayerPos> {
+@RooVaadinEntityView(formBackingObject = fantasy.domain.Player.class)
+public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
 
     @Override
     protected EntityEditor createForm() {
-        return new PlayerPosForm();
+        return new PlayerForm();
     }
 
     @Override
     protected void configureTable(Table table) {
         table.setContainerDataSource(getTableContainer());
-        table.setVisibleColumns(getTableColumns());
+       table.setVisibleColumns(getTableColumns());
 
         setupGeneratedColumns(table);
     }

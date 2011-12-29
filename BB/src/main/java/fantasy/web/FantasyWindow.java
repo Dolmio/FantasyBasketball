@@ -22,7 +22,8 @@ public class FantasyWindow extends Window {
     	//et.init(Team.class, 
     		//	new Object[] {"name", "players"},  Arrays.asList(new String[] {"name"}));
     	//EntityTab eTab = new EntityTab();
-    	setContent(entityManagerView);
+    	TabPanel tb = new TabPanel();
+        setContent(tb);
 
         // select window theme
         setTheme("fantasy");

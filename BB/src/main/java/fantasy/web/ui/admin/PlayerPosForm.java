@@ -1,6 +1,5 @@
-package fantasy.web.ui;
+package fantasy.web.ui.admin;
 
-import fantasy.web.AutomaticEntityForm;
 
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 

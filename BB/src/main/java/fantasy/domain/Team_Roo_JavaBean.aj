@@ -13,10 +13,6 @@ privileged aspect Team_Roo_JavaBean {
         return this.players;
     }
     
-    public void Team.setPlayers(Set<Player> players) {
-        this.players = players;
-    }
-    
     public String Team.getName() {
         return this.name;
     }

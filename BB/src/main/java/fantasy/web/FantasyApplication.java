@@ -7,6 +7,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
+import fantasy.domain.Player;
 import fantasy.domain.PlayerPos;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
@@ -18,11 +19,14 @@ public class FantasyApplication extends Application {
 	
 	@Override
 	public void init() {
+		//usercode
+				initDB();
+		
+				
 		Window window = createNewWindow();
 		setMainWindow(window);
 		
-		//usercode
-		initDB();
+		
 	}
 
 	public Window createNewWindow() {
@@ -61,6 +65,14 @@ public class FantasyApplication extends Application {
 	}
 	
 	private void initDB(){
+		JPAContainer<Player> players = JPAContainerFactory.make(Player.class, PERSISTENCE_UNIT);
+		Player p = new Player();
+		p.setFirstName("Juho");
+		p.setLastName("Salmio");
+		players.addEntity(p);
+		players.commit();
+		
+		
 		JPAContainer<PlayerPos>  positions = JPAContainerFactory.make(PlayerPos.class, PERSISTENCE_UNIT);
 		//positions.setWriteThrough(false);
 		for(PlayerPosition position : PlayerPosition.values()){
@@ -75,6 +87,8 @@ public class FantasyApplication extends Application {
 		t.setName("Boston");
 		teams.addEntity(t);
 		teams.commit();
+		
+		
 		
 		
 	}

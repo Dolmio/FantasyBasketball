@@ -1,10 +1,9 @@
-package fantasy.web.ui;
+package fantasy.web.ui.admin;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import fantasy.web.AutomaticEntityForm;
 
 import com.vaadin.data.Item;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;

@@ -85,14 +85,18 @@ public class Player implements Serializable{
 //        }
 //    }
 
-    public void setTeam(Team team) {
-//    	if(this.team != null){
-//
-//    		this.team.getPlayers().remove(this);
+//    public void setTeam(Team team) {
+////    	if(this.team != null){
+////
+////    		this.team.getPlayers().remove(this);
+////    	}
+//    	if(team != null){
+//    	this.team = team;
+//    	
+//    	team.getPlayers().add(this);
+//    	team.flush();
 //    	}
-    	this.team = team;
-    	team.getPlayers().add(this);
-    }
+//    }
 
 	public Set<PlayerPosition> getPossiblePositionsImp() {
 		this.possiblePositionsImp = new HashSet<PlayerPosition>(possiblePositions);
@@ -100,19 +104,12 @@ public class Player implements Serializable{
 	}
 
 	public void setPossiblePositionsImp(Set<PlayerPosition> possiblePositionsImp) {
-		//persist();
-		//this.possiblePositionsImp = possiblePositionsImp;
 		setPossiblePositions(new HashSet<PlayerPosition>(possiblePositionsImp));
 		this.possiblePositionsImp = new HashSet<PlayerPosition>(possiblePositionsImp);
-		//this.possiblePositions = possiblePositionsImp;
-		
-		
 		flush();
 	}
 	
-	public Set<PlayerPosition> getPossiblePositions(){
-		System.out.println(possiblePositions.toArray());
-		return possiblePositions;
-	}
+	
+
 	
 }

@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui.admin;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button.ClickListener;
