@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @RooJavaBean
 @RooToString
 @RooEntity
-@Table(name = "playerpos", uniqueConstraints = @UniqueConstraint(columnNames = { "playerPosition" }))
+//@Table(name = "playerpos", uniqueConstraints = @UniqueConstraint(columnNames = { "playerPosition" }))
 public class PlayerPos implements Serializable {
 	
 	@NotNull

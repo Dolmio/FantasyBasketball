@@ -3,10 +3,11 @@
 
 package fantasy.domain;
 
-import fantasy.domain.PlayerPos;
 import fantasy.domain.Team;
+import fantasy.domain.positions.PlayerPosition;
 import fantasy.domain.positions.TeamPosition;
 import java.lang.String;
+import java.util.HashSet;
 import java.util.Set;
 
 privileged aspect Player_Roo_JavaBean {
@@ -27,16 +28,20 @@ privileged aspect Player_Roo_JavaBean {
         this.lastName = lastName;
     }
     
-    public Set<PlayerPos> Player.getPossiblePositions() {
-        return this.possiblePositions;
+    public void Player.setPossiblePositions(Set<PlayerPosition> possiblePositions) {
+        this.possiblePositions = possiblePositions;
     }
     
-    public void Player.setPossiblePositions(Set<PlayerPos> possiblePositions) {
-        this.possiblePositions = possiblePositions;
+    public void Player.setPossiblePositionsImp(HashSet<PlayerPosition> possiblePositionsImp) {
+        this.possiblePositionsImp = possiblePositionsImp;
     }
     
     public TeamPosition Player.getCurrentPosition() {
         return this.currentPosition;
+    }
+    
+    public void Player.setCurrentPosition(TeamPosition currentPosition) {
+        this.currentPosition = currentPosition;
     }
     
     public Team Player.getTeam() {

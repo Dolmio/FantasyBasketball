@@ -8,6 +8,7 @@ import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
 import fantasy.domain.PlayerPos;
+import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 
 public class FantasyApplication extends Application {
@@ -68,6 +69,13 @@ public class FantasyApplication extends Application {
 			positions.addEntity(pos);
 		}
 		positions.commit();
+	
+		JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
+		Team t = new Team();
+		t.setName("Boston");
+		teams.addEntity(t);
+		teams.commit();
+		
 		
 	}
 

@@ -31,7 +31,7 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 		}
 	
 		ArrayList<Object> properties = new ArrayList<Object>(item.getItemPropertyIds());
-		properties.remove("players");
+		//properties.remove("players");
 		
 		return properties;
 	}
