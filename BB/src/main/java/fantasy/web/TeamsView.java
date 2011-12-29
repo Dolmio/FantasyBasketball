@@ -39,10 +39,10 @@ public class TeamsView extends CustomComponent {
 		teamChoiceSelect.setNullSelectionAllowed(false);
 		
 		updateTeamsView();
-		
+		teamTable.setEditable(true);
 		//update table when select value is change
 		teamChoiceSelect.addListener(new Property.ValueChangeListener() {
-			
+	
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				Team selectedTeam = (Team) teams.getItem(event.getProperty().getValue()).getBean();
@@ -63,7 +63,7 @@ public class TeamsView extends CustomComponent {
 		players.addAll(selectedTeam.getPlayers());
 		teamTable.setContainerDataSource(players);
 		teamTable.setVisibleColumns(
-				new String[] { "firstName", "lastName","currentPosition", "possiblePositions"} );
+				new String[] { "lastName", "firstName","currentPosition", "possiblePositions"} );
 		teamTable.setColumnHeaders(new String[]{"Lastname", "Firstname", "Current position", "Possible positions"});
 	}
 	
