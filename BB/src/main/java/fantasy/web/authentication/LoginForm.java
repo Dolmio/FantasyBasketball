@@ -9,6 +9,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.terminal.ExternalResource;
 import fantasy.web.FantasyApplication;
 import fantasy.web.FantasyWindow;
@@ -45,24 +46,39 @@ public class LoginForm extends CustomComponent {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
-		// TODO add user code here
+
 		loginButton.addListener ( new Button.ClickListener()
         {
             public void buttonClick ( Button.ClickEvent event )
             {
-                Window parentWindow = (Window)getParent().getParent();
+            	final Window parentWindow = (Window)getParent().getParent();
             	try
                 {
                     FantasyApplication.getInstance ().authenticate((String)userNameField.getValue (), (String)passwordField.getValue ());
                     
-                    parentWindow.open ( new ExternalResource (FantasyApplication.getInstance ().getURL ()));
+                    parentWindow.open( new ExternalResource (FantasyApplication.getInstance ().getURL ()));
                 }
                 catch ( Exception e )
                 {
-                    parentWindow.showNotification ( e.toString ());
+                	parentWindow.showNotification ( "Login Failed.\nWrong username or password");
                 }
             }
         });
+		
+		visitorButton.addListener(new Button.ClickListener() {
+			
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+
+				final Window parentWindow = (Window)getParent().getParent();
+				System.out.println("painallus");
+				FantasyApplication.getInstance().setUser(FantasyApplication.VISITOR);
+				FantasyApplication.getInstance().loadMainResources();
+				parentWindow.open( new ExternalResource (FantasyApplication.getInstance ().getURL ()));
+				
+			}
+		});
 	}
 	
 	

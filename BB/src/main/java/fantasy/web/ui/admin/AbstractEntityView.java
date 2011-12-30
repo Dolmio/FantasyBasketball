@@ -194,7 +194,7 @@ public abstract class AbstractEntityView<E> extends CustomComponent implements N
             getForm().setCaption("Edit " + getEntityName());
 
             boolean newEntity = isNewEntity(entity);
-            System.out.println("newEntity:" + newEntity);
+            
             getForm().setDeleteAllowed(isDeleteAllowed());
             boolean saveAllowed = newEntity ? isCreateAllowed() : isUpdateAllowed();
             getForm().setSaveAllowed(saveAllowed);

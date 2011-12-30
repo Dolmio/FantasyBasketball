@@ -15,7 +15,7 @@ public class FantasyWindow extends Window {
     public FantasyWindow() {
 
         // entity manager
-        FantasyEntityManagerView entityManagerView = new FantasyEntityManagerView();
+        //FantasyEntityManagerView entityManagerView = new FantasyEntityManagerView();
         //TeamTable tt = new TeamTable();
     	//TeamView tv = new TeamView();
     	//EntityTable<Team>et = new EntityTable<Team>();

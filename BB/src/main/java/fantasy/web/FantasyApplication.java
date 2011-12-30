@@ -17,6 +17,7 @@ import fantasy.domain.Player;
 import fantasy.domain.PlayerPos;
 import fantasy.domain.Team;
 import fantasy.domain.UserClass;
+import fantasy.domain.authentication.Role;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.web.authentication.LoginWindow;
 
@@ -25,23 +26,37 @@ public class FantasyApplication extends Application implements ApplicationContex
 	public static final String PERSISTENCE_UNIT = 
             "persistenceUnit"; 
 	
+	
 	private static ThreadLocal<FantasyApplication> currentApplication =
             new ThreadLocal<FantasyApplication> ();
 	
-	private UserClass currentUser = null;
+	public static final UserClass VISITOR = new UserClass();
+	
+	private UserClass currentUser = VISITOR;
 	
 	
 	@Override
 	public void init() {
 		//usercode
-				
+		initDB();		
 		getContext ().addTransactionListener ( this );
-		initDB();
+		
 		
 				
 		//Window window = createNewWindow();
 		//setMainWindow(window);
-		setMainWindow ( new LoginWindow() );
+		
+		
+		final LoginWindow login = new LoginWindow();
+		//avoid memory leaks
+		login.addListener(new CloseListener() {
+			public void windowClose(CloseEvent e) {
+				if (getMainWindow() != login) {
+					FantasyApplication.this.removeWindow(login);
+				}
+			}
+		});
+		setMainWindow (login);
 		
 		
 	}
@@ -54,9 +69,11 @@ public class FantasyApplication extends Application implements ApplicationContex
 		UserClass user = getUser(login, hash);
 		
 		if (user != null) 
-        {
+      
+		{
+			 System.out.println(user.getUsername());
             currentUser = user;
-			loadProtectedResources();
+			loadMainResources();
             return;
         }
        
@@ -69,29 +86,13 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		users.addContainerFilter("username", userName, false, true);
 		users.addContainerFilter("password", password, false, true);
-		
-//		users.addContainerFilter(new Filter() {
-//			
-//			@Override
-//			public boolean passesFilter(Object itemId, Item item)
-//					throws UnsupportedOperationException {
-//				return item.getItemProperty("password").getValue().equals(password) &&
-//						item.getItemProperty("username").getValue().equals(userName);
-//				
-//			}
-//			
-//			@Override
-//			public boolean appliesToProperty(Object propertyId) {
-//				if(propertyId.equals("password") || propertyId.equals("username")) return true;
-//				else return false;
-//			}
-//		});
-		
-		if(users.size() == 1) return users.getItem(users.getIdByIndex(0)).getEntity();
+		if(users.size() == 1){ 
+			return users.getItem(users.getIdByIndex(0)).getEntity();
+		}
 		else return null;
 	}
 	
-	private String getHash(String text){
+	public static String getHash(String text){
 		byte[] data = text.getBytes();
 		MessageDigest md;
 		try {
@@ -108,7 +109,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 	}
 	
-    private void loadProtectedResources ()
+    public void loadMainResources ()
     {
     	
     	setMainWindow (createNewWindow());
@@ -165,16 +166,9 @@ public class FantasyApplication extends Application implements ApplicationContex
 		players.commit();
 		
 		
-//		JPAContainer<PlayerPos>  positions = JPAContainerFactory.make(PlayerPos.class, PERSISTENCE_UNIT);
-//		//positions.setWriteThrough(false);
-//		for(PlayerPosition position : PlayerPosition.values()){
-//			PlayerPos pos = new PlayerPos();
-//			pos.setPlayerPosition(position);
-//			positions.addEntity(pos);
-//		}
-//		positions.commit();
+
 	
-		JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
+		//JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
 		Team t = new Team();
 		t.setName("Boston");
 		//teams.addEntity(t);
@@ -184,8 +178,14 @@ public class FantasyApplication extends Application implements ApplicationContex
 		UserClass user = new UserClass();
 		user.setUsername("admin");
 		user.setPassword(getHash("sana"));
+		user.setUserRole(Role.ADMIN);
 		user.setTeam(t);
 		users.addEntity(user);
+		
+//		UserClass visitor = new UserClass();
+//		visitor.setUserRole(Role.VISITOR);
+//		users.addEntity(visitor);
+		
 		users.commit();
 		
 		
