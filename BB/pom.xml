@@ -322,6 +322,12 @@
             <version>2.0.3</version>
             <classifier/>
         </dependency>
+    <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>appfoundation</artifactId>
+            <version>1.3.5</version>
+            <classifier/>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
