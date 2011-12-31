@@ -168,11 +168,13 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		p.setFirstName("Juho");
 		p.setLastName("Salmio");
+		p.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.SF, PlayerPosition.SG})));
 		p.persist();
 		
 		Player p2 = new Player();
 		p2.setFirstName("Teppo");
 		p2.setLastName("Numminen");
+		p2.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
 		p2.persist();
 		//players.addEntity(p);
 		//players.commit();

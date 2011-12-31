@@ -21,15 +21,21 @@ public boolean canPlay(TeamPosition tp){
 		
 		switch(this){
 		case PG:
-			if(tp == TeamPosition.PG) return true;
+			if(tp == TeamPosition.PG || tp == TeamPosition.G) return true;
+			else return false;
 		case SG:
-			if(tp == TeamPosition.SG || tp == TeamPosition.SG_SF) return true;
+			if(tp == TeamPosition.SG || tp == TeamPosition.SG_SF || tp == TeamPosition.G) return true;
+			else return false;
 		case PF:
 			if(tp == TeamPosition.PF || tp == TeamPosition.PF_C) return true;
+			else return false;
 		case C:
 			if(tp == TeamPosition.C || tp == TeamPosition.PF_C) return true;
+			else return false;
 		case SF:
-			if(tp == TeamPosition.SF) return true;
+			if(tp == TeamPosition.SF || tp == TeamPosition.SG_SF) return true;
+			else return false;
+			
 		default: return false;
 		
 		}
