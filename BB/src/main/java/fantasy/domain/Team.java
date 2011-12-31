@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "team", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Team implements Serializable{
 
-    @OneToMany(mappedBy = "team", orphanRemoval=false, cascade={CascadeType.ALL})
+    @OneToMany(mappedBy = "team", orphanRemoval=true, cascade={CascadeType.ALL})
     @CascadeOnDelete
     private Set<Player> players = new HashSet<Player>();
 
@@ -45,10 +45,10 @@ public class Team implements Serializable{
     	removeOldPlayers();
     	this.players = players;
     	for(Player p : players){
-    		if(p.getTeam() != null){
-    			Team oldTeam = p.getTeam();
-    			oldTeam.getPlayers().remove(p);
-    		}
+//    		if(p.getTeam() != null){
+//    			Team oldTeam = p.getTeam();
+//    			oldTeam.getPlayers().remove(p);
+//    		}
     		p.setTeam(this);
     		
     	}

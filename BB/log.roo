@@ -58,3 +58,6 @@ field enum --type fantasy.domain.authentication.Role --fieldName userRole
 field reference --type fantasy.domain.Team --fieldName team
 vaadin addon install --artifactId appfoundation
 field number --type int --fieldName password
+vaadin generate all --package fantasy.web.ui
+perform tests
+perform tests

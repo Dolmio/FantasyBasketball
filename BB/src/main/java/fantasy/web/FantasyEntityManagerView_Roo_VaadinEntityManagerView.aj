@@ -7,7 +7,6 @@ import fantasy.web.ui.admin.PlayerPosView;
 import fantasy.web.ui.admin.PlayerView;
 import fantasy.web.ui.admin.TeamView;
 import fantasy.web.ui.admin.UserClassView;
-import fantasy.web.ui.admin.UserView;
 import java.lang.Class;
 import java.lang.String;
 import java.util.Map;
@@ -17,7 +16,6 @@ privileged aspect FantasyEntityManagerView_Roo_VaadinEntityManagerView {
     
     public Map<String, Class> FantasyEntityManagerView.listEntityViews() {
         Map<String, Class> result = new TreeMap<String, Class>();
-        result.put("User Class",UserView.class);
         result.put("User Class",UserClassView.class);
         result.put("Team",TeamView.class);
         result.put("Player",PlayerView.class);

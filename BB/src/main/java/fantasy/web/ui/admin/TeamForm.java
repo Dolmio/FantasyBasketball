@@ -89,6 +89,7 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 		 	BeanContainer<String, Player> players = getContainerForPlayers();
 		 
 		 	TwinColSelect select = new TwinColSelect(null, players);
+		 	
 	        //change item caption values to "lastname + firstname"
 		 	for(String id : players.getItemIds()){
 	        	select.setItemCaption(id,  players.getItem(id).getItemProperty("lastName").getValue() + " " +

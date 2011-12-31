@@ -47,7 +47,7 @@ public class PlayerIntegrationTest {
 		}
 
 	}
-	
+	/*
 	@Test
 	public void testSettingUnavailablePosition(){
 		
@@ -110,5 +110,5 @@ public class PlayerIntegrationTest {
 		Assert.assertEquals(TeamPosition.PF, p2.getCurrentPosition());
 		
 	}
-
+*/
 }

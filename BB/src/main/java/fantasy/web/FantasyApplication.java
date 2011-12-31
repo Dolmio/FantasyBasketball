@@ -2,6 +2,8 @@ package fantasy.web;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -20,6 +22,9 @@ import fantasy.domain.UserClass;
 import fantasy.domain.authentication.Role;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.web.authentication.LoginWindow;
+
+
+//TODO Jos poistaa pelaajan joukkuuesta tuhoutuu pelaaja samalla
 
 public class FantasyApplication extends Application implements ApplicationContext.TransactionListener {
 	
@@ -158,12 +163,19 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		
 		
-		JPAContainer<Player> players = JPAContainerFactory.make(Player.class, PERSISTENCE_UNIT);
+		//JPAContainer<Player> players = JPAContainerFactory.make(Player.class, PERSISTENCE_UNIT);
 		Player p = new Player();
+		
 		p.setFirstName("Juho");
 		p.setLastName("Salmio");
-		players.addEntity(p);
-		players.commit();
+		p.persist();
+		
+		Player p2 = new Player();
+		p2.setFirstName("Teppo");
+		p2.setLastName("Numminen");
+		p2.persist();
+		//players.addEntity(p);
+		//players.commit();
 		
 		
 
@@ -171,25 +183,38 @@ public class FantasyApplication extends Application implements ApplicationContex
 		//JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
 		Team t = new Team();
 		t.setName("Boston");
+		t.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {p, p2})));
+		t.persist();
 		//teams.addEntity(t);
 		//teams.commit();
 		
-		JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
+		//JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
+		//users.setWriteThrough(false);
+		
 		UserClass user = new UserClass();
+		
 		user.setUsername("admin");
 		user.setPassword(getHash("sana"));
 		user.setUserRole(Role.ADMIN);
 		user.setTeam(t);
-		users.addEntity(user);
+		user.persist();
+		user.flush();
+		//users.addEntity(user);
 		
-//		UserClass visitor = new UserClass();
-//		visitor.setUserRole(Role.VISITOR);
-//		users.addEntity(visitor);
+		UserClass manager = new UserClass();
 		
-		users.commit();
+		manager.setUserRole(Role.MANAGER);
+		manager.setUsername("manager");
+		manager.setPassword(getHash("manager"));
+		manager.setTeam(t);
+		manager.persist();
+		manager.flush();
+		//users.addEntity(manager);
+		
+		//users.commit();
 		
 		
-		
+	
 		
 		
 	}
