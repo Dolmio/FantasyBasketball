@@ -28,6 +28,10 @@ public class TabPanel extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
+	
+
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -74,7 +78,8 @@ public class TabPanel extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("-1px");
 		mainLayout.setHeight("-1px");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 		
 		// top-level component properties
 		setWidth("-1px");
@@ -92,8 +97,8 @@ public class TabPanel extends CustomComponent {
 		// common part: create layout
 		tabSheet_1 = new TabSheet();
 		tabSheet_1.setImmediate(true);
-		tabSheet_1.setWidth("1000px");
-		tabSheet_1.setHeight("1000px");
+		tabSheet_1.setWidth("-1px");
+		tabSheet_1.setHeight("-1px");
 		
 		// fantasyEntityManagerView_1
 		fantasyEntityManagerView_1 = new FantasyEntityManagerView();
@@ -109,7 +114,7 @@ public class TabPanel extends CustomComponent {
 		teamsView_1.setHeight("1000px");
 		tabSheet_1.addTab(teamsView_1, "Teams", null);
 		
-		// ownTeamView_3
+		// ownTeamView
 		ownTeamView = new OwnTeamView();
 		ownTeamView.setImmediate(false);
 		ownTeamView.setWidth("-1px");

@@ -1,8 +1,5 @@
 package fantasy.web;
 
-import java.util.Arrays;
-
-import fantasy.domain.Team;
 import com.vaadin.ui.Window;
 
 //import fantasy.web.ui.EntityTab;

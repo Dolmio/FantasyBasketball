@@ -45,8 +45,8 @@ public class TeamsView extends CustomComponent{
 		teamChoiceSelect.setNullSelectionAllowed(false);
 	
 		updateTeamsView();
-		teamTable.setEditable(true);
-		//update table when select value is change
+		
+		//update table when select value is changed
 		teamChoiceSelect.addListener(new Property.ValueChangeListener() {
 	
 			@Override
@@ -69,7 +69,7 @@ public class TeamsView extends CustomComponent{
 				return null;
 			}
 		});
-		teamTable.setEditable(true);
+		
 		
 	}
 	

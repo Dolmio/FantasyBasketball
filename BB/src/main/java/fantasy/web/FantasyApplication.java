@@ -8,15 +8,12 @@ import java.util.HashSet;
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.data.Container.Filter;
-import com.vaadin.data.Item;
 import com.vaadin.service.ApplicationContext;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
 import fantasy.domain.Player;
-import fantasy.domain.PlayerPos;
 import fantasy.domain.Team;
 import fantasy.domain.UserClass;
 import fantasy.domain.authentication.Role;
@@ -179,13 +176,17 @@ public class FantasyApplication extends Application implements ApplicationContex
 		//players.addEntity(p);
 		//players.commit();
 		
-		
+		Player p3 = new Player();
+		p3.setFirstName("Dwight");
+		p3.setLastName("Howard");
+		p3.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
+		p3.persist();
 
 	
 		//JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
 		Team t = new Team();
 		t.setName("Boston");
-		t.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {p, p2})));
+		t.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {p, p2, p3})));
 		t.persist();
 		//teams.addEntity(t);
 		//teams.commit();
