@@ -61,3 +61,11 @@ field number --type int --fieldName password
 vaadin generate all --package fantasy.web.ui
 perform tests
 perform tests
+focus --class fantasy.domain.Player
+field set --type fantasy.domain.GameStat --fieldName stats
+vaadin generate all --package fantasy.web.ui --visuallyComposable false
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-03 16:10:02
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-03 16:10:55
+focus --class fantasy.domain.player
+focus --class fantasy.domain.GameStat
+field reference --fieldName player --type fantasy.domain.Player

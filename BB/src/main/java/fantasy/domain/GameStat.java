@@ -7,8 +7,9 @@ import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
-
 import org.springframework.format.annotation.DateTimeFormat;
+import fantasy.domain.Player;
+import javax.persistence.ManyToOne;
 
 @RooJavaBean
 @RooToString
@@ -17,35 +18,38 @@ public class GameStat {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
-    private Date dateWhen;
-    
-    @Min(0)
-    private Integer points;
-    
-    @Min(0)
-    private Integer rebounds;
-    
-    @Min(0)
-    private Integer assists;
+    private Date dateWhen = new Date();
 
     @Min(0)
-    private Integer blocks;
+    private Integer points = 0;
 
     @Min(0)
-    private Integer steals;
+    private Integer rebounds = 0;
 
     @Min(0)
-    private Integer turnovers;
+    private Integer assists = 0;
 
     @Min(0)
-    private Integer ftMade;
+    private Integer blocks = 0;
 
     @Min(0)
-    private Integer threePointsMade;
+    private Integer steals = 0;
 
     @Min(0)
-    private Integer fgMade;
+    private Integer turnovers = 0;
 
     @Min(0)
-    private Integer fgAttempts;
+    private Integer ftMade = 0;
+
+    @Min(0)
+    private Integer threePointsMade = 0;
+
+    @Min(0)
+    private Integer fgMade = 0;
+
+    @Min(0)
+    private Integer fgAttempts = 0;
+
+    @ManyToOne
+    private Player player;
 }

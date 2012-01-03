@@ -103,6 +103,8 @@ privileged aspect PlayerView_Roo_VaadinEntityView {
     public void PlayerView.setupGeneratedColumns(Table table) {
         table.removeGeneratedColumn("team");
         table.addGeneratedColumn("team", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
+        table.removeGeneratedColumn("stats");
+        table.addGeneratedColumn("stats", new EntityTableColumnGenerator((String) getGameStatCaptionPropertyId()));
     }
     
     public Object PlayerView.getPlayerPositionCaptionPropertyId() {
@@ -115,6 +117,10 @@ privileged aspect PlayerView_Roo_VaadinEntityView {
     
     public Object PlayerView.getTeamCaptionPropertyId() {
         return "name";
+    }
+    
+    public Object PlayerView.getGameStatCaptionPropertyId() {
+        return null;
     }
     
 }

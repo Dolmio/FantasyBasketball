@@ -7,7 +7,9 @@ import java.util.Collections;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
+import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
+import fantasy.domain.GameStat;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 
@@ -42,6 +44,11 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 				} 
 			else if ("possiblePositions".equals(propertyId)) {
 				field = buildPossiblePositionsMultiSelect();
+				field.setCaption(createCaptionByPropertyId(propertyId));
+			}
+			else if ("stats".equals(propertyId)) {
+				TwinColSelect select = buildStatsMultiSelect();
+				 field = new BeanSetFieldWrapper<GameStat>(select, GameStat.class, getContainerForGameStats(), "id");
 				field.setCaption(createCaptionByPropertyId(propertyId));
 			}
 			else if ("team".equals(propertyId)) {

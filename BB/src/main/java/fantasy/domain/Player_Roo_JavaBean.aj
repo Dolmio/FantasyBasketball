@@ -3,6 +3,7 @@
 
 package fantasy.domain;
 
+import fantasy.domain.GameStat;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.domain.positions.TeamPosition;
@@ -54,6 +55,10 @@ privileged aspect Player_Roo_JavaBean {
     
     public void Player.setTeam(Team team) {
         this.team = team;
+    }
+    
+    public Set<GameStat> Player.getStats() {
+        return this.stats;
     }
     
 }

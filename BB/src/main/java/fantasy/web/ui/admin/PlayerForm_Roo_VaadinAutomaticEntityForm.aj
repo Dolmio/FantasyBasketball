@@ -14,6 +14,7 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
+import fantasy.domain.GameStat;
 import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.positions.TeamPosition;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
+import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
     
@@ -33,6 +35,15 @@ privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
     public TwinColSelect PlayerForm.buildPossiblePositionsImpMultiSelect() {
         TwinColSelect select = new TwinColSelect(null, getContainerForPlayerPositions());
         Object captionPropertyId = getPlayerPositionCaptionPropertyId();
+        if (captionPropertyId != null) {
+            select.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return select;
+    }
+    
+    public TwinColSelect PlayerForm.buildStatsMultiSelect() {
+        TwinColSelect select = new TwinColSelect(null, getContainerForGameStats());
+        Object captionPropertyId = getGameStatCaptionPropertyId();
         if (captionPropertyId != null) {
             select.setItemCaptionPropertyId(captionPropertyId);
         }
@@ -66,6 +77,10 @@ privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
                     return null;
                 } else if ("possiblePositionsImp".equals(propertyId)) {
                     field = buildPossiblePositionsImpMultiSelect();
+                    field.setCaption(createCaptionByPropertyId(propertyId));
+                } else if ("stats".equals(propertyId)) {
+                    TwinColSelect select = buildStatsMultiSelect();
+                    field = new BeanSetFieldWrapper<GameStat>(select, GameStat.class, getContainerForGameStats(), "id");
                     field.setCaption(createCaptionByPropertyId(propertyId));
                 } else if ("possiblePositions".equals(propertyId)) {
                     field = buildPossiblePositionsMultiSelect();
@@ -110,6 +125,15 @@ privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
         return container;
     }
     
+    public BeanContainer<Long, GameStat> PlayerForm.getContainerForGameStats() {
+        BeanContainer<Long, GameStat> container = new BeanContainer<Long, GameStat>(GameStat.class);
+        container.setBeanIdProperty("id");
+        for (GameStat entity : GameStat.findAllGameStats()) {
+            container.addBean(entity);
+        }
+        return container;
+    }
+    
     public Class<Player> PlayerForm.getEntityClass() {
         return Player.class;
     }
@@ -124,6 +148,10 @@ privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
     
     public Object PlayerForm.getTeamCaptionPropertyId() {
         return "name";
+    }
+    
+    public Object PlayerForm.getGameStatCaptionPropertyId() {
+        return null;
     }
     
     public String PlayerForm.getIdProperty() {

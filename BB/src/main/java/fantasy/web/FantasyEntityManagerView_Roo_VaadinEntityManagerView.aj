@@ -3,6 +3,7 @@
 
 package fantasy.web;
 
+import fantasy.web.ui.admin.GameStatView;
 import fantasy.web.ui.admin.PlayerPosView;
 import fantasy.web.ui.admin.PlayerView;
 import fantasy.web.ui.admin.TeamView;
@@ -20,6 +21,7 @@ privileged aspect FantasyEntityManagerView_Roo_VaadinEntityManagerView {
         result.put("Team",TeamView.class);
         result.put("Player",PlayerView.class);
         result.put("Player Pos",PlayerPosView.class);
+        result.put("Game Stat",GameStatView.class);
         return result;
     }
     

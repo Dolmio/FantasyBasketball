@@ -75,6 +75,7 @@ public class OwnTeamView extends CustomComponent {
 
 				if(propertyId.equals("currentPosition")){
 					Select select = new Select();
+					select.setImmediate(true);
 					Collection<TeamPosition> items = Arrays.asList(TeamPosition.class.getEnumConstants());
 					Container players = teamTable.getContainerDataSource();
 					Set<PlayerPosition> possiblePositions = (Set<PlayerPosition>) players.getItem(itemId).getItemProperty("possiblePositions").getValue();

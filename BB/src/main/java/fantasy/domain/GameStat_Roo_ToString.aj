@@ -16,6 +16,7 @@ privileged aspect GameStat_Roo_ToString {
         sb.append("FgMade: ").append(getFgMade()).append(", ");
         sb.append("FtMade: ").append(getFtMade()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
+        sb.append("Player: ").append(getPlayer()).append(", ");
         sb.append("Points: ").append(getPoints()).append(", ");
         sb.append("Rebounds: ").append(getRebounds()).append(", ");
         sb.append("Steals: ").append(getSteals()).append(", ");

@@ -3,7 +3,10 @@ package fantasy.web;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -13,6 +16,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
+import fantasy.domain.GameStat;
 import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.UserClass;
@@ -154,6 +158,19 @@ public class FantasyApplication extends Application implements ApplicationContex
 		return window;
 	}
 	
+	
+	private Set<GameStat> getRandomStatSet(){
+		Set<GameStat> statSet = new HashSet<GameStat>();
+		int statCount = new Random().nextInt(30) +1;
+		for(int i = 0; i< statCount; i++){
+			GameStat gs = new GameStat();
+			gs.setPoints(new Random().nextInt(50));
+			gs.setDateWhen(new Date(System.currentTimeMillis() - new Random().nextInt(30) * 1000 * 60 *60 *24));
+			gs.persist();
+			statSet.add(gs);
+		}
+		return statSet;
+	}
 	private void initDB(){
 		
 		
@@ -168,10 +185,15 @@ public class FantasyApplication extends Application implements ApplicationContex
 		p.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.SF, PlayerPosition.SG})));
 		p.persist();
 		
+		
+		p.setStats(getRandomStatSet());
+		
+		
 		Player p2 = new Player();
 		p2.setFirstName("Teppo");
 		p2.setLastName("Numminen");
 		p2.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
+		p2.setStats(getRandomStatSet());
 		p2.persist();
 		//players.addEntity(p);
 		//players.commit();
@@ -180,6 +202,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		p3.setFirstName("Dwight");
 		p3.setLastName("Howard");
 		p3.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
+		p3.setStats(getRandomStatSet());
 		p3.persist();
 
 	

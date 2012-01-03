@@ -3,6 +3,7 @@
 
 package fantasy.domain;
 
+import fantasy.domain.Player;
 import java.lang.Integer;
 import java.util.Date;
 
@@ -94,6 +95,14 @@ privileged aspect GameStat_Roo_JavaBean {
     
     public void GameStat.setFgAttempts(Integer fgAttempts) {
         this.fgAttempts = fgAttempts;
+    }
+    
+    public Player GameStat.getPlayer() {
+        return this.player;
+    }
+    
+    public void GameStat.setPlayer(Player player) {
+        this.player = player;
     }
     
 }

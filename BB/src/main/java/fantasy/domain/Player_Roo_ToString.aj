@@ -15,6 +15,7 @@ privileged aspect Player_Roo_ToString {
         sb.append("LastName: ").append(getLastName()).append(", ");
         sb.append("PossiblePositions: ").append(getPossiblePositions() == null ? "null" : getPossiblePositions().size()).append(", ");
         sb.append("PossiblePositionsImp: ").append(getPossiblePositionsImp() == null ? "null" : getPossiblePositionsImp().size()).append(", ");
+        sb.append("Stats: ").append(getStats() == null ? "null" : getStats().size()).append(", ");
         sb.append("Team: ").append(getTeam()).append(", ");
         sb.append("Version: ").append(getVersion());
         return sb.toString();
