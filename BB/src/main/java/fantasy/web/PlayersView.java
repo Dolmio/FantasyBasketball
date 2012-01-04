@@ -147,8 +147,8 @@ public class PlayersView extends CustomComponent {
 				
 				long statTime = stat.getDateWhen().getTime();
 				
-				if(statTime > lowerLimit.getTime() &&
-						statTime < upperLimit.getTime()){
+				if(statTime >= lowerLimit.getTime() &&
+						statTime <= upperLimit.getTime()){
 					filteredStats.add(stat);
 				}
 			}

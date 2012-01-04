@@ -186,14 +186,14 @@ public class FantasyApplication extends Application implements ApplicationContex
 		p.persist();
 		
 		
-		p.setStats(getRandomStatSet());
+		//p.setStats(getRandomStatSet());
 		
 		
 		Player p2 = new Player();
 		p2.setFirstName("Teppo");
 		p2.setLastName("Numminen");
 		p2.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
-		p2.setStats(getRandomStatSet());
+		//p2.setStats(getRandomStatSet());
 		p2.persist();
 		//players.addEntity(p);
 		//players.commit();
@@ -202,7 +202,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		p3.setFirstName("Dwight");
 		p3.setLastName("Howard");
 		p3.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
-		p3.setStats(getRandomStatSet());
+		//p3.setStats(getRandomStatSet());
 		p3.persist();
 
 	

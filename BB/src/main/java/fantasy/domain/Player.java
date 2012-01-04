@@ -31,7 +31,7 @@ import javax.persistence.CascadeType;
 @RooToString
 @RooEntity
 public class Player implements Serializable {
-
+	
     @NotNull
     @Size(min = 2)
     private String firstName;
@@ -72,5 +72,10 @@ public class Player implements Serializable {
     	for(GameStat stat : stats){
     		stat.setPlayer(this);
     	}
+    }
+    
+    public void addGameStat(GameStat stat){
+    	stats.add(stat);
+    	stat.setPlayer(this);
     }
 }
