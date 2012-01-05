@@ -7,6 +7,7 @@ import fantasy.domain.GameStat;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.domain.positions.TeamPosition;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,6 +60,14 @@ privileged aspect Player_Roo_JavaBean {
     
     public Set<GameStat> Player.getStats() {
         return this.stats;
+    }
+    
+    public Boolean Player.getInjured() {
+        return this.injured;
+    }
+    
+    public void Player.setInjured(Boolean injured) {
+        this.injured = injured;
     }
     
 }

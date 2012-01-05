@@ -6,6 +6,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 import fantasy.domain.Team;
 import javax.validation.constraints.NotNull;
 import javax.persistence.ManyToOne;
+import fantasy.domain.Round;
 
 @RooJavaBean
 @RooToString
@@ -22,4 +23,8 @@ public class Game {
 
     @ManyToOne
     private Team winnerTeam;
+    
+    @NotNull
+    @ManyToOne
+    private Round round;
 }

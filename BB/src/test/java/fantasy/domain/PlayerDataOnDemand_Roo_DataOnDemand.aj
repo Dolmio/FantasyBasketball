@@ -7,6 +7,7 @@ import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.TeamDataOnDemand;
 import fantasy.domain.positions.TeamPosition;
+import java.lang.Boolean;
 import java.lang.String;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ privileged aspect PlayerDataOnDemand_Roo_DataOnDemand {
         Player obj = new Player();
         setCurrentPosition(obj, index);
         setFirstName(obj, index);
+        setInjured(obj, index);
         setLastName(obj, index);
         setTeam(obj, index);
         return obj;
@@ -46,6 +48,11 @@ privileged aspect PlayerDataOnDemand_Roo_DataOnDemand {
     public void PlayerDataOnDemand.setFirstName(Player obj, int index) {
         String firstName = "firstName_" + index;
         obj.setFirstName(firstName);
+    }
+    
+    public void PlayerDataOnDemand.setInjured(Player obj, int index) {
+        Boolean injured = Boolean.TRUE;
+        obj.setInjured(injured);
     }
     
     public void PlayerDataOnDemand.setLastName(Player obj, int index) {

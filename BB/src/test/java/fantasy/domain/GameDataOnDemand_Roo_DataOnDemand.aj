@@ -4,6 +4,8 @@
 package fantasy.domain;
 
 import fantasy.domain.Game;
+import fantasy.domain.Round;
+import fantasy.domain.RoundDataOnDemand;
 import fantasy.domain.Team;
 import fantasy.domain.TeamDataOnDemand;
 import java.security.SecureRandom;
@@ -27,10 +29,14 @@ privileged aspect GameDataOnDemand_Roo_DataOnDemand {
     @Autowired
     private TeamDataOnDemand GameDataOnDemand.teamDataOnDemand;
     
+    @Autowired
+    private RoundDataOnDemand GameDataOnDemand.roundDataOnDemand;
+    
     public Game GameDataOnDemand.getNewTransientGame(int index) {
         Game obj = new Game();
         setAwayTeam(obj, index);
         setHomeTeam(obj, index);
+        setRound(obj, index);
         setWinnerTeam(obj, index);
         return obj;
     }
@@ -43,6 +49,11 @@ privileged aspect GameDataOnDemand_Roo_DataOnDemand {
     public void GameDataOnDemand.setHomeTeam(Game obj, int index) {
         Team homeTeam = teamDataOnDemand.getRandomTeam();
         obj.setHomeTeam(homeTeam);
+    }
+    
+    public void GameDataOnDemand.setRound(Game obj, int index) {
+        Round round = roundDataOnDemand.getRandomRound();
+        obj.setRound(round);
     }
     
     public void GameDataOnDemand.setWinnerTeam(Game obj, int index) {

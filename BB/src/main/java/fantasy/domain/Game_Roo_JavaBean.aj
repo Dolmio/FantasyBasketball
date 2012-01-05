@@ -3,6 +3,7 @@
 
 package fantasy.domain;
 
+import fantasy.domain.Round;
 import fantasy.domain.Team;
 
 privileged aspect Game_Roo_JavaBean {
@@ -29,6 +30,14 @@ privileged aspect Game_Roo_JavaBean {
     
     public void Game.setWinnerTeam(Team winnerTeam) {
         this.winnerTeam = winnerTeam;
+    }
+    
+    public Round Game.getRound() {
+        return this.round;
+    }
+    
+    public void Game.setRound(Round round) {
+        this.round = round;
     }
     
 }

@@ -3,7 +3,10 @@
 
 package fantasy.domain;
 
+import fantasy.domain.Game;
+import java.lang.String;
 import java.util.Date;
+import java.util.Set;
 
 privileged aspect Round_Roo_JavaBean {
     
@@ -21,6 +24,22 @@ privileged aspect Round_Roo_JavaBean {
     
     public void Round.setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+    
+    public Set<Game> Round.getGames() {
+        return this.games;
+    }
+    
+    public void Round.setGames(Set<Game> games) {
+        this.games = games;
+    }
+    
+    public String Round.getName() {
+        return this.name;
+    }
+    
+    public void Round.setName(String name) {
+        this.name = name;
     }
     
 }

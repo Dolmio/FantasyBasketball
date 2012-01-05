@@ -4,6 +4,7 @@
 package fantasy.domain;
 
 import fantasy.domain.Round;
+import java.lang.String;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ privileged aspect RoundDataOnDemand_Roo_DataOnDemand {
     public Round RoundDataOnDemand.getNewTransientRound(int index) {
         Round obj = new Round();
         setEndDate(obj, index);
+        setName(obj, index);
         setStartDate(obj, index);
         return obj;
     }
@@ -34,6 +36,11 @@ privileged aspect RoundDataOnDemand_Roo_DataOnDemand {
     public void RoundDataOnDemand.setEndDate(Round obj, int index) {
         Date endDate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setEndDate(endDate);
+    }
+    
+    public void RoundDataOnDemand.setName(Round obj, int index) {
+        String name = "name_" + index;
+        obj.setName(name);
     }
     
     public void RoundDataOnDemand.setStartDate(Round obj, int index) {

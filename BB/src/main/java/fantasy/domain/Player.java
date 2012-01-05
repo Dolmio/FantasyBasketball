@@ -31,7 +31,7 @@ import javax.persistence.CascadeType;
 @RooToString
 @RooEntity
 public class Player implements Serializable {
-	
+
     @NotNull
     @Size(min = 2)
     private String firstName;
@@ -52,8 +52,10 @@ public class Player implements Serializable {
     @ManyToOne
     private Team team;
 
-    @OneToMany(mappedBy = "player", orphanRemoval=true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "player", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<GameStat> stats = new HashSet<GameStat>();
+
+    private Boolean injured = false;
 
     public Set<PlayerPosition> getPossiblePositionsImp() {
         this.possiblePositionsImp = new HashSet<PlayerPosition>(possiblePositions);
@@ -65,17 +67,16 @@ public class Player implements Serializable {
         this.possiblePositionsImp = new HashSet<PlayerPosition>(possiblePositionsImp);
         flush();
     }
-    
-    
-    public void setStats(Set<GameStat> stats){
-    	this.stats = stats;
-    	for(GameStat stat : stats){
-    		stat.setPlayer(this);
-    	}
+
+    public void setStats(Set<GameStat> stats) {
+        this.stats = stats;
+        for (GameStat stat : stats) {
+            stat.setPlayer(this);
+        }
     }
-    
-    public void addGameStat(GameStat stat){
-    	stats.add(stat);
-    	stat.setPlayer(this);
+
+    public void addGameStat(GameStat stat) {
+        stats.add(stat);
+        stat.setPlayer(this);
     }
 }

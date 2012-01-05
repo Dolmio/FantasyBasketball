@@ -12,6 +12,7 @@ privileged aspect Game_Roo_ToString {
         sb.append("AwayTeam: ").append(getAwayTeam()).append(", ");
         sb.append("HomeTeam: ").append(getHomeTeam()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
+        sb.append("Round: ").append(getRound()).append(", ");
         sb.append("Version: ").append(getVersion()).append(", ");
         sb.append("WinnerTeam: ").append(getWinnerTeam());
         return sb.toString();
