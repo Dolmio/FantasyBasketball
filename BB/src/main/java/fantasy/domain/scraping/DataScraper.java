@@ -107,7 +107,7 @@ public class DataScraper {
 	private Elements getPlayerElements(String gameUrl) throws IOException{
 		Document doc = Jsoup.connect(gameUrl).get();
 		Elements playerElements = doc.select(".table_container[id$=basic] tr:has(td[csk])");
-		System.out.println(playerElements);
+		//System.out.println(playerElements);
 		return playerElements;
 	}
 	
