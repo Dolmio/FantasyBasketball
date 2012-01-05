@@ -31,6 +31,8 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 	
 	public PlayerForm() {
 		super(fantasy.domain.Player.class);
+		
+		
 		FormFieldFactory fff =   new DefaultFieldFactory() {
 			@Override
 			public Field createField(Item item, Object propertyId, Component uiContext) {

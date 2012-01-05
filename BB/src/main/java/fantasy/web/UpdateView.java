@@ -65,13 +65,9 @@ public class UpdateView extends CustomComponent {
 					DataScraper scraper = new DataScraper();
 					LocalDate startDate = new LocalDate(((Date)startDateField.getValue()).getTime());
 					LocalDate endDate = new LocalDate(((Date)endDateField.getValue()).getTime());
-					LocalDate currentDate = startDate;
-					while(currentDate.toDate().getTime() <= endDate.toDate().getTime()){
-						System.out.println("Day: " + currentDate + " update success: " + scraper.updateStats(currentDate));
-						currentDate = currentDate.plusDays(1);
-					}
+					scraper.updateStats(startDate, endDate);
 					System.out.println("Päivitetty");
-					//System.out.println(scraper.updateStats(new LocalDate(2011, 12, 25)));
+					
 				}
 
 			}

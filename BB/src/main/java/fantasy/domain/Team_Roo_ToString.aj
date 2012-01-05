@@ -12,6 +12,7 @@ privileged aspect Team_Roo_ToString {
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Players: ").append(getPlayers() == null ? "null" : getPlayers().size()).append(", ");
+        sb.append("RoundTotals: ").append(getRoundTotals() == null ? "null" : getRoundTotals().size()).append(", ");
         sb.append("Version: ").append(getVersion());
         return sb.toString();
     }

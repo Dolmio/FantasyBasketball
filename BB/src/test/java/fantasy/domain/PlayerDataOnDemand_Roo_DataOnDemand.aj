@@ -51,7 +51,7 @@ privileged aspect PlayerDataOnDemand_Roo_DataOnDemand {
     }
     
     public void PlayerDataOnDemand.setInjured(Player obj, int index) {
-        Boolean injured = Boolean.TRUE;
+        Boolean injured = false;
         obj.setInjured(injured);
     }
     

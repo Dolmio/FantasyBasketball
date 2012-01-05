@@ -16,69 +16,82 @@ import javax.persistence.ManyToOne;
 public class RoundTotal {
 	
 	@Min(0)
-    private Integer points;
+    private Integer points = 0;
 	
 	@Min(0)
-    private Integer rebounds;
+    private Integer rebounds = 0;
 	
 	@Min(0)
-    private Integer assists;
+    private Integer assists = 0;
 	
 	@Min(0)
-    private Integer blocks;
+    private Integer blocks = 0;
 	
 	@Min(0)
-    private Integer steals;
+    private Integer steals = 0;
 	
 	@Min(0)
-    private Integer turnovers;
+    private Integer turnovers = 0;
 	
 	@Min(0)
-    private Integer ftMade;
+    private Integer ftMade = 0;
 	
 	@Min(0)
-    private Integer threePointsMade;
+    private Integer threePointsMade = 0;
 	
 	@Min(0)
-    private Integer fgMade;
+    private Integer fgMade = 0;
 	
 	@Min(0)
-    private Integer fgAttempts;
-	
-	@Min(0)
-	@Max(20)
-    private Integer lpPoints;
+    private Integer fgAttempts = 0;
 	
 	@Min(0)
 	@Max(20)
-    private Integer lpRebounds;
+    private Integer lpPoints = 0;
 	
 	@Min(0)
 	@Max(20)
-    private Integer lpAssists;
+    private Integer lpRebounds = 0;
+	
+	@Min(0)
+	@Max(20)
+    private Integer lpAssists = 0;
 	
 	@Min(0)
 	@Max(10)
-    private Integer lpBlocks;
+    private Integer lpBlocks = 0;
 	
 	@Min(0)
 	@Max(10)
-    private Integer lpSteals;
+    private Integer lpSteals = 0;
 	
 	
 	@Min(0)
 	@Max(10)
-    private Integer lpFtMade;
+    private Integer lpFtMade = 0;
 	
 	@Min(0)
 	@Max(10)
-    private Integer lpThreePointsMade;
+    private Integer lpThreePointsMade = 0;
 
 	@Min(0)
 	@Max(10)
-	private Integer lpFieldGoalPercentage;
+	private Integer lpFieldGoalPercentage = 0;
 
     @NotNull
     @ManyToOne
     private Round round;
+    
+    public void resetStats(){
+    	points = 0;
+    	fgAttempts = 0;
+    	fgMade = 0;
+    	ftMade = 0;
+    	threePointsMade = 0;
+    	turnovers = 0;
+    	steals = 0;
+    	blocks = 0;
+    	assists  = 0;
+    	rebounds = 0;
+    }
 }

@@ -4,6 +4,7 @@
 package fantasy.domain;
 
 import fantasy.domain.Player;
+import fantasy.domain.RoundTotal;
 import java.lang.String;
 import java.util.Set;
 
@@ -19,6 +20,14 @@ privileged aspect Team_Roo_JavaBean {
     
     public void Team.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<RoundTotal> Team.getRoundTotals() {
+        return this.roundTotals;
+    }
+    
+    public void Team.setRoundTotals(Set<RoundTotal> roundTotals) {
+        this.roundTotals = roundTotals;
     }
     
 }

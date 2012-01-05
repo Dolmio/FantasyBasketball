@@ -44,7 +44,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		initDB();		
+		//initDB();		
 		getContext ().addTransactionListener ( this );
 		
 		

@@ -20,6 +20,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 
 import fantasy.domain.Player;
+import fantasy.domain.RoundTotal;
 
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Team.class)
 public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
@@ -58,6 +59,11 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 	                    field = new BeanSetFieldWrapper<Player>(select, Player.class, getContainerForPlayers(), "lastName");
 	                    field.setCaption(createCaptionByPropertyId(propertyId));
 	                    
+	                }else if("roundTotals".equals(propertyId)){
+	                	TwinColSelect select = buildRoundTotalsMultiSelect();
+	                	field = new BeanSetFieldWrapper<RoundTotal>(select, RoundTotal.class, getContainerForRoundTotals(), "id");
+	                	field.setCaption(createCaptionByPropertyId(propertyId));
+	                	
 	                } else {
 	                    field = super.createField(item, propertyId, uiContext);
 	                    if (field instanceof TextField) {

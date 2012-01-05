@@ -103,9 +103,15 @@ privileged aspect TeamView_Roo_VaadinEntityView {
     public void TeamView.setupGeneratedColumns(Table table) {
         table.removeGeneratedColumn("players");
         table.addGeneratedColumn("players", new EntityTableColumnGenerator((String) getPlayerCaptionPropertyId()));
+        table.removeGeneratedColumn("roundTotals");
+        table.addGeneratedColumn("roundTotals", new EntityTableColumnGenerator((String) getRoundTotalCaptionPropertyId()));
     }
     
     public Object TeamView.getPlayerCaptionPropertyId() {
+        return null;
+    }
+    
+    public Object TeamView.getRoundTotalCaptionPropertyId() {
         return null;
     }
     
