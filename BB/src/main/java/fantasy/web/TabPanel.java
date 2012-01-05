@@ -84,6 +84,7 @@ public class TabPanel extends CustomComponent {
 		Role currentRole = FantasyApplication.getInstance().getCurrentUser().getUserRole();
 		if(currentRole != Role.ADMIN){
 			tabSheet_1.removeTab(tabSheet_1.getTab(fantasyEntityManagerView_1));
+			tabSheet_1.removeTab(tabSheet_1.getTab(updateView_1));
 		}
 		
 		if(currentRole != Role.MANAGER){
@@ -172,7 +173,7 @@ public class TabPanel extends CustomComponent {
 		updateView_1.setImmediate(false);
 		updateView_1.setWidth("100.0%");
 		updateView_1.setHeight("-1px");
-		tabSheet_1.addTab(updateView_1, "Tab", null);
+		tabSheet_1.addTab(updateView_1, "Update", null);
 		
 		return tabSheet_1;
 	}

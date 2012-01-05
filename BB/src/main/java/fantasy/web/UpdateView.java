@@ -1,6 +1,7 @@
 package fantasy.web;
 
 import java.util.Date;
+import java.util.Locale;
 
 import org.joda.time.LocalDate;
 
@@ -10,6 +11,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -45,7 +47,14 @@ public class UpdateView extends CustomComponent {
 
 		startDateField.setValue(new Date(System.currentTimeMillis()));
 		endDateField.setValue(new Date(System.currentTimeMillis()));
-
+		
+		startDateField.setImmediate(true);
+		startDateField.setResolution(DateField.RESOLUTION_DAY);
+		startDateField.setLocale(new Locale("fi", "FI"));
+		
+		endDateField.setImmediate(true);
+		endDateField.setResolution(DateField.RESOLUTION_DAY);
+		endDateField.setLocale(new Locale("fi", "FI"));
 
 		updateButton.addListener(new ClickListener() {
 
