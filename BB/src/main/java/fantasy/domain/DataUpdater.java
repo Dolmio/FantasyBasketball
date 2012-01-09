@@ -8,7 +8,10 @@ import org.joda.time.LocalDate;
 public class DataUpdater {
 
 
-
+	/**
+	 * Updates or creates new RoundTotal for every team playing this round.
+	 * @param round
+	 */
 	public void updateAllRoundTotals(Round round){
 		
 		Set<Team> teamsInRound = getTeamsInRound(round);
@@ -32,7 +35,7 @@ public class DataUpdater {
 				rtToUpdate = new RoundTotal();
 				rtToUpdate.setRound(round);
 			}
-			
+			//update roundTotal
 			updateRoundTotal(rtToUpdate, round, team);
 
 		}
