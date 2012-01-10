@@ -1,6 +1,8 @@
 package fantasy.domain;
 
-public enum StatType {
+import java.io.Serializable;
+
+public enum StatType implements Serializable{
 	POINTS, REBOUNDS, ASSISTS, BLOCKS, STEALS, TURNOVERS, FTMADE, THREEPOINTSMADE, FGPERCENTAGE;
 
 
@@ -9,7 +11,8 @@ public enum StatType {
 		case POINTS: return 2;
 		case REBOUNDS: return 2;
 		case ASSISTS: return 2;
-		case TURNOVERS: return 0.5;
+		case TURNOVERS: 
+			return -0.5;
 		default: return 1;
 		}
 	}

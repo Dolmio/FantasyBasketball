@@ -1,5 +1,8 @@
 package fantasy.domain;
 
+import java.io.Serializable;
+import java.text.DecimalFormat;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -8,11 +11,12 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.persistence.ManyToOne;
+import fantasy.domain.Team;
 
 @RooJavaBean
 @RooToString
 @RooEntity
-public class RoundTotal {
+public class RoundTotal implements Serializable {
 
     @Min(0)
     private Integer points = 0;
@@ -80,72 +84,126 @@ public class RoundTotal {
     @ManyToOne
     private Round round;
 
-    private Double lpTurnovers;
-    
-    public double getFieldGoalPercentage(){
-    	return fgMade / fgAttempts;
-    }
-    
-    public void setLeaguePoints(StatType stat, Number points){
-    	switch(stat){
-    	case POINTS: setLpPoints((Integer) points);
-    	case REBOUNDS: setLpRebounds((Integer) points);
-    	case ASSISTS: setLpAssists((Integer) points);
-    	case FTMADE: setLpFtMade((Integer) points);
-    	case THREEPOINTSMADE: setLpThreePointsMade((Integer) points);
-    	case BLOCKS: setLpBlocks((Integer) points);
-    	case FGPERCENTAGE: setLpFieldGoalPercentage((Integer) points);
-    	case STEALS: setLpSteals((Integer) points);
-    	case TURNOVERS: setLpTurnovers((Double) points);
-    	}
-    		
-    }
-    
-    public Number getLpStat(StatType stat){
-    	switch(stat){
-    	case POINTS: return getLpPoints();
-    	case REBOUNDS: return getLpRebounds();
-    	case ASSISTS: return getLpAssists();
-    	case FTMADE: return getLpFtMade();
-    	case THREEPOINTSMADE: return getLpThreePointsMade();
-    	case BLOCKS: return getLpBlocks();
-    	case FGPERCENTAGE: return getLpFieldGoalPercentage();
-    	case STEALS: return getLpSteals();
-    	case TURNOVERS: return getLpTurnovers();
-    	default: return 0;
+    private Double lpTurnovers = Double.valueOf(0);
+
+    @ManyToOne
+    private Team team;
+
+    public double getFieldGoalPercentage() {
+        System.out.println("FgAttempts: " + getFgAttempts() + " FgMade: " + getFgMade());
+    	if (getFgAttempts() == 0) return 0;
+    	else{
+    		 DecimalFormat twoDForm = new DecimalFormat("#.##");
+    	     return Double.valueOf(twoDForm.format((double)getFgMade() / (double)getFgAttempts()));
+    	
     	}
     }
-    
-    public Number getStat(StatType stat){
-    	switch(stat){
-    	case POINTS: return getPoints();
-    	case REBOUNDS: return getRebounds();
-    	case ASSISTS: return getAssists();
-    	case FTMADE: return getFtMade();
-    	case THREEPOINTSMADE: return getThreePointsMade();
-    	case BLOCKS: return getBlocks();
-    	case FGPERCENTAGE: return getFieldGoalPercentage();
-    	case STEALS: return getSteals();
-    	case TURNOVERS: return getTurnovers();
-    	default: return 0;
-    	}
+
+    public void setLeaguePoints(StatType stat, Number points) {
+        switch(stat) {
+            case POINTS:
+                setLpPoints(points.intValue()); break;
+            case REBOUNDS:
+                setLpRebounds(points.intValue()); break;
+            case ASSISTS:
+                setLpAssists(points.intValue()); break;
+            case FTMADE:
+                setLpFtMade(points.intValue()); break;
+            case THREEPOINTSMADE:
+                setLpThreePointsMade(points.intValue()); break;
+            case BLOCKS:
+                setLpBlocks(points.intValue()); break;
+            case FGPERCENTAGE:
+                setLpFieldGoalPercentage(points.intValue()); break;
+            case STEALS:
+                setLpSteals(points.intValue()); break;
+            case TURNOVERS:
+                setLpTurnovers(points.doubleValue()); break;
+        }
     }
-    
-    public static String getMethodSignature(StatType stat){
-    	switch(stat){
-    	case POINTS: return "getPoints";
-    	case REBOUNDS: return "getRebounds";
-    	case ASSISTS: return "getAssists";
-    	case FTMADE: return "getFtMade";
-    	case THREEPOINTSMADE: return "getThreePointsMade";
-    	case TURNOVERS: return "getTurnovers";
-    	case STEALS: return "getSteals";
-    	case BLOCKS: return "getBlocks";
-    	case FGPERCENTAGE: return "getFieldGoalPercentage";
-    	default: return null;
-    	}
+
+    public Number getLpStat(StatType stat) {
+        switch(stat) {
+            case POINTS:
+                return getLpPoints();
+            case REBOUNDS:
+                return getLpRebounds();
+            case ASSISTS:
+                return getLpAssists();
+            case FTMADE:
+                return getLpFtMade();
+            case THREEPOINTSMADE:
+                return getLpThreePointsMade();
+            case BLOCKS:
+                return getLpBlocks();
+            case FGPERCENTAGE:
+                return getLpFieldGoalPercentage();
+            case STEALS:
+                return getLpSteals();
+            case TURNOVERS:
+                return getLpTurnovers();
+            default:
+                throw new IllegalArgumentException();
+        }
     }
-    
+
+    public Number getStat(StatType stat) {
+        switch(stat) {
+            case POINTS:
+                return getPoints(); 
+            case REBOUNDS:
+                return getRebounds();
+            case ASSISTS:
+                return getAssists();
+            case FTMADE:
+                return getFtMade();
+            case THREEPOINTSMADE:
+                return getThreePointsMade();
+            case BLOCKS:
+                return getBlocks();
+            case FGPERCENTAGE:
+                return getFieldGoalPercentage();
+            case STEALS:
+                return getSteals();
+            case TURNOVERS:
+                return getTurnovers();
+            default:
+               throw new IllegalArgumentException();
+        }
+    }
+
+    public static String getMethodSignature(StatType stat) {
+        switch(stat) {
+            case POINTS:
+                return "getPoints";
+            case REBOUNDS:
+                return "getRebounds";
+            case ASSISTS:
+                return "getAssists";
+            case FTMADE:
+                return "getFtMade";
+            case THREEPOINTSMADE:
+                return "getThreePointsMade";
+            case TURNOVERS:
+                return "getTurnovers";
+            case STEALS:
+                return "getSteals";
+            case BLOCKS:
+                return "getBlocks";
+            case FGPERCENTAGE:
+                return "getFieldGoalPercentage";
+            default:
+                return null;
+        }
+    }
+
+    public Double getTotalPoints() {
+        return getLpTurnovers() + getLpAssists() + getLpBlocks() + 
+        		getLpFieldGoalPercentage() + getLpFtMade() + 
+        		getLpPoints() + getLpRebounds() + getLpSteals() + 
+        		getLpThreePointsMade();
+    }
+
     public void resetStats() {
         points = 0;
         fgAttempts = 0;

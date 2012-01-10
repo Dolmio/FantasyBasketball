@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -16,12 +18,16 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
+import fantasy.domain.Game;
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
+import fantasy.domain.Round;
 import fantasy.domain.Team;
 import fantasy.domain.UserClass;
 import fantasy.domain.authentication.Role;
 import fantasy.domain.positions.PlayerPosition;
+import fantasy.domain.positions.TeamPosition;
+import fantasy.domain.scraping.DataScraper;
 import fantasy.web.authentication.LoginWindow;
 
 
@@ -44,7 +50,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		//initDB();		
+		initDB();		
 		getContext ().addTransactionListener ( this );
 		
 		
@@ -216,7 +222,9 @@ public class FantasyApplication extends Application implements ApplicationContex
 		p3.persist();
 		
 		Player oma1 = getPlayer("Al", "Horford");
+		oma1.setCurrentPosition(TeamPosition.ANY);
 		Player oma2 = getPlayer("Marc", "Gasol");
+		oma2.setCurrentPosition(TeamPosition.ANY);
 		Player oma3 = getPlayer("Danny", "Granger");
 		Player oma4 = getPlayer("Kyrie", "Irving");
 		Player oma5 = getPlayer("Brandon", "Jennings");
@@ -236,11 +244,33 @@ public class FantasyApplication extends Application implements ApplicationContex
 		t.setName("Boston");
 		t.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {p, p2, p3, oma1, oma2 ,oma3 , oma4, oma5 ,oma6 , oma7, oma8 ,oma9 , oma10, oma11 ,oma12 , oma13, oma14})));
 		t.persist();
+		
+		Team team2 = new Team();
+		team2.setName("Chicago");
+		Player player = getPlayer("Derrick", "Rose");
+		player.setCurrentPosition(TeamPosition.G);
+		team2.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player})));
+		team2.persist();
 		//teams.addEntity(t);
 		//teams.commit();
 		
 		//JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
 		//users.setWriteThrough(false);
+		
+		Game game = new Game();
+		game.setAwayTeam(t);
+		game.setHomeTeam(team2);
+		
+		Round round = new Round();
+		round.setName("Kierros1");
+		round.setStartDate(new LocalDate(2012, 1, 1).toDate());
+		round.setEndDate(new LocalDate(2012,1,10).toDate());
+		round.setGames(new HashSet<Game>(Arrays.asList(new Game[] {game})));
+		
+		round.persist();
+		round.flush();
+		
+		
 		
 		UserClass user = new UserClass();
 		
@@ -261,6 +291,8 @@ public class FantasyApplication extends Application implements ApplicationContex
 		manager.persist();
 		manager.flush();
 		//users.addEntity(manager);
+		DataScraper scraper = new DataScraper();
+		scraper.updateStats(new LocalDate(2012, 1, 7),  new LocalDate(2012, 1, 10));
 		
 		//users.commit();
 		

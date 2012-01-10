@@ -103,9 +103,15 @@ privileged aspect RoundTotalView_Roo_VaadinEntityView {
     public void RoundTotalView.setupGeneratedColumns(Table table) {
         table.removeGeneratedColumn("round");
         table.addGeneratedColumn("round", new EntityTableColumnGenerator((String) getRoundCaptionPropertyId()));
+        table.removeGeneratedColumn("team");
+        table.addGeneratedColumn("team", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
     }
     
     public Object RoundTotalView.getRoundCaptionPropertyId() {
+        return "name";
+    }
+    
+    public Object RoundTotalView.getTeamCaptionPropertyId() {
         return "name";
     }
     

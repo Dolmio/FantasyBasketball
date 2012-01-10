@@ -73,3 +73,5 @@ field reference --fieldName player --type fantasy.domain.Player
 focus --class fantasy.domain.RoundTotal
 field number --type java.lang.Double --fieldName lpTurnovers
 // [failed] field number --type double --fieldName lpTurnovers
+focus --class fantasy.domain.RoundTotal
+field reference --fieldName team --type fantasy.domain.Team

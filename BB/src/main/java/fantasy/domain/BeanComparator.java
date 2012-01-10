@@ -1,5 +1,6 @@
 package fantasy.domain;
 
+import java.io.Serializable;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
  *  b) ignore case (default true)
  *  c) nulls last (default true)
  */
-public class BeanComparator implements Comparator
+public class BeanComparator implements Comparator, Serializable
 {
 	private static final Class[] EMPTY_CLASS_ARRAY = new Class[] {};
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};

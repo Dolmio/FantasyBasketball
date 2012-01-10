@@ -1,5 +1,6 @@
 package fantasy.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.parsing.BeanComponentDefinition;
 
 import fantasy.domain.positions.TeamPosition;
 
-public class DataUpdater {
+public class DataUpdater implements Serializable {
 
 
 	/**
@@ -21,7 +22,7 @@ public class DataUpdater {
 	public void updateAllRoundTotals(Round round){
 
 		Set<Team> teamsInRound = getTeamsInRound(round);
-
+		System.out.println("TeamsSIze:" + teamsInRound.size());
 
 		for(Team team : teamsInRound){
 			boolean roundTotalExists = false;
@@ -40,13 +41,16 @@ public class DataUpdater {
 			if(!roundTotalExists){
 				rtToUpdate = new RoundTotal();
 				rtToUpdate.setRound(round);
+				rtToUpdate.setTeam(team);
+				rtToUpdate.persist();
+				team.addRoundTotal(rtToUpdate);
 			}
 			//update roundTotal
 			updateRoundTotal(rtToUpdate, round, team);
-
+			team.merge();
 		}
 
-		round.merge();
+		
 
 
 	}
@@ -99,6 +103,8 @@ public class DataUpdater {
 	private Set<Team> getTeamsInRound(Round round){
 		Set<Team> teamsInRound = new HashSet<Team>();
 		for(Game game : round.getGames()){
+			
+			System.out.println("Lisätään peli");
 			teamsInRound.add(game.getHomeTeam());
 			teamsInRound.add(game.getAwayTeam());
 		}
@@ -113,17 +119,17 @@ public class DataUpdater {
 		//get all roundTotals from this round
 		for(Team team : teams){
 			for(RoundTotal total : team.getRoundTotals()){
-				if(total.getRound().equals(round)){
+				if(total.getRound().getId() == round.getId()){
 					totals.add(total);
 				}
 			}
 		}
-		
+		System.out.println("RoundTotalSize: " + totals.size());
 		//update all leaguePoints properties 
 		for(StatType currentStatType: StatType.values()){
 			//sort totals  in order according to one stat
 			Collections.sort(totals, new BeanComparator(RoundTotal.class, RoundTotal.getMethodSignature(currentStatType) , false));
-			
+			System.out.println("CurrentStat: " + currentStatType + " totals: " + totals );
 			for(int i = 0; i< totals.size(); i++){
 				RoundTotal total = totals.get(i);
 				//highest value and first
@@ -134,7 +140,7 @@ public class DataUpdater {
 					//if two totals have equal value in certain stat they both get equal (better) points. So we skip the lesser value.
 					RoundTotal previousTotal = totals.get( i - 1);
 					if(total.getStat(currentStatType) == previousTotal.getStat(currentStatType)){
-						total.setLeaguePoints(currentStatType, total.getLpStat(currentStatType));
+						total.setLeaguePoints(currentStatType, previousTotal.getLpStat(currentStatType));
 					}
 					//most common case
 					else{
@@ -142,7 +148,9 @@ public class DataUpdater {
 					}
 					
 				}
+				total.merge();
 			}
+			
 
 		}
 	}

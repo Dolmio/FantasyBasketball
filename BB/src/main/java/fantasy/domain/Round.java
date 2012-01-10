@@ -13,11 +13,12 @@ import java.util.HashSet;
 import javax.persistence.ManyToMany;
 import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
-
+import java.io.Serializable;
 @RooJavaBean
 @RooToString
 @RooEntity
-public class Round {
+
+public class Round implements Serializable  {
 	
 	@NotNull
     @Temporal(TemporalType.TIMESTAMP)

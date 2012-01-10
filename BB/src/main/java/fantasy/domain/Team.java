@@ -47,4 +47,15 @@ public class Team implements Serializable {
             p.flush();
         }
     }
+    
+    public void addRoundTotal(RoundTotal total){
+    	roundTotals.add(total);
+    }
+    
+    public void setRoundTotal(Set<RoundTotal> totals){
+    	for(RoundTotal total : totals){
+    		total.setTeam(this);
+    	}
+    }
+    
 }

@@ -10,11 +10,11 @@ import javax.validation.constraints.Min;
 import org.springframework.format.annotation.DateTimeFormat;
 import fantasy.domain.Player;
 import javax.persistence.ManyToOne;
-
+import java.io.Serializable;
 @RooJavaBean
 @RooToString
 @RooEntity
-public class GameStat {
+public class GameStat implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")

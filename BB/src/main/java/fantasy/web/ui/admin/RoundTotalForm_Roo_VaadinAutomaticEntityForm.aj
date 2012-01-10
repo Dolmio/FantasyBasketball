@@ -14,6 +14,7 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import fantasy.domain.Round;
 import fantasy.domain.RoundTotal;
+import fantasy.domain.Team;
 import java.lang.Class;
 import java.lang.Long;
 import java.lang.Object;
@@ -32,6 +33,15 @@ privileged aspect RoundTotalForm_Roo_VaadinAutomaticEntityForm {
         return combo;
     }
     
+    public ComboBox RoundTotalForm.buildTeamCombo() {
+        ComboBox combo = new ComboBox(null, getContainerForTeams());
+        Object captionPropertyId = getTeamCaptionPropertyId();
+        if (captionPropertyId != null) {
+            combo.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return combo;
+    }
+    
     public FormFieldFactory RoundTotalForm.getFormFieldFactory() {
         return new DefaultFieldFactory() {
             @Override
@@ -42,6 +52,10 @@ privileged aspect RoundTotalForm_Roo_VaadinAutomaticEntityForm {
                 } else if ("round".equals(propertyId)) {
                     ComboBox combo = buildRoundCombo();
                     field = new BeanFieldWrapper<Round>(combo, Round.class, getContainerForRounds(), "id");
+                    field.setCaption(createCaptionByPropertyId(propertyId));
+                } else if ("team".equals(propertyId)) {
+                    ComboBox combo = buildTeamCombo();
+                    field = new BeanFieldWrapper<Team>(combo, Team.class, getContainerForTeams(), "id");
                     field.setCaption(createCaptionByPropertyId(propertyId));
                 } else {
                     field = super.createField(item, propertyId, uiContext);
@@ -67,11 +81,24 @@ privileged aspect RoundTotalForm_Roo_VaadinAutomaticEntityForm {
         return container;
     }
     
+    public BeanContainer<Long, Team> RoundTotalForm.getContainerForTeams() {
+        BeanContainer<Long, Team> container = new BeanContainer<Long, Team>(Team.class);
+        container.setBeanIdProperty("id");
+        for (Team entity : Team.findAllTeams()) {
+            container.addBean(entity);
+        }
+        return container;
+    }
+    
     public Class<RoundTotal> RoundTotalForm.getEntityClass() {
         return RoundTotal.class;
     }
     
     public Object RoundTotalForm.getRoundCaptionPropertyId() {
+        return "name";
+    }
+    
+    public Object RoundTotalForm.getTeamCaptionPropertyId() {
         return "name";
     }
     

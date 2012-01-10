@@ -29,7 +29,9 @@ privileged aspect RoundTotal_Roo_ToString {
         sb.append("Rebounds: ").append(getRebounds()).append(", ");
         sb.append("Round: ").append(getRound()).append(", ");
         sb.append("Steals: ").append(getSteals()).append(", ");
+        sb.append("Team: ").append(getTeam()).append(", ");
         sb.append("ThreePointsMade: ").append(getThreePointsMade()).append(", ");
+        sb.append("TotalPoints: ").append(getTotalPoints()).append(", ");
         sb.append("Turnovers: ").append(getTurnovers()).append(", ");
         sb.append("Version: ").append(getVersion());
         return sb.toString();

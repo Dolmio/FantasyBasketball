@@ -4,6 +4,7 @@
 package fantasy.domain;
 
 import fantasy.domain.Round;
+import fantasy.domain.Team;
 import java.lang.Double;
 import java.lang.Integer;
 
@@ -167,6 +168,14 @@ privileged aspect RoundTotal_Roo_JavaBean {
     
     public void RoundTotal.setLpTurnovers(Double lpTurnovers) {
         this.lpTurnovers = lpTurnovers;
+    }
+    
+    public Team RoundTotal.getTeam() {
+        return this.team;
+    }
+    
+    public void RoundTotal.setTeam(Team team) {
+        this.team = team;
     }
     
 }

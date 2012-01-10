@@ -1,5 +1,7 @@
 package fantasy.domain;
 
+import java.io.Serializable;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -11,7 +13,7 @@ import fantasy.domain.Round;
 @RooJavaBean
 @RooToString
 @RooEntity
-public class Game {
+public class Game implements Serializable{
 
     @NotNull
     @ManyToOne
@@ -24,7 +26,7 @@ public class Game {
     @ManyToOne
     private Team winnerTeam;
     
-    @NotNull
+  
     @ManyToOne
     private Round round;
 }
