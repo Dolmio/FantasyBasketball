@@ -13,6 +13,7 @@ privileged aspect RoundTotal_Roo_ToString {
         sb.append("Blocks: ").append(getBlocks()).append(", ");
         sb.append("FgAttempts: ").append(getFgAttempts()).append(", ");
         sb.append("FgMade: ").append(getFgMade()).append(", ");
+        sb.append("FieldGoalPercentage: ").append(getFieldGoalPercentage()).append(", ");
         sb.append("FtMade: ").append(getFtMade()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("LpAssists: ").append(getLpAssists()).append(", ");
@@ -23,6 +24,7 @@ privileged aspect RoundTotal_Roo_ToString {
         sb.append("LpRebounds: ").append(getLpRebounds()).append(", ");
         sb.append("LpSteals: ").append(getLpSteals()).append(", ");
         sb.append("LpThreePointsMade: ").append(getLpThreePointsMade()).append(", ");
+        sb.append("LpTurnovers: ").append(getLpTurnovers()).append(", ");
         sb.append("Points: ").append(getPoints()).append(", ");
         sb.append("Rebounds: ").append(getRebounds()).append(", ");
         sb.append("Round: ").append(getRound()).append(", ");

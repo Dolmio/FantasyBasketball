@@ -1,9 +1,15 @@
 package fantasy.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
+import org.springframework.beans.factory.parsing.BeanComponentDefinition;
+
+import fantasy.domain.positions.TeamPosition;
 
 public class DataUpdater {
 
@@ -13,7 +19,7 @@ public class DataUpdater {
 	 * @param round
 	 */
 	public void updateAllRoundTotals(Round round){
-		
+
 		Set<Team> teamsInRound = getTeamsInRound(round);
 
 
@@ -53,23 +59,25 @@ public class DataUpdater {
 	private void updateRoundTotal(RoundTotal rt, Round round, Team team){
 		LocalDate startDate = new LocalDate(round.getStartDate());
 		LocalDate endDate = new LocalDate(round.getEndDate());
-		
-		//iterate over all players and their stats
+
+		//iterate over all players and their stats if they are in the game
 		for(Player player : team.getPlayers()){
-			for(GameStat stat : player.getStats()){
-				
-				long statTime = stat.getDateWhen().getTime();
-				//update totals if stats time between limits
-				if(statTime >= startDate.toDate().getTime() &&  statTime <= endDate.toDate().getTime()){
-					addStatsToTotals(rt, stat);
+			if(player.getCurrentPosition() != TeamPosition.BENCH ){
+				for(GameStat stat : player.getStats()){
+
+					long statTime = stat.getDateWhen().getTime();
+					//update totals if stats time between limits
+					if(statTime >= startDate.toDate().getTime() &&  statTime <= endDate.toDate().getTime()){
+						addStatsToTotals(rt, stat);
+					}
 				}
 			}
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 	private void addStatsToTotals(RoundTotal rt, GameStat stat){
 		rt.setAssists(rt.getAssists() + stat.getAssists());
 		rt.setBlocks(rt.getBlocks() + stat.getBlocks());
@@ -95,6 +103,48 @@ public class DataUpdater {
 			teamsInRound.add(game.getAwayTeam());
 		}
 		return teamsInRound;
+	}
+
+
+	public void updateRoundLeaguePoints(Round round){
+		Set<Team> teams = getTeamsInRound(round);
+		List<RoundTotal> totals = new ArrayList<RoundTotal>();
+		
+		//get all roundTotals from this round
+		for(Team team : teams){
+			for(RoundTotal total : team.getRoundTotals()){
+				if(total.getRound().equals(round)){
+					totals.add(total);
+				}
+			}
+		}
+		
+		//update all leaguePoints properties 
+		for(StatType currentStatType: StatType.values()){
+			//sort totals  in order according to one stat
+			Collections.sort(totals, new BeanComparator(RoundTotal.class, RoundTotal.getMethodSignature(currentStatType) , false));
+			
+			for(int i = 0; i< totals.size(); i++){
+				RoundTotal total = totals.get(i);
+				//highest value and first
+				if(i == 0){
+					total.setLeaguePoints(currentStatType, ( totals.size() - i)  * currentStatType.getMultiplier());
+				}
+				else{
+					//if two totals have equal value in certain stat they both get equal (better) points. So we skip the lesser value.
+					RoundTotal previousTotal = totals.get( i - 1);
+					if(total.getStat(currentStatType) == previousTotal.getStat(currentStatType)){
+						total.setLeaguePoints(currentStatType, total.getLpStat(currentStatType));
+					}
+					//most common case
+					else{
+						total.setLeaguePoints(currentStatType, (totals.size() - i) * currentStatType.getMultiplier());
+					}
+					
+				}
+			}
+
+		}
 	}
 
 

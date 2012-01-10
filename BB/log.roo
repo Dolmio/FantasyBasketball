@@ -69,3 +69,7 @@ vaadin generate all --package fantasy.web.ui --visuallyComposable false
 focus --class fantasy.domain.player
 focus --class fantasy.domain.GameStat
 field reference --fieldName player --type fantasy.domain.Player
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-10 14:05:13
+focus --class fantasy.domain.RoundTotal
+field number --type java.lang.Double --fieldName lpTurnovers
+// [failed] field number --type double --fieldName lpTurnovers
