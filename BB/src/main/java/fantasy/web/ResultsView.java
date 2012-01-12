@@ -61,9 +61,10 @@ public class ResultsView extends CustomComponent {
 	
 	private void makeGameTable(Round round, Game game){
 		Table gameTable = new Table();
+		gameTable.setPageLength(2);
 		RoundTotal homeRoundTotal = getCurrentRoundTotal(round, game.getHomeTeam());
 		RoundTotal awayRoundTotal = getCurrentRoundTotal(round, game.getAwayTeam());
-		
+		gameTable.setCaption(game.getHomeTeam().getName() + " VS "+ game.getAwayTeam().getName());
 		if(homeRoundTotal == null || awayRoundTotal == null) return;
 		
 		Long homeRoundTotalId = homeRoundTotal.getId();
@@ -77,10 +78,14 @@ public class ResultsView extends CustomComponent {
 		
 		
 		gameTable.setContainerDataSource(totalsContainer);
-		Object[] visibleColumns = new Object[] {"team","points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
+		totalsContainer.addNestedContainerProperty("team.name");
+		Object[] visibleColumns = new Object[] {"team.name","points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
 				"blocks", "lpBlocks", "steals", "lpSteals", "turnovers", "lpTurnovers", "ftMade", "lpFtMade", "threePointsMade",
 				"lpThreePointsMade", "fgMade", "fgAttempts","fieldGoalPercentage", "lpFieldGoalPercentage", "totalPoints"};
 		gameTable.setVisibleColumns(visibleColumns);
+		String[] columnHeaders = new String[]{"Teams", "Pts", "LP-Pts", "Reb", "LP-Reb", "Ass", "LP-Ass", "Blk", "LP-Blk", "Stl", "LP-Stl",
+												"To", "LP-To", "Ftm", "LP-Ftm", "3Fgm", "LP-3Fgm", "Fgm", "Fga", "Fg%", "LP-Fg%", "Total points"};
+		gameTable.setColumnHeaders(columnHeaders);
 		mainLayout.addComponent(gameTable);
 		
 	}

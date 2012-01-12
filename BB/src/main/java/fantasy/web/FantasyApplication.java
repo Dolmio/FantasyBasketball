@@ -50,7 +50,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		initDB();		
+		//initDB();		
 		getContext ().addTransactionListener ( this );
 		
 		
@@ -257,15 +257,36 @@ public class FantasyApplication extends Application implements ApplicationContex
 		//JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
 		//users.setWriteThrough(false);
 		
+		Team team3 = new Team();
+		team3.setName("Dallas");
+		Player player3 = getPlayer("Lebron", "James");
+		player3.setCurrentPosition(TeamPosition.PF);
+		team3.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player3})));
+		team3.persist();
+		
+		Team team4 = new Team();
+		team4.setName("Lakers");
+		Player player4 = getPlayer("Kobe", "Bryant");
+		player4.setCurrentPosition(TeamPosition.SF);
+		team4.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player4})));
+		team4.persist();
+		
+		
 		Game game = new Game();
 		game.setAwayTeam(t);
 		game.setHomeTeam(team2);
+		game.persist();
+		
+		Game game2 = new Game();
+		game2.setAwayTeam(team3);
+		game2.setHomeTeam(team4);
+		game2.persist();
 		
 		Round round = new Round();
 		round.setName("Kierros1");
 		round.setStartDate(new LocalDate(2012, 1, 1).toDate());
 		round.setEndDate(new LocalDate(2012,1,10).toDate());
-		round.setGames(new HashSet<Game>(Arrays.asList(new Game[] {game})));
+		round.setGames(new HashSet<Game>(Arrays.asList(new Game[] {game, game2})));
 		
 		round.persist();
 		round.flush();
@@ -292,7 +313,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		manager.flush();
 		//users.addEntity(manager);
 		DataScraper scraper = new DataScraper();
-		scraper.updateStats(new LocalDate(2012, 1, 7),  new LocalDate(2012, 1, 10));
+		scraper.updateStats(new LocalDate(2011, 12, 25),  new LocalDate(2012, 1, 10));
 		
 		//users.commit();
 		
