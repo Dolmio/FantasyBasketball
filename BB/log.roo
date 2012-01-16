@@ -75,3 +75,7 @@ field number --type java.lang.Double --fieldName lpTurnovers
 // [failed] field number --type double --fieldName lpTurnovers
 focus --class fantasy.domain.RoundTotal
 field reference --fieldName team --type fantasy.domain.Team
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-12 19:54:57
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-16 16:55:45
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-16 19:11:02
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-16 19:11:42

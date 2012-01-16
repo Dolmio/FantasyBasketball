@@ -41,15 +41,6 @@ privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
         return select;
     }
     
-    public TwinColSelect PlayerForm.buildStatsMultiSelect() {
-        TwinColSelect select = new TwinColSelect(null, getContainerForGameStats());
-        Object captionPropertyId = getGameStatCaptionPropertyId();
-        if (captionPropertyId != null) {
-            select.setItemCaptionPropertyId(captionPropertyId);
-        }
-        return select;
-    }
-    
     public ComboBox PlayerForm.buildTeamCombo() {
         ComboBox combo = new ComboBox(null, getContainerForTeams());
         Object captionPropertyId = getTeamCaptionPropertyId();

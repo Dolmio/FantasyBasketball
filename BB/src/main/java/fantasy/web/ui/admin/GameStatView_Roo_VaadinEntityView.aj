@@ -4,13 +4,11 @@
 package fantasy.web.ui.admin;
 
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Table;
 import fantasy.domain.GameStat;
 import fantasy.web.ui.admin.EntityTableColumnGenerator;
 import java.lang.Class;
-import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
 import java.util.List;
@@ -69,15 +67,6 @@ privileged aspect GameStatView_Roo_VaadinEntityView {
     
     public GameStat GameStatView.createEntityInstance() {
         return new GameStat();
-    }
-    
-    public BeanContainer<Long, GameStat> GameStatView.getTableContainer() {
-        BeanContainer<Long, GameStat> container = new BeanContainer<Long, GameStat>(GameStat.class);
-        container.setBeanIdProperty("id");
-        for (GameStat entity : GameStat.findAllGameStats()) {
-            container.addBean(entity);
-        }
-        return container;
     }
     
     public Item GameStatView.getItemForEntity(GameStat entity) {

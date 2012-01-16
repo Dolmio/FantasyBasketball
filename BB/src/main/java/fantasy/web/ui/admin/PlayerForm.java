@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
+import org.joda.time.LocalDate;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
 import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 import fantasy.domain.GameStat;
+import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 
 import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 import com.vaadin.ui.ComboBox;
@@ -41,7 +45,7 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 					return null;
 				} else if ("possiblePositionsImp".equals(propertyId)) {
 					field = buildPossiblePositionsMultiSelect();
-					field.setCaption(createCaptionByPropertyId(propertyId));
+					field.setCaption("Possible Positions");
 					
 				} 
 			else if ("possiblePositions".equals(propertyId)) {
@@ -84,13 +88,40 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 			return Collections.emptyList();
 		}
 	
-		ArrayList<Object> properties = new ArrayList<Object>(item.getItemPropertyIds());
-		properties.remove("possiblePositions");
+		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[] {"firstName", "lastName", "possiblePositionsImp", 
+				"currentPosition", "stats"}));
+		
 		
 		return properties;
 	}
 	
-	
+	 public TwinColSelect buildStatsMultiSelect(){
+		 BeanContainer<Long, GameStat> stats = getContainerForGameStats();
+		 TwinColSelect select = new TwinColSelect(null, stats);
+		 	
+	        //change item caption values to "id + date + lastname"
+		 	for(Long id : stats.getItemIds()){
+	        	Player statsPlayer = (Player) stats.getItem(id).getItemProperty("player").getValue();
+	        	String playerName = "";
+	        	//we want just the day (1-11-2012)
+	        	LocalDate statDate = new LocalDate(((Date)stats.getItem(id).getItemProperty("dateWhen").getValue()).getTime());
+	   	        	
+	        	if (statsPlayer != null){
+	        		playerName = statsPlayer.getLastName();
+	        	}
+	        	
+		 		select.setItemCaption(id,  stats.getItem(id).getItemProperty("id").getValue() + "  " +
+	        			 statDate + " " + playerName);
+	        }
+	       
+		 	  Object captionPropertyId = getGameStatCaptionPropertyId();
+		        if (captionPropertyId != null) {
+		            select.setItemCaptionPropertyId(captionPropertyId);
+		        }
+		        select.setWidth("500px");
+		      
+	        return select;
+	 }
 	
 	 public TwinColSelect buildPossiblePositionsMultiSelect() {
 	        TwinColSelect select = new TwinColSelect(null, getContainerForPlayerPositions());

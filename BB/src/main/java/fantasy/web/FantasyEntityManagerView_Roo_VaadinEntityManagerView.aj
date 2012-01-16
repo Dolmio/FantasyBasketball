@@ -5,7 +5,6 @@ package fantasy.web;
 
 import fantasy.web.ui.admin.GameStatView;
 import fantasy.web.ui.admin.GameView;
-import fantasy.web.ui.admin.PlayerPosView;
 import fantasy.web.ui.admin.PlayerView;
 import fantasy.web.ui.admin.RoundTotalView;
 import fantasy.web.ui.admin.RoundView;
@@ -25,7 +24,6 @@ privileged aspect FantasyEntityManagerView_Roo_VaadinEntityManagerView {
         result.put("Round",RoundView.class);
         result.put("Round Total",RoundTotalView.class);
         result.put("Player",PlayerView.class);
-        result.put("Player Pos",PlayerPosView.class);
         result.put("Game",GameView.class);
         result.put("Game Stat",GameStatView.class);
         return result;

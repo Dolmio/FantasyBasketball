@@ -23,15 +23,6 @@ import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect RoundForm_Roo_VaadinAutomaticEntityForm {
     
-    public TwinColSelect RoundForm.buildGamesMultiSelect() {
-        TwinColSelect select = new TwinColSelect(null, getContainerForGames());
-        Object captionPropertyId = getGameCaptionPropertyId();
-        if (captionPropertyId != null) {
-            select.setItemCaptionPropertyId(captionPropertyId);
-        }
-        return select;
-    }
-    
     public FormFieldFactory RoundForm.getFormFieldFactory() {
         return new DefaultFieldFactory() {
             @Override

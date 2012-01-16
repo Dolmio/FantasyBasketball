@@ -16,7 +16,7 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
     @Override
     protected void configureTable(Table table) {
         table.setContainerDataSource(getTableContainer());
-        table.setVisibleColumns(getTableColumns());
+        table.setVisibleColumns(new Object[] {"id", "awayTeam", "homeTeam", "winnerTeam"});
 
         setupGeneratedColumns(table);
     }

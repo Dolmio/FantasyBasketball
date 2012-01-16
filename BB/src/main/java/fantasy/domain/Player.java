@@ -79,4 +79,8 @@ public class Player implements Serializable {
         stats.add(stat);
         stat.setPlayer(this);
     }
+    
+    public int getStatCount(){
+    	return stats.size();
+    }
 }

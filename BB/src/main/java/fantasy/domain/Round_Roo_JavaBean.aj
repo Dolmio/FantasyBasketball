@@ -30,10 +30,6 @@ privileged aspect Round_Roo_JavaBean {
         return this.games;
     }
     
-    public void Round.setGames(Set<Game> games) {
-        this.games = games;
-    }
-    
     public String Round.getName() {
         return this.name;
     }

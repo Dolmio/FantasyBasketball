@@ -26,7 +26,7 @@ public class Game implements Serializable{
     @ManyToOne
     private Team winnerTeam;
     
-  
     @ManyToOne
     private Round round;
+    
 }

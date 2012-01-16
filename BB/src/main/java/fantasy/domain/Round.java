@@ -35,4 +35,18 @@ public class Round implements Serializable  {
     
     @NotNull
     private String name;
+    
+  public void setGames(Set<Game> games){
+	  for(Game game : games){
+		  game.setRound(this);
+	  }
+	  this.games = games;
+  }
+    
+  public int getGameCount(){
+	  return games.size();
+  }
+  
+  
+  
 }
