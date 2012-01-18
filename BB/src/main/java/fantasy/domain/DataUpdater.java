@@ -9,6 +9,9 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.parsing.BeanComponentDefinition;
+import org.springframework.transaction.TransactionSystemException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import fantasy.domain.positions.TeamPosition;
 
@@ -19,38 +22,38 @@ public class DataUpdater implements Serializable {
 	 * Updates or creates new RoundTotal for every team playing this round.
 	 * @param round
 	 */
-	public void updateAllRoundTotals(Round round){
+	public void updateAllRoundTotals (Round round) throws TransactionSystemException{
 
 		Set<Team> teamsInRound = getTeamsInRound(round);
 		System.out.println("TeamsSIze:" + teamsInRound.size());
 
 		for(Team team : teamsInRound){
-			boolean roundTotalExists = false;
-			RoundTotal rtToUpdate = null;
-			//find out if we need brand new RoundTotal or if we overwrite existing one
-			for(RoundTotal rt : team.getRoundTotals()){
-				if(rt.getId() == round.getId()){
-					rtToUpdate = rt;
-					rtToUpdate.resetStats();
-					roundTotalExists = true;
+			RoundTotal total = null;
+			for(RoundTotal existingTotal : team.getRoundTotals()){
+				if(existingTotal.getRound().getId() == round.getId()){
+					total = existingTotal;
 					break;
 				}
-
 			}
-
-			if(!roundTotalExists){
-				rtToUpdate = new RoundTotal();
-				rtToUpdate.setRound(round);
-				rtToUpdate.setTeam(team);
-				rtToUpdate.persist();
-				team.addRoundTotal(rtToUpdate);
+			
+			if(total == null){
+				total = new RoundTotal();
 			}
+			total.resetStats();
+			total.setRound(round);
+			total.setTeam(team);
+			total.persist();
+			team.addRoundTotal(total);
+			
 			//update roundTotal
-			updateRoundTotal(rtToUpdate, round, team);
+			updateRoundTotal(total, round, team);
 			team.merge();
+			
+			
+			
 		}
 
-		
+
 
 
 	}
@@ -103,7 +106,7 @@ public class DataUpdater implements Serializable {
 	private Set<Team> getTeamsInRound(Round round){
 		Set<Team> teamsInRound = new HashSet<Team>();
 		for(Game game : round.getGames()){
-			
+
 			System.out.println("Lisätään peli");
 			teamsInRound.add(game.getHomeTeam());
 			teamsInRound.add(game.getAwayTeam());
@@ -115,7 +118,7 @@ public class DataUpdater implements Serializable {
 	public void updateRoundLeaguePoints(Round round){
 		Set<Team> teams = getTeamsInRound(round);
 		List<RoundTotal> totals = new ArrayList<RoundTotal>();
-		
+
 		//get all roundTotals from this round
 		for(Team team : teams){
 			for(RoundTotal total : team.getRoundTotals()){
@@ -146,13 +149,49 @@ public class DataUpdater implements Serializable {
 					else{
 						total.setLeaguePoints(currentStatType, (totals.size() - i) * currentStatType.getMultiplier());
 					}
-					
+
 				}
 				total.merge();
 			}
-			
-
 		}
+	}
+
+	/**
+	 * Updates all games in certain round to have right winner according to the points team has in the round
+	 * @param round
+	 */
+	public void updateWins(Round round){
+		
+		for(Game game : round.getGames()){
+			Team homeTeam = game.getHomeTeam();
+			Team awayTeam = game.getAwayTeam();
+			RoundTotal homeRoundTotal = getMatchingRoundTotal(homeTeam.getRoundTotals(), round);
+			RoundTotal awayRoundTotal = getMatchingRoundTotal(awayTeam.getRoundTotals(), round);
+
+			//hometeam is winner when compare returns > 0
+			if(homeRoundTotal.compareTo(awayRoundTotal) > 0){
+				game.setWinner(GameWinner.HOME);
+				
+			}
+			else{
+				game.setWinner(GameWinner.AWAY);
+			}
+
+			game.merge();
+		}
+
+
+	}
+
+	private RoundTotal getMatchingRoundTotal(Set<RoundTotal> totals, Round round){
+		System.out.println("RoundID: " + round.getId());
+		for(RoundTotal total : totals){
+			System.out.println("totalId: " + total.getRound().getId());
+			if(total.getRound().getId().equals(round.getId())){
+				return total;
+			}
+		}
+		return null;
 	}
 
 

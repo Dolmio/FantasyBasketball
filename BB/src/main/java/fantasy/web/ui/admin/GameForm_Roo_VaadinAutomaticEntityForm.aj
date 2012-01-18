@@ -5,6 +5,7 @@ package fantasy.web.ui.admin;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
@@ -13,25 +14,21 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import fantasy.domain.Game;
+import fantasy.domain.GameWinner;
 import fantasy.domain.Round;
 import fantasy.domain.Team;
 import java.lang.Class;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
+import java.util.Arrays;
+import java.util.Collection;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
 
 privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
     
-    public ComboBox GameForm.buildWinnerTeamCombo() {
-        ComboBox combo = new ComboBox(null, getContainerForTeams());
-        Object captionPropertyId = getTeamCaptionPropertyId();
-        if (captionPropertyId != null) {
-            combo.setItemCaptionPropertyId(captionPropertyId);
-        }
-        return combo;
-    }
+    private BeanItemContainer<GameWinner> GameForm.containerForGameWinners;
     
     public ComboBox GameForm.buildAwayTeamCombo() {
         ComboBox combo = new ComboBox(null, getContainerForTeams());
@@ -45,6 +42,15 @@ privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
     public ComboBox GameForm.buildRoundCombo() {
         ComboBox combo = new ComboBox(null, getContainerForRounds());
         Object captionPropertyId = getRoundCaptionPropertyId();
+        if (captionPropertyId != null) {
+            combo.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return combo;
+    }
+    
+    public ComboBox GameForm.buildWinnerCombo() {
+        ComboBox combo = new ComboBox(null, getContainerForGameWinners());
+        Object captionPropertyId = getGameWinnerCaptionPropertyId();
         if (captionPropertyId != null) {
             combo.setItemCaptionPropertyId(captionPropertyId);
         }
@@ -67,10 +73,6 @@ privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
                 Field field = null;
                 if (getIdProperty().equals(propertyId) || getVersionProperty().equals(propertyId)) {
                     return null;
-                } else if ("winnerTeam".equals(propertyId)) {
-                    ComboBox combo = buildWinnerTeamCombo();
-                    field = new BeanFieldWrapper<Team>(combo, Team.class, getContainerForTeams(), "id");
-                    field.setCaption(createCaptionByPropertyId(propertyId));
                 } else if ("awayTeam".equals(propertyId)) {
                     ComboBox combo = buildAwayTeamCombo();
                     field = new BeanFieldWrapper<Team>(combo, Team.class, getContainerForTeams(), "id");
@@ -78,6 +80,9 @@ privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
                 } else if ("round".equals(propertyId)) {
                     ComboBox combo = buildRoundCombo();
                     field = new BeanFieldWrapper<Round>(combo, Round.class, getContainerForRounds(), "id");
+                    field.setCaption(createCaptionByPropertyId(propertyId));
+                } else if ("winner".equals(propertyId)) {
+                    field = buildWinnerCombo();
                     field.setCaption(createCaptionByPropertyId(propertyId));
                 } else if ("homeTeam".equals(propertyId)) {
                     ComboBox combo = buildHomeTeamCombo();
@@ -107,6 +112,15 @@ privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
         return container;
     }
     
+    public BeanItemContainer<GameWinner> GameForm.getContainerForGameWinners() {
+        if (containerForGameWinners == null) {
+            Collection<GameWinner> items = Arrays.asList(GameWinner.class.getEnumConstants());
+            BeanItemContainer<GameWinner> container = new BeanItemContainer<GameWinner>(items);
+            containerForGameWinners = container;
+        }
+        return containerForGameWinners;
+    }
+    
     public BeanContainer<Long, Round> GameForm.getContainerForRounds() {
         BeanContainer<Long, Round> container = new BeanContainer<Long, Round>(Round.class);
         container.setBeanIdProperty("id");
@@ -122,6 +136,10 @@ privileged aspect GameForm_Roo_VaadinAutomaticEntityForm {
     
     public Object GameForm.getTeamCaptionPropertyId() {
         return "name";
+    }
+    
+    public Object GameForm.getGameWinnerCaptionPropertyId() {
+        return null;
     }
     
     public Object GameForm.getRoundCaptionPropertyId() {

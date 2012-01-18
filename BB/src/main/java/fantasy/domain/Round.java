@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import javax.persistence.OneToMany;
 @RooJavaBean
 @RooToString
 @RooEntity
@@ -30,21 +31,31 @@ public class Round implements Serializable  {
     @DateTimeFormat(style = "M-")
     private Date endDate;
 	
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "round", cascade = CascadeType.ALL)
     private Set<Game> games = new HashSet<Game>();
     
     @NotNull
     private String name;
-    
+   
+   /*
   public void setGames(Set<Game> games){
 	  for(Game game : games){
 		  game.setRound(this);
 	  }
 	  this.games = games;
   }
+  */
     
   public int getGameCount(){
 	  return games.size();
+  }
+  
+  public void addGame(Game game){
+	  games.add(game);
+  }
+  
+  public void removeGame(Game game){
+	  games.remove(game);
   }
   
   

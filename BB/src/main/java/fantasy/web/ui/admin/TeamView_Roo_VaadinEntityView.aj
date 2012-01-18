@@ -105,6 +105,10 @@ privileged aspect TeamView_Roo_VaadinEntityView {
         table.addGeneratedColumn("players", new EntityTableColumnGenerator((String) getPlayerCaptionPropertyId()));
         table.removeGeneratedColumn("roundTotals");
         table.addGeneratedColumn("roundTotals", new EntityTableColumnGenerator((String) getRoundTotalCaptionPropertyId()));
+        table.removeGeneratedColumn("homeGames");
+        table.addGeneratedColumn("homeGames", new EntityTableColumnGenerator((String) getGameCaptionPropertyId()));
+        table.removeGeneratedColumn("awayGames");
+        table.addGeneratedColumn("awayGames", new EntityTableColumnGenerator((String) getGameCaptionPropertyId()));
     }
     
     public Object TeamView.getPlayerCaptionPropertyId() {
@@ -112,6 +116,10 @@ privileged aspect TeamView_Roo_VaadinEntityView {
     }
     
     public Object TeamView.getRoundTotalCaptionPropertyId() {
+        return null;
+    }
+    
+    public Object TeamView.getGameCaptionPropertyId() {
         return null;
     }
     

@@ -153,13 +153,13 @@ public class FantasyEntityManagerView extends CustomComponent implements Navigat
             setMargin(true);
             setSizeFull();
             addStyleName(Reindeer.LAYOUT_BLUE);
-            Label l = new Label(
-                    "<h1 class=\"v-label-h1\" style=\"text-align: center;\">Welcome</h1> Select an entity type from the left side menu to begin",
-                    Label.CONTENT_XHTML);
-            l.setSizeUndefined();
-            l.addStyleName(Reindeer.LABEL_SMALL);
-            addComponent(l);
-            setComponentAlignment(l, Alignment.MIDDLE_CENTER);
+//            Label l = new Label(
+//                    "<h1 class=\"v-label-h1\" style=\"text-align: center;\">Welcome</h1> Select an entity type from the left side menu to begin",
+//                    Label.CONTENT_XHTML);
+//            l.setSizeUndefined();
+//            l.addStyleName(Reindeer.LABEL_SMALL);
+//            addComponent(l);
+//            setComponentAlignment(l, Alignment.MIDDLE_CENTER);
         }
 
         public void init(Navigator navigator, Application application) {
@@ -289,7 +289,7 @@ public class FantasyEntityManagerView extends CustomComponent implements Navigat
 		appName.setImmediate(false);
 		appName.setWidth("100.0%");
 		appName.setHeight("-1px");
-		appName.setValue("Welcome");
+		appName.setValue("Admin");
 		appName.setContentMode(3);
 		sidebar.addComponent(appName);
 		

@@ -4,6 +4,7 @@
 package fantasy.domain;
 
 import fantasy.domain.Game;
+import fantasy.domain.GameWinner;
 import fantasy.domain.Round;
 import fantasy.domain.RoundDataOnDemand;
 import fantasy.domain.Team;
@@ -37,7 +38,7 @@ privileged aspect GameDataOnDemand_Roo_DataOnDemand {
         setAwayTeam(obj, index);
         setHomeTeam(obj, index);
         setRound(obj, index);
-        setWinnerTeam(obj, index);
+        setWinner(obj, index);
         return obj;
     }
     
@@ -56,9 +57,9 @@ privileged aspect GameDataOnDemand_Roo_DataOnDemand {
         obj.setRound(round);
     }
     
-    public void GameDataOnDemand.setWinnerTeam(Game obj, int index) {
-        Team winnerTeam = teamDataOnDemand.getRandomTeam();
-        obj.setWinnerTeam(winnerTeam);
+    public void GameDataOnDemand.setWinner(Game obj, int index) {
+        GameWinner winner = GameWinner.class.getEnumConstants()[0];
+        obj.setWinner(winner);
     }
     
     public Game GameDataOnDemand.getSpecificGame(int index) {

@@ -33,7 +33,7 @@ public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 			return Collections.emptyList();
 		}
 	
-		return  new ArrayList<Object>(Arrays.asList(new Object[] {"name", "startDate", "endDate", "games"}));
+		return  new ArrayList<Object>(Arrays.asList(new Object[] {"name", "startDate", "endDate","games"}));
 		
 	}
     
@@ -44,7 +44,7 @@ public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 	 
 	 	TwinColSelect select = new TwinColSelect(null, games);
 	 	
-        //change item caption values to "lastname + firstname"
+        //change item caption values to "awayTeam + homeTeam + roundName"
 	 	for(Long id : games.getItemIds()){
         	String awayTeam = ((Team) games.getItem(id).getItemProperty("awayTeam").getValue()).getName();
         	String homeTeam = ((Team) games.getItem(id).getItemProperty("homeTeam").getValue()).getName();

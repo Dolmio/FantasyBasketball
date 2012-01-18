@@ -50,7 +50,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		//initDB();		
+		initDB();		
 		getContext ().addTransactionListener ( this );
 		
 		
@@ -273,22 +273,30 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		
 		Game game = new Game();
+		game.persist();
 		game.setAwayTeam(t);
 		game.setHomeTeam(team2);
-		game.persist();
+		
 		
 		Game game2 = new Game();
+		game2.persist();
 		game2.setAwayTeam(team3);
 		game2.setHomeTeam(team4);
-		game2.persist();
+		
 		
 		Round round = new Round();
 		round.setName("Kierros1");
 		round.setStartDate(new LocalDate(2012, 1, 1).toDate());
 		round.setEndDate(new LocalDate(2012,1,10).toDate());
-		round.setGames(new HashSet<Game>(Arrays.asList(new Game[] {game, game2})));
-		
 		round.persist();
+		
+		game.setRound(round);
+		game2.setRound(round);
+		
+		
+		
+		
+		
 		round.flush();
 		
 		
@@ -313,7 +321,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		manager.flush();
 		//users.addEntity(manager);
 		DataScraper scraper = new DataScraper();
-		scraper.updateStats(new LocalDate(2011, 12, 25),  new LocalDate(2012, 1, 10));
+		scraper.updateStats(new LocalDate(2012, 1, 10),  new LocalDate(2012, 1, 10));
 		
 		//users.commit();
 		

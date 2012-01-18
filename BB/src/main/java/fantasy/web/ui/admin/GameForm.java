@@ -25,7 +25,7 @@ public class GameForm extends AutomaticEntityForm<fantasy.domain.Game> {
 		}
 	
 		ArrayList<Object> properties = new ArrayList<Object>(item.getItemPropertyIds());
-		properties.remove("round");
+		//properties.remove("round");
 		
 		return properties;
 	}

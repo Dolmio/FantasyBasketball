@@ -1,6 +1,7 @@
 package fantasy.web.ui.admin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,8 +20,11 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 
+import fantasy.domain.Game;
 import fantasy.domain.Player;
+import fantasy.domain.Round;
 import fantasy.domain.RoundTotal;
+import fantasy.domain.Team;
 
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Team.class)
 public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
@@ -40,8 +44,8 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 			return Collections.emptyList();
 		}
 	
-		ArrayList<Object> properties = new ArrayList<Object>(item.getItemPropertyIds());
-		//properties.remove("players");
+		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[]{"name", "players"}));
+		
 		
 		return properties;
 	}
@@ -64,6 +68,17 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 	                	field = new BeanSetFieldWrapper<RoundTotal>(select, RoundTotal.class, getContainerForRoundTotals(), "id");
 	                	field.setCaption(createCaptionByPropertyId(propertyId));
 	                	
+	                }else if("games".equals(propertyId)){
+	                	TwinColSelect select = buildGamesMultiSelect();
+	                	field = new BeanSetFieldWrapper<Game>(select, Game.class, getContainerForGames(), "id");
+	                	field.setCaption(createCaptionByPropertyId(propertyId));
+	                
+	                	
+	                }else if("wins".equals(propertyId)){
+	                	TwinColSelect select = buildGamesMultiSelect();
+	                	field = new BeanSetFieldWrapper<Game>(select, Game.class, getContainerForGames(), "id");
+	                	field.setCaption(createCaptionByPropertyId(propertyId));
+	                
 	                } else {
 	                    field = super.createField(item, propertyId, uiContext);
 	                    if (field instanceof TextField) {
@@ -107,5 +122,40 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 	        }
 	        return select;
 	    }
+	 
+	 public TwinColSelect buildRoundTotalsMultiSelect(){
+		 BeanContainer<Long, RoundTotal> totals = getContainerForRoundTotals();
+		 TwinColSelect select = new TwinColSelect(null, totals);
+		 	
+	        //change item caption values to "lastname + firstname"
+		 	for(Long id : totals.getItemIds()){
+	        	Round round = (Round) totals.getItem(id).getItemProperty("round").getValue();
+		 		Team team = (Team) totals.getItem(id).getItemProperty("team").getValue();
+		 		
+	        	select.setItemCaption(id, round.getName() + " " + team.getName());
+	        }
+	        Object captionPropertyId = getPlayerCaptionPropertyId();
+	        if (captionPropertyId != null) {
+	            select.setItemCaptionPropertyId(captionPropertyId);
+	        }
+	        return select;
+	 }
+	 
 	
+	 public TwinColSelect buildGamesMultiSelect(){
+		 BeanContainer<Long, Game> games = getContainerForGames();
+		 
+		 TwinColSelect select = new TwinColSelect(null, games);
+		 	
+	        //change item caption values to "lastname + firstname"
+		 	for(Long id : games.getItemIds()){
+	        	Team homeTeam = (Team) games.getItem(id).getItemProperty("homeTeam").getValue();
+		 		Team awayTeam = (Team) games.getItem(id).getItemProperty("awayTeam").getValue();
+		 		Round round = (Round) games.getItem(id).getItemProperty("round").getValue();
+	        	select.setItemCaption(id, homeTeam.getName() + " VS " + awayTeam.getName() + " " + round.getName());
+	        }
+		 	select.setWidth("500px");
+	        return select;
+	 }
+	 
 }

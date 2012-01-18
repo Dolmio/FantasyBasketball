@@ -16,7 +16,7 @@ import fantasy.domain.Team;
 @RooJavaBean
 @RooToString
 @RooEntity
-public class RoundTotal implements Serializable {
+public class RoundTotal implements Serializable, Comparable {
 
     @Min(0)
     private Integer points = 0;
@@ -216,4 +216,21 @@ public class RoundTotal implements Serializable {
         assists = 0;
         rebounds = 0;
     }
+
+	@Override
+	public int compareTo(Object o) {
+		RoundTotal otherTotal = (RoundTotal) o;
+		if(this.equals(o)) return 0;
+		
+		//if total points are equal we let the admin declare real winner manually, because it's rare condition.
+		if(getTotalPoints() == otherTotal.getTotalPoints()){
+			return 1;
+		}
+		else{
+			double pointDifferential = getTotalPoints() - otherTotal.getTotalPoints();
+			return (int) (pointDifferential < 0 ? Math.floor(pointDifferential) : Math.ceil(pointDifferential));
+			
+		}
+		
+	}
 }

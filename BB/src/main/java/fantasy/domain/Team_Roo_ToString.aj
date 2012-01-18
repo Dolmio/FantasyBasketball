@@ -9,11 +9,17 @@ privileged aspect Team_Roo_ToString {
     
     public String Team.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("AwayGames: ").append(getAwayGames() == null ? "null" : getAwayGames().size()).append(", ");
+        sb.append("GameCount: ").append(getGameCount()).append(", ");
+        sb.append("HomeGames: ").append(getHomeGames() == null ? "null" : getHomeGames().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
+        sb.append("PlayerCount: ").append(getPlayerCount()).append(", ");
         sb.append("Players: ").append(getPlayers() == null ? "null" : getPlayers().size()).append(", ");
+        sb.append("RoundCount: ").append(getRoundCount()).append(", ");
         sb.append("RoundTotals: ").append(getRoundTotals() == null ? "null" : getRoundTotals().size()).append(", ");
-        sb.append("Version: ").append(getVersion());
+        sb.append("Version: ").append(getVersion()).append(", ");
+        sb.append("WinCount: ").append(getWinCount());
         return sb.toString();
     }
     

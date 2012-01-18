@@ -11,6 +11,7 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
+import fantasy.domain.Game;
 import fantasy.domain.Player;
 import fantasy.domain.RoundTotal;
 import fantasy.domain.Team;
@@ -23,9 +24,18 @@ import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
     
-    public TwinColSelect TeamForm.buildRoundTotalsMultiSelect() {
-        TwinColSelect select = new TwinColSelect(null, getContainerForRoundTotals());
-        Object captionPropertyId = getRoundTotalCaptionPropertyId();
+    public TwinColSelect TeamForm.buildHomeGamesMultiSelect() {
+        TwinColSelect select = new TwinColSelect(null, getContainerForGames());
+        Object captionPropertyId = getGameCaptionPropertyId();
+        if (captionPropertyId != null) {
+            select.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return select;
+    }
+    
+    public TwinColSelect TeamForm.buildAwayGamesMultiSelect() {
+        TwinColSelect select = new TwinColSelect(null, getContainerForGames());
+        Object captionPropertyId = getGameCaptionPropertyId();
         if (captionPropertyId != null) {
             select.setItemCaptionPropertyId(captionPropertyId);
         }
@@ -41,6 +51,15 @@ privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
         return container;
     }
     
+    public BeanContainer<Long, Game> TeamForm.getContainerForGames() {
+        BeanContainer<Long, Game> container = new BeanContainer<Long, Game>(Game.class);
+        container.setBeanIdProperty("id");
+        for (Game entity : Game.findAllGames()) {
+            container.addBean(entity);
+        }
+        return container;
+    }
+    
     public Class<Team> TeamForm.getEntityClass() {
         return Team.class;
     }
@@ -50,6 +69,10 @@ privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
     }
     
     public Object TeamForm.getRoundTotalCaptionPropertyId() {
+        return null;
+    }
+    
+    public Object TeamForm.getGameCaptionPropertyId() {
         return null;
     }
     

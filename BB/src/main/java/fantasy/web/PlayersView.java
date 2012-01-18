@@ -50,7 +50,12 @@ public class PlayersView extends CustomComponent {
 	private static final List<Object> COUNTABLE_COLUMNS = new ArrayList<Object>(Arrays.asList(new Object[]{"points", "rebounds", "assists", "blocks",
 		"steals", "turnovers", "fgMade", "fgAttempts", "ftMade", "threePointsMade"}));
 	
+	private static final Object[]  VISIBLE_COLUMNS = new Object[]{ "dateWhen","points", "rebounds", "assists", "blocks",
+		"steals", "turnovers", "fgMade", "fgAttempts", "ftMade", "threePointsMade"};
 
+	private static final String[] COLUMN_HEADERS = new String[] { "Date", "Points", "Rebounds", "Assists", "Blocks", "Steals", "Turnovers",
+		"FG Made", "FG Attempts", "FT Made", "3Points Made"};
+	
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -157,8 +162,8 @@ public class PlayersView extends CustomComponent {
 			statsTable.setContainerDataSource(filteredStatsContainer);
 			
 			
-			statsTable.setVisibleColumns(GameStatView.VISIBLE_COLUMNS);
-			statsTable.setColumnHeaders(GameStatView.COLUMN_HEADERS);
+			statsTable.setVisibleColumns(VISIBLE_COLUMNS);
+			statsTable.setColumnHeaders(COLUMN_HEADERS);
 			
 			//set column footers
 			for(Object columnId: GameStatView.VISIBLE_COLUMNS){

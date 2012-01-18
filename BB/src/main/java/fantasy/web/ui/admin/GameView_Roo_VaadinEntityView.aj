@@ -105,14 +105,16 @@ privileged aspect GameView_Roo_VaadinEntityView {
         table.addGeneratedColumn("homeTeam", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
         table.removeGeneratedColumn("awayTeam");
         table.addGeneratedColumn("awayTeam", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
-        table.removeGeneratedColumn("winnerTeam");
-        table.addGeneratedColumn("winnerTeam", new EntityTableColumnGenerator((String) getTeamCaptionPropertyId()));
         table.removeGeneratedColumn("round");
         table.addGeneratedColumn("round", new EntityTableColumnGenerator((String) getRoundCaptionPropertyId()));
     }
     
     public Object GameView.getTeamCaptionPropertyId() {
         return "name";
+    }
+    
+    public Object GameView.getGameWinnerCaptionPropertyId() {
+        return null;
     }
     
     public Object GameView.getRoundCaptionPropertyId() {

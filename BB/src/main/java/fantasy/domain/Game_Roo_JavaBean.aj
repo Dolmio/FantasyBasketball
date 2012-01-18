@@ -3,6 +3,7 @@
 
 package fantasy.domain;
 
+import fantasy.domain.GameWinner;
 import fantasy.domain.Round;
 import fantasy.domain.Team;
 
@@ -12,32 +13,20 @@ privileged aspect Game_Roo_JavaBean {
         return this.homeTeam;
     }
     
-    public void Game.setHomeTeam(Team homeTeam) {
-        this.homeTeam = homeTeam;
-    }
-    
     public Team Game.getAwayTeam() {
         return this.awayTeam;
     }
     
-    public void Game.setAwayTeam(Team awayTeam) {
-        this.awayTeam = awayTeam;
+    public GameWinner Game.getWinner() {
+        return this.winner;
     }
     
-    public Team Game.getWinnerTeam() {
-        return this.winnerTeam;
-    }
-    
-    public void Game.setWinnerTeam(Team winnerTeam) {
-        this.winnerTeam = winnerTeam;
+    public void Game.setWinner(GameWinner winner) {
+        this.winner = winner;
     }
     
     public Round Game.getRound() {
         return this.round;
-    }
-    
-    public void Game.setRound(Round round) {
-        this.round = round;
     }
     
 }

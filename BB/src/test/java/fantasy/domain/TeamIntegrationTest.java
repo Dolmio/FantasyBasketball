@@ -1,5 +1,9 @@
 package fantasy.domain;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -12,10 +16,22 @@ public class TeamIntegrationTest {
 	TeamDataOnDemand tDod;
 	@Autowired
 	PlayerDataOnDemand pDod;
+	@Autowired 
+	GameDataOnDemand gDod;
     
 	@Test
-    public void testMarkerMethod() {
-    }
+    public void testGameAdding() {
+		Team team = tDod.getRandomTeam();
+		Game game = gDod.getRandomGame();
+		Set<Game> homeGames = new HashSet<Game>();
+		homeGames.add(game);
+		team.setHomeGames(homeGames);
+		team.persist();
+		team.flush();
+	
+		
+		team.setRoundTotal(new HashSet<RoundTotal>(Arrays.asList(new RoundTotal[]{new RoundTotal()})));
+	}
     
     @Test
     public void testPlayerOrpahnRemoval(){
