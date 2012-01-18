@@ -37,17 +37,17 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
 		try {
 			getForm().commit();
 			Game game = (Game) getEntityForItem(getForm().getItemDataSource());
-			
+
 			EntityManager em = game.giveEntityManager();
 			//we have to make merging in two parts because when we first merge game savedGame 
 			//doesn't have information about updates made to reference relationships because they
 			//aren't yet part of the Persistence context. We can't also merge references first because
 			//game doesn't have id yet.
-			
+
 			Game savedGame = em.merge(game);
 			em.flush();
-			
-			
+
+
 			game.setId(savedGame.getId());
 			game.setVersion(savedGame.getVersion());
 			if(game.getAwayTeam() != null){
@@ -59,10 +59,10 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
 			if(game.getRound() != null){
 				em.merge(game.getRound().merge());
 			}
-		
+
 			em.flush();
-			
-			
+
+
 
 			return true;
 		} catch (InvalidValueException e) {
@@ -71,25 +71,25 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
 			return false;
 		}
 	}
-	
-	
-	 public void doDelete() {
-	     Game game = (Game) getEntityForItem(getForm().getItemDataSource());   
-		 //remove refrences to this entity before deleting
-	     if(game.getAwayTeam() != null){
-			 game.getAwayTeam().removeAwayGame(game);
-			 game.getAwayTeam().merge();
-		 }
-		 if(game.getHomeTeam() != null){
-			 game.getHomeTeam().removeHomeGame(game);
-			 game.getHomeTeam().merge();
-		 }
-		 if(game.getRound() != null){
-			 game.getRound().removeGame(game);
-			 game.getRound().merge();
-		 }
-			 
-	     deleteEntity(game);
-	    }
+
+	@Override
+	public void doDelete() {
+		Game game = (Game) getEntityForItem(getForm().getItemDataSource());   
+		//remove refrences to this entity before deleting
+		if(game.getAwayTeam() != null){
+			game.getAwayTeam().removeAwayGame(game);
+			game.getAwayTeam().merge();
+		}
+		if(game.getHomeTeam() != null){
+			game.getHomeTeam().removeHomeGame(game);
+			game.getHomeTeam().merge();
+		}
+		if(game.getRound() != null){
+			game.getRound().removeGame(game);
+			game.getRound().merge();
+		}
+
+		deleteEntity(game);
+	}
 
 }

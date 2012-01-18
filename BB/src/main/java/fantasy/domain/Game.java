@@ -39,8 +39,7 @@ public class Game implements Serializable{
     	
     	if(team != null){
     		team.addHomeGame(this);
-    		//team.merge();
-    		//team.flush();
+    		
     	}
     	this.homeTeam = team;
     	
@@ -54,8 +53,7 @@ public class Game implements Serializable{
     	
     	if(team != null){
     		team.addAwayGame(this);
-    		//team.merge();
-    		//team.flush();
+    		
     	}
     	this.awayTeam = team;
     }
@@ -68,10 +66,6 @@ public class Game implements Serializable{
     	
     	if(newRound != null){
     		newRound.addGame(this);
-    		//newRound.merge();
-    		//newRound.flush();
-    		
-    		
     	}
     	this.round = newRound;
     }

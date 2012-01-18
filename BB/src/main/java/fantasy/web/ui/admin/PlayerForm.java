@@ -88,7 +88,7 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 			return Collections.emptyList();
 		}
 	
-		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[] {"firstName", "lastName", "possiblePositionsImp", 
+		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[] {"firstName", "lastName", "team","value", "possiblePositionsImp", 
 				"currentPosition", "stats"}));
 		
 		

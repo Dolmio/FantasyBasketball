@@ -39,7 +39,7 @@ public class Team implements Serializable {
     
     @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.ALL)
     private Set<Game> awayGames = new HashSet<Game>();
-
+    /*
     public void setPlayers(Set<Player> players) {
         removeOldPlayers();
         this.players = players;
@@ -54,7 +54,17 @@ public class Team implements Serializable {
             p.flush();
         }
     }
-
+	
+	*/
+    
+    public void addPlayer(Player player){
+    	players.add(player);
+    }
+    
+    public void removePlayer(Player player){
+    	players.remove(player);
+    }
+    
     public void addRoundTotal(RoundTotal total) {
         roundTotals.add(total);
     }
@@ -64,8 +74,7 @@ public class Team implements Serializable {
     }
 
     public void setRoundTotal(Set<RoundTotal> totals) {
-        System.out.println("Jee");
-    	for (RoundTotal total : totals) {
+      for (RoundTotal total : totals) {
             total.setTeam(this);
         }
     }

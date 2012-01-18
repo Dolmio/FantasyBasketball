@@ -50,7 +50,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		initDB();		
+		//initDB();		
 		getContext ().addTransactionListener ( this );
 		
 		
@@ -179,78 +179,51 @@ public class FantasyApplication extends Application implements ApplicationContex
 	}
 	
 	
-	private Player getPlayer(String firstName, String lastName){
+	private Player getPlayer(String firstName, String lastName, Team team){
 		Player p = new Player();
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.persist();
+		p.setTeam(team);
 		return p;
 	}
 	
 	private void initDB(){
+		/*
+		Team t = new Team();
+		t.setName("Boston");
+		
+		t.persist();
 		
 		
-		
-		
-		
-		//JPAContainer<Player> players = JPAContainerFactory.make(Player.class, PERSISTENCE_UNIT);
-		Player p = new Player();
-		
-		p.setFirstName("Juho");
-		p.setLastName("Salmio");
-		p.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.SF, PlayerPosition.SG})));
-		p.persist();
-		
-		
-		//p.setStats(getRandomStatSet());
-		
-		
-		Player p2 = new Player();
-		p2.setFirstName("Teppo");
-		p2.setLastName("Numminen");
-		p2.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
-		//p2.setStats(getRandomStatSet());
-		p2.persist();
-		//players.addEntity(p);
-		//players.commit();
-		
-		Player p3 = new Player();
-		p3.setFirstName("Dwight");
-		p3.setLastName("Howard");
-		p3.setPossiblePositions(new HashSet<PlayerPosition>(Arrays.asList(new PlayerPosition[] {PlayerPosition.C, PlayerPosition.PF})));
-		//p3.setStats(getRandomStatSet());
-		p3.persist();
-		
-		Player oma1 = getPlayer("Al", "Horford");
+		Player oma1 = getPlayer("Al", "Horford",t);
 		oma1.setCurrentPosition(TeamPosition.ANY);
-		Player oma2 = getPlayer("Marc", "Gasol");
+		Player oma2 = getPlayer("Marc", "Gasol",t);
 		oma2.setCurrentPosition(TeamPosition.ANY);
-		Player oma3 = getPlayer("Danny", "Granger");
-		Player oma4 = getPlayer("Kyrie", "Irving");
-		Player oma5 = getPlayer("Brandon", "Jennings");
-		Player oma6 = getPlayer("Marreese", "Speights");
-		Player oma7 = getPlayer("Jason", "Terry");
-		Player oma8 = getPlayer("John", "Salmons");
-		Player oma9 = getPlayer("Boris", "Diaw");
-		Player oma10 = getPlayer("Jarrett", "Jack");
-		Player oma11 = getPlayer("Derrick", "Williams");
-		Player oma12 = getPlayer("Jason", "Richardson");
-		Player oma13 = getPlayer("Marcin", "Gortat");
-		Player oma14 = getPlayer("Jamal", "Crawford");
+		Player oma3 = getPlayer("Danny", "Granger",t);
+		Player oma4 = getPlayer("Kyrie", "Irving",t);
+		Player oma5 = getPlayer("Brandon", "Jennings",t);
+		Player oma6 = getPlayer("Marreese", "Speights",t);
+		Player oma7 = getPlayer("Jason", "Terry",t);
+		Player oma8 = getPlayer("John", "Salmons",t);
+		Player oma9 = getPlayer("Boris", "Diaw",t);
+		Player oma10 = getPlayer("Jarrett", "Jack",t);
+		Player oma11 = getPlayer("Derrick", "Williams",t);
+		Player oma12 = getPlayer("Jason", "Richardson",t);
+		Player oma13 = getPlayer("Marcin", "Gortat",t);
+		Player oma14 = getPlayer("Jamal", "Crawford",t);
 		
 	
 		//JPAContainer<Team>  teams = JPAContainerFactory.make(Team.class, PERSISTENCE_UNIT);
-		Team t = new Team();
-		t.setName("Boston");
-		t.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {p, p2, p3, oma1, oma2 ,oma3 , oma4, oma5 ,oma6 , oma7, oma8 ,oma9 , oma10, oma11 ,oma12 , oma13, oma14})));
-		t.persist();
+		
 		
 		Team team2 = new Team();
 		team2.setName("Chicago");
-		Player player = getPlayer("Derrick", "Rose");
-		player.setCurrentPosition(TeamPosition.G);
-		team2.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player})));
 		team2.persist();
+		Player player = getPlayer("Derrick", "Rose", team2);
+		player.setCurrentPosition(TeamPosition.G);
+		
+		
 		//teams.addEntity(t);
 		//teams.commit();
 		
@@ -259,17 +232,19 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		Team team3 = new Team();
 		team3.setName("Dallas");
-		Player player3 = getPlayer("Lebron", "James");
-		player3.setCurrentPosition(TeamPosition.PF);
-		team3.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player3})));
 		team3.persist();
+		Player player3 = getPlayer("Lebron", "James", team3);
+		player3.setCurrentPosition(TeamPosition.PF);
+		
+	
 		
 		Team team4 = new Team();
 		team4.setName("Lakers");
-		Player player4 = getPlayer("Kobe", "Bryant");
-		player4.setCurrentPosition(TeamPosition.SF);
-		team4.setPlayers(new HashSet<Player>(Arrays.asList(new Player[] {player4})));
 		team4.persist();
+		Player player4 = getPlayer("Kobe", "Bryant", team4);
+		player4.setCurrentPosition(TeamPosition.SF);
+		
+		
 		
 		
 		Game game = new Game();
@@ -298,7 +273,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		
 		round.flush();
-		
+		*/
 		
 		
 		UserClass user = new UserClass();
@@ -306,11 +281,11 @@ public class FantasyApplication extends Application implements ApplicationContex
 		user.setUsername("admin");
 		user.setPassword(getHash("sana"));
 		user.setUserRole(Role.ADMIN);
-		user.setTeam(t);
+		//user.setTeam(t);
 		user.persist();
 		user.flush();
 		//users.addEntity(user);
-		
+		/*
 		UserClass manager = new UserClass();
 		
 		manager.setUserRole(Role.MANAGER);
@@ -325,7 +300,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		
 		//users.commit();
 		
-		
+		*/
 	
 		
 		
