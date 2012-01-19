@@ -5,9 +5,11 @@ package fantasy.web;
 
 import fantasy.web.ui.admin.GameStatView;
 import fantasy.web.ui.admin.GameView;
+import fantasy.web.ui.admin.NewsView;
 import fantasy.web.ui.admin.PlayerView;
 import fantasy.web.ui.admin.RoundTotalView;
 import fantasy.web.ui.admin.RoundView;
+import fantasy.web.ui.admin.RulesView;
 import fantasy.web.ui.admin.TeamView;
 import fantasy.web.ui.admin.UserClassView;
 import java.lang.Class;
@@ -21,9 +23,11 @@ privileged aspect FantasyEntityManagerView_Roo_VaadinEntityManagerView {
         Map<String, Class> result = new TreeMap<String, Class>();
         result.put("User Class",UserClassView.class);
         result.put("Team",TeamView.class);
+        result.put("Rules",RulesView.class);
         result.put("Round",RoundView.class);
         result.put("Round Total",RoundTotalView.class);
         result.put("Player",PlayerView.class);
+        result.put("News",NewsView.class);
         result.put("Game",GameView.class);
         result.put("Game Stat",GameStatView.class);
         return result;
