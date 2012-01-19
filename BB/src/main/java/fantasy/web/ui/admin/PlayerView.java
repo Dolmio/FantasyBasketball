@@ -67,7 +67,11 @@ public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
     		player.getTeam().removePlayer(player);
     		player.getTeam().merge();
     	}
-    	deleteEntity(player);
+    	else{
+    		deleteEntity(player);
+    		
+    	}
+    	
     }
 
 }

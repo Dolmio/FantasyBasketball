@@ -26,7 +26,7 @@ public class RoundTotalForm extends AutomaticEntityForm<fantasy.domain.RoundTota
 		}
 	
 		ArrayList<Object> properties = new ArrayList<Object>(item.getItemPropertyIds());
-		properties.remove("team");
+		//properties.remove("team");
 		return properties;
 		
 	}

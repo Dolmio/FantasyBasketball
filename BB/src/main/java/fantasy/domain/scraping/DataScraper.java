@@ -93,7 +93,8 @@ public class DataScraper implements Serializable {
 		}
 		if(!foundExistingStat){
 			stat = new GameStat();
-			player.addGameStat(stat);
+			stat.setPlayer(player);
+			//player.addGameStat(stat);
 			System.out.println("uusiStatsi");
 		}
 		//parse meaningful information
@@ -109,7 +110,11 @@ public class DataScraper implements Serializable {
 		stat.setPoints(Integer.parseInt(playerElement.child(19).text()));
 		stat.setDateWhen(date.toDate());
 
-		player.flush();
+		//player.flush();
+		//GameStat savedStat = stat.merge();
+		//stat.setId(savedStat.getId());
+		//stat.setVersion(savedStat.getVersion());
+		stat.getPlayer().merge();
 
 	}
 	

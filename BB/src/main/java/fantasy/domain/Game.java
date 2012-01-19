@@ -32,7 +32,7 @@ public class Game implements Serializable{
     private Round round;
     
     public void setHomeTeam(Team team){
-    	if(homeTeam != null){
+    	if(homeTeam != null && team.getId() != this.homeTeam.getId()){
     		homeTeam.removeHomeGame(this);
     		homeTeam.merge();
     	}
@@ -46,7 +46,7 @@ public class Game implements Serializable{
     }
     
     public void setAwayTeam(Team team){
-    	if(awayTeam != null){
+    	if(awayTeam != null && team.getId() != this.awayTeam.getId()){
     		awayTeam.removeAwayGame(this);
     		awayTeam.merge();
     	}
@@ -59,7 +59,7 @@ public class Game implements Serializable{
     }
     
     public void setRound(Round newRound){
-    	if(this.round != null){
+    	if(this.round != null && newRound.getId() != this.round.getId()){
     		this.round.removeGame(this);
     		this.round.merge();
     	}

@@ -44,7 +44,7 @@ public class TeamForm extends AutomaticEntityForm<fantasy.domain.Team> {
 			return Collections.emptyList();
 		}
 	
-		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[]{"name", "players"}));
+		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[]{"name"}));
 		
 		
 		return properties;

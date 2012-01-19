@@ -11,7 +11,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,9 +28,15 @@ import fantasy.domain.positions.TeamPosition;
 @RooJavaBean
 @RooToString
 @RooEntity
+@Table(name = "player", uniqueConstraints = @UniqueConstraint(columnNames = { "firstName", "lastName" }))
 public class Player implements Serializable {
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@NotNull
     @Size(min = 2)
     private String firstName;
 
@@ -77,7 +85,11 @@ public class Player implements Serializable {
 
     public void addGameStat(GameStat stat) {
         stats.add(stat);
-        stat.setPlayer(this);
+        //stat.setPlayer(this);
+    }
+    
+    public void removeGameStat(GameStat stat){
+    	stats.remove(stat);
     }
     
     public int getStatCount(){

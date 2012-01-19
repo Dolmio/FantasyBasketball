@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import fantasy.domain.Player;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 @RooJavaBean
 @RooToString
 @RooEntity
@@ -49,7 +50,21 @@ public class GameStat implements Serializable {
 
     @Min(0)
     private Integer fgAttempts = 0;
-
+    
+    @NotNull
     @ManyToOne
     private Player player;
+    
+    
+    public void setPlayer(Player newPlayer){
+    	if(player != null && newPlayer.getId() != player.getId()){
+    		player.removeGameStat(this);
+    		player.merge();
+    	}
+    	
+    	if(newPlayer != null){
+    		newPlayer.addGameStat(this);
+    	}
+    	this.player = newPlayer;
+    }
 }

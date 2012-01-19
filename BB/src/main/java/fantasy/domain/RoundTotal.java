@@ -86,8 +86,22 @@ public class RoundTotal implements Serializable, Comparable {
 
     private Double lpTurnovers = Double.valueOf(0);
 
+    @NotNull
     @ManyToOne
     private Team team;
+    
+    public void setTeam(Team newTeam){
+    	if(this.team != null && newTeam.getId() != this.team.getId()){
+    		this.team.removeRoundTotal(this);
+    		this.team.merge();
+    	}
+    	
+    	if(newTeam != null){
+    		newTeam.addRoundTotal(this);
+    	}
+    	this.team = newTeam;
+    	
+    }
 
     public double getFieldGoalPercentage() {
         System.out.println("FgAttempts: " + getFgAttempts() + " FgMade: " + getFgMade());

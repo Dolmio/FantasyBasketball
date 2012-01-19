@@ -23,15 +23,6 @@ import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
 
 privileged aspect GameStatForm_Roo_VaadinAutomaticEntityForm {
     
-    public ComboBox GameStatForm.buildPlayerCombo() {
-        ComboBox combo = new ComboBox(null, getContainerForPlayers());
-        Object captionPropertyId = getPlayerCaptionPropertyId();
-        if (captionPropertyId != null) {
-            combo.setItemCaptionPropertyId(captionPropertyId);
-        }
-        return combo;
-    }
-    
     public FormFieldFactory GameStatForm.getFormFieldFactory() {
         return new DefaultFieldFactory() {
             @Override

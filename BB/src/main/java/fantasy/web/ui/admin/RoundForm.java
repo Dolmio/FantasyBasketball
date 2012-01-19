@@ -33,7 +33,7 @@ public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 			return Collections.emptyList();
 		}
 	
-		return  new ArrayList<Object>(Arrays.asList(new Object[] {"name", "startDate", "endDate","games"}));
+		return  new ArrayList<Object>(Arrays.asList(new Object[] {"name", "startDate", "endDate"}));
 		
 	}
     

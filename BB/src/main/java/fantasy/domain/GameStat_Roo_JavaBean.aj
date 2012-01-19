@@ -101,8 +101,4 @@ privileged aspect GameStat_Roo_JavaBean {
         return this.player;
     }
     
-    public void GameStat.setPlayer(Player player) {
-        this.player = player;
-    }
-    
 }

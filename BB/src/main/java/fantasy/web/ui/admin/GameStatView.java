@@ -1,9 +1,13 @@
 package fantasy.web.ui.admin;
 
+import javax.persistence.EntityManager;
+
+import fantasy.domain.Game;
 import fantasy.domain.GameStat;
 import fantasy.web.ui.admin.AbstractEntityView;
 import fantasy.web.ui.admin.EntityEditor;
 
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
@@ -42,5 +46,43 @@ public class GameStatView extends AbstractEntityView<fantasy.domain.GameStat> {
         }
         return container;
     }
+    
+    @Override
+    public boolean doCommit() {
+		try {
+			getForm().commit();
+			GameStat stat = (GameStat) getEntityForItem(getForm().getItemDataSource());
+			GameStat savedStat = stat.merge();
+			stat.setId(savedStat.getId());
+			stat.setVersion(savedStat.getVersion());
+			
+			if(stat.getPlayer() != null){
+				stat.getPlayer().merge();
+			}
+			
+			return true;
+		} catch (InvalidValueException e) {
+			// show validation error also on the save button
+			getForm().setCommitErrorMessage(e.getMessage());
+			return false;
+		}
+		
+	}
+    
+    @Override
+    public void doDelete(){
+    	GameStat stat = (GameStat) getEntityForItem(getForm().getItemDataSource());
+    	if(stat.getPlayer() != null){
+    		stat.getPlayer().removeGameStat(stat);
+    		stat.getPlayer().merge();
+    	}
+    	else{
+    		deleteEntity(stat);
+    	}
+    }
+    
+    
+    
+    
 
 }

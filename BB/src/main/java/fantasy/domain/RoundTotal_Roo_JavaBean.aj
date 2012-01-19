@@ -174,8 +174,4 @@ privileged aspect RoundTotal_Roo_JavaBean {
         return this.team;
     }
     
-    public void RoundTotal.setTeam(Team team) {
-        this.team = team;
-    }
-    
 }
