@@ -49,12 +49,7 @@ public class RoundTotalView extends AbstractEntityView<fantasy.domain.RoundTotal
 		try{
 			getForm().commit();
 			RoundTotal total = (RoundTotal) getEntityForItem(getForm().getItemDataSource());
-			RoundTotal savedTotal = total.merge();
-			total.setId(savedTotal.getId());
-			total.setVersion(savedTotal.getVersion());
-			if(total.getTeam() != null){
-				total.getTeam().merge();
-			}
+			total.saveEntity();
 			return true;
 		}
 		catch (InvalidValueException e) {
@@ -69,13 +64,7 @@ public class RoundTotalView extends AbstractEntityView<fantasy.domain.RoundTotal
 	@Override
 	public void doDelete(){
 		RoundTotal total = getEntityForItem(getForm().getItemDataSource()); 
-		if(total.getTeam() != null){
-			total.getTeam().removeRoundTotal(total);
-			total.getTeam().merge();
-		}
-		else{
-			deleteEntity(total);
-		}
+		total.deleteEntity();
 	}
 
 }

@@ -91,10 +91,10 @@ public class ResultsView extends CustomComponent {
 		totalsContainer.addNestedContainerProperty("team.name");
 		Object[] visibleColumns = new Object[] {"team.name","points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
 				"blocks", "lpBlocks", "steals", "lpSteals", "turnovers", "lpTurnovers", "ftMade", "lpFtMade", "threePointsMade",
-				"lpThreePointsMade", "fgMade", "fgAttempts","fieldGoalPercentage", "lpFieldGoalPercentage", "totalPoints"};
+				"lpThreePointsMade", "fieldGoalPercentage", "lpFieldGoalPercentage", "totalPoints"};
 		gameTable.setVisibleColumns(visibleColumns);
 		String[] columnHeaders = new String[]{"Teams", "Pts", "LP-Pts", "Reb", "LP-Reb", "Ass", "LP-Ass", "Blk", "LP-Blk", "Stl", "LP-Stl",
-												"To", "LP-To", "Ftm", "LP-Ftm", "3Fgm", "LP-3Fgm", "Fgm", "Fga", "Fg%", "LP-Fg%", "Total points"};
+												"To", "LP-To", "Ftm", "LP-Ftm", "3Fgm", "LP-3Fgm",  "Fg%", "LP-Fg%", "Total points"};
 		gameTable.setColumnHeaders(columnHeaders);
 		mainLayout.addComponent(gameTable);
 		mainLayout.setComponentAlignment(gameTable, new Alignment(Alignment.TOP_CENTER.getBitMask()));

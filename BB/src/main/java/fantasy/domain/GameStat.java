@@ -86,9 +86,9 @@ public class GameStat implements Serializable {
     		this.getPlayer().removeGameStat(this);
     		this.getPlayer().merge();
     	}
-    	else{
-    		remove();
-    	}
+    	
+    	remove();
+    	
     }
     
 }

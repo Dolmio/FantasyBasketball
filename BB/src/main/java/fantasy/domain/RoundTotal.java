@@ -247,4 +247,25 @@ public class RoundTotal implements Serializable, Comparable {
 		}
 		
 	}
+	
+	
+	public void saveEntity(){
+		RoundTotal savedTotal = merge();
+		setId(savedTotal.getId());
+		setVersion(savedTotal.getVersion());
+		if(getTeam() != null){
+			getTeam().merge();
+		}
+	}
+	
+	public void deleteEntity(){
+		if(getTeam() != null){
+			getTeam().removeRoundTotal(this);
+			getTeam().merge();
+		}
+		
+		remove();
+		
+	}
+	
 }

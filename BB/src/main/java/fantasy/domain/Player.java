@@ -18,6 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -59,7 +60,7 @@ public class Player implements Serializable {
     @Min(0)
     private Integer value;
     
-    
+   
     @OneToMany(mappedBy = "player", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<GameStat> stats = new HashSet<GameStat>();
 
@@ -109,8 +110,27 @@ public class Player implements Serializable {
     	this.team = team;
     }
     
-    public EntityManager giveEntityManager(){
-    	return entityManager;
+   
+    
+    public void saveEntity(){
+    	
+		Player savedPlayer = this.merge();
+		
+		this.setId(savedPlayer.getId());
+		this.setVersion(savedPlayer.getVersion());
+		
+		if(this.getTeam() != null){
+			this.getTeam().merge();
+		}
+		
+    }
+    
+    public void deleteEntity(){
+    	if(this.getTeam() != null){
+    		this.getTeam().removePlayer(this);
+    		this.getTeam().merge();
+    	}
+    	this.remove();
     }
     
 }

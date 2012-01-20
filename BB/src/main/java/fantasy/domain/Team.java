@@ -23,14 +23,15 @@ import javax.persistence.ManyToMany;
 @Table(name = "team", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Team implements Serializable {
 
-    @OneToMany(mappedBy = "team", orphanRemoval = true, cascade = { CascadeType.ALL })
+    @OneToMany(mappedBy = "team", cascade = { CascadeType.ALL })
     @CascadeOnDelete
     private Set<Player> players = new HashSet<Player>();
 
     @NotNull
     private String name;
-
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    
+    @CascadeOnDelete
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<RoundTotal> roundTotals = new HashSet<RoundTotal>();
 
     @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.ALL)
@@ -39,23 +40,7 @@ public class Team implements Serializable {
     
     @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.ALL)
     private Set<Game> awayGames = new HashSet<Game>();
-    /*
-    public void setPlayers(Set<Player> players) {
-        removeOldPlayers();
-        this.players = players;
-        for (Player p : players) {
-            p.setTeam(this);
-        }
-    }
-    
-    private void removeOldPlayers() {
-        for (Player p : players) {
-            p.setTeam(null);
-            p.flush();
-        }
-    }
-	
-	*/
+  
     
     public void addPlayer(Player player){
     	players.add(player);

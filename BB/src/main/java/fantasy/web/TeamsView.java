@@ -85,8 +85,8 @@ public class TeamsView extends CustomComponent{
 		players.addAll(selectedTeam.getPlayers());
 		teamTable.setContainerDataSource(players);
 		teamTable.setVisibleColumns(
-				new String[] { "lastName", "firstName","currentPosition", "possiblePositions"} );
-		teamTable.setColumnHeaders(new String[]{"Lastname", "Firstname", "Current position", "Possible positions"});
+				new String[] { "lastName", "firstName","value", "currentPosition", "possiblePositions"} );
+		teamTable.setColumnHeaders(new String[]{"Lastname", "Firstname", "Value", "Current position", "Possible positions"});
 	}
 
 	/**

@@ -38,17 +38,7 @@ public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
 			//player doesn't have id yet.
 			
 			Player player = (Player) getEntityForItem(getForm().getItemDataSource());
-			System.out.println(player.getTeam().getPlayerCount());
-			EntityManager em = player.giveEntityManager();
-			Player savedPlayer = em.merge(player);
-			em.flush();
-			player.setId(savedPlayer.getId());
-			player.setVersion(savedPlayer.getVersion());
-			System.out.println(player.getTeam().getPlayerCount());
-			if(player.getTeam() != null){
-				em.merge(player.getTeam());
-			}
-			em.flush();
+			player.saveEntity();
 			
 			
 
@@ -63,14 +53,7 @@ public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
     @Override
     public void doDelete(){
     	Player player = (Player) getEntityForItem(getForm().getItemDataSource());
-    	if(player.getTeam() != null){
-    		player.getTeam().removePlayer(player);
-    		player.getTeam().merge();
-    	}
-    	else{
-    		deleteEntity(player);
-    		
-    	}
+    	player.deleteEntity();
     	
     }
 
