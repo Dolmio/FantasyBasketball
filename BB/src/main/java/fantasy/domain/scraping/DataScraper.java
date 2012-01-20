@@ -3,6 +3,7 @@ package fantasy.domain.scraping;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +26,24 @@ public class DataScraper implements Serializable {
 	 * @param startDate
 	 * @param endDate
 	 */
-	public void updateStats(LocalDate startDate, LocalDate endDate){
+	public void updateStats(LocalDate startDate, LocalDate endDate) throws IOException{
 		LocalDate currentDate = startDate;
 		
+		String failedDates = "";
 		while(currentDate.toDate().getTime() <= endDate.toDate().getTime()){
-			System.out.println("Day: " + currentDate + " update success: " + updateStats(currentDate));
+			try{
+				updateStats(currentDate);
+			}
+			catch(IOException e){
+				failedDates += " " + currentDate.toString();
+			
+			}	
 			currentDate = currentDate.plusDays(1);
+		}
+		
+		if(!failedDates.equals("")){
+			throw new IOException("Updating stats from following dates failed: " + failedDates);
+			
 		}
 	}
 
@@ -39,20 +52,15 @@ public class DataScraper implements Serializable {
 	 * @param date
 	 * @return
 	 */
-	public boolean updateStats(LocalDate date){
+	public void updateStats (LocalDate date) throws  IOException{
 		this.date = date;
-		try {
+		
 			//update stats from every game
 			for(String gameUrl : getGameUrls(date)){
 				updateStatsFromGame(gameUrl);
 			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		
 	}
 	
 	/**
@@ -146,6 +154,7 @@ public class DataScraper implements Serializable {
 	 */
 	private Elements getPlayerElements(String gameUrl) throws IOException{
 		//Jsoup library is very cool and easy to use
+		
 		Document doc = Jsoup.connect(gameUrl).get();
 		Elements playerElements = doc.select(".table_container[id$=basic] tr:has(td[csk])");
 		return playerElements;
@@ -175,7 +184,7 @@ public class DataScraper implements Serializable {
 
 	public static void main(String[] args){
 		DataScraper scraper = new DataScraper();
-		scraper.updateStats(new LocalDate(2011, 12, 25));
+		//scraper.updateStats(new LocalDate(2011, 12, 25));
 	}
 
 }

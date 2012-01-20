@@ -57,14 +57,38 @@ public class GameStat implements Serializable {
     
     
     public void setPlayer(Player newPlayer){
-    	if(player != null && newPlayer.getId() != player.getId()){
-    		player.removeGameStat(this);
-    		player.merge();
+    	Player oldPlayer = player;
+    	if(oldPlayer != null && newPlayer.getId() != oldPlayer.getId()){
+    		oldPlayer.removeGameStat(this);
+    		oldPlayer.merge();
     	}
     	
     	if(newPlayer != null){
     		newPlayer.addGameStat(this);
     	}
     	this.player = newPlayer;
+    	
+    	
     }
+    
+    public void saveEntity(){
+    	GameStat savedStat = merge();
+		this.setId(savedStat.getId());
+		this.setVersion(savedStat.getVersion());
+		
+		if(this.getPlayer() != null){
+			this.getPlayer().merge();
+		}
+    }
+    
+    public void deleteEntity(){
+    	if(this.getPlayer() != null){
+    		this.getPlayer().removeGameStat(this);
+    		this.getPlayer().merge();
+    	}
+    	else{
+    		remove();
+    	}
+    }
+    
 }

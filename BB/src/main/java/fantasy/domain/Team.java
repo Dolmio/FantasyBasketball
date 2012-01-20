@@ -116,6 +116,22 @@ public class Team implements Serializable {
     	return wins;
     }
     
+    public int getFinishedGameCount(){
+    	int finishedGames = 0;
+    	for (Game g : homeGames){
+    		if(g.getWinner() != GameWinner.UNDEFINED){
+    			finishedGames++;
+    		}
+    	}
+    	for(Game g : awayGames){
+    		if(g.getWinner() != GameWinner.UNDEFINED){
+    			finishedGames++;
+    		}
+    	}
+    	return finishedGames;
+    	
+    }
+    
     public int getRoundCount() {
         return roundTotals.size();
     }

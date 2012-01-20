@@ -10,6 +10,7 @@ privileged aspect Team_Roo_ToString {
     public String Team.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AwayGames: ").append(getAwayGames() == null ? "null" : getAwayGames().size()).append(", ");
+        sb.append("FinishedGameCount: ").append(getFinishedGameCount()).append(", ");
         sb.append("GameCount: ").append(getGameCount()).append(", ");
         sb.append("HomeGames: ").append(getHomeGames() == null ? "null" : getHomeGames().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");

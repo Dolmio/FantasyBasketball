@@ -52,13 +52,7 @@ public class GameStatView extends AbstractEntityView<fantasy.domain.GameStat> {
 		try {
 			getForm().commit();
 			GameStat stat = (GameStat) getEntityForItem(getForm().getItemDataSource());
-			GameStat savedStat = stat.merge();
-			stat.setId(savedStat.getId());
-			stat.setVersion(savedStat.getVersion());
-			
-			if(stat.getPlayer() != null){
-				stat.getPlayer().merge();
-			}
+			stat.saveEntity();
 			
 			return true;
 		} catch (InvalidValueException e) {
@@ -72,13 +66,7 @@ public class GameStatView extends AbstractEntityView<fantasy.domain.GameStat> {
     @Override
     public void doDelete(){
     	GameStat stat = (GameStat) getEntityForItem(getForm().getItemDataSource());
-    	if(stat.getPlayer() != null){
-    		stat.getPlayer().removeGameStat(stat);
-    		stat.getPlayer().merge();
-    	}
-    	else{
-    		deleteEntity(stat);
-    	}
+    	stat.deleteEntity();
     }
     
     

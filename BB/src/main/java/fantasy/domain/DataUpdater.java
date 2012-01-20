@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.OptimisticLockException;
+
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.parsing.BeanComponentDefinition;
 import org.springframework.transaction.TransactionSystemException;
@@ -22,7 +24,7 @@ public class DataUpdater implements Serializable {
 	 * Updates or creates new RoundTotal for every team playing this round.
 	 * @param round
 	 */
-	public void updateAllRoundTotals (Round round) throws TransactionSystemException{
+	public void updateAllRoundTotals (Round round) throws OptimisticLockException{
 
 		Set<Team> teamsInRound = getTeamsInRound(round);
 		System.out.println("TeamsSIze:" + teamsInRound.size());
@@ -38,12 +40,13 @@ public class DataUpdater implements Serializable {
 			
 			if(total == null){
 				total = new RoundTotal();
+				total.setRound(round);
+				total.setTeam(team);
+				total.persist();
 			}
 			total.resetStats();
-			total.setRound(round);
-			total.setTeam(team);
-			total.persist();
-			team.addRoundTotal(total);
+			
+			//team.addRoundTotal(total);
 			
 			//update roundTotal
 			updateRoundTotal(total, round, team);
