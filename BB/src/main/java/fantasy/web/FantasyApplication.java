@@ -44,13 +44,14 @@ public class FantasyApplication extends Application implements ApplicationContex
 	
 	public static final UserClass VISITOR = new UserClass();
 	
-	private UserClass currentUser = VISITOR;
+	private UserClass currentUser;
 	
 	
 	@Override
 	public void init() {
 		//usercode
 		//initDB();		
+		currentUser = VISITOR;
 		getContext ().addTransactionListener ( this );
 		
 		
@@ -59,17 +60,18 @@ public class FantasyApplication extends Application implements ApplicationContex
 		//setMainWindow(window);
 		
 		
-		final LoginWindow login = new LoginWindow();
-		//avoid memory leaks
-		login.addListener(new CloseListener() {
-			public void windowClose(CloseEvent e) {
-				if (getMainWindow() != login) {
-					FantasyApplication.this.removeWindow(login);
-				}
-			}
-		});
-		setMainWindow (login);
+//		final LoginWindow login = new LoginWindow();
+//		//avoid memory leaks
+//		login.addListener(new CloseListener() {
+//			public void windowClose(CloseEvent e) {
+//				if (getMainWindow() != login) {
+//					FantasyApplication.this.removeWindow(login);
+//				}
+//			}
+//		});
+//		setMainWindow (login);
 		
+		setMainWindow(createNewWindow());
 		
 	}
 	

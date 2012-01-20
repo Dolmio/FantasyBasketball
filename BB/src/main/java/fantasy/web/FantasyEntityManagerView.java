@@ -256,8 +256,8 @@ public class FantasyEntityManagerView extends CustomComponent implements Navigat
 
         // navigator
         navigator = new Navigator();
-        navigator.setWidth("100.0%");
-        navigator.setHeight("100.0%");
+        navigator.setWidth("100%");
+        navigator.setHeight("100%");
         navigator.setImmediate(false);
         mainLayout.addComponent(navigator);
 
