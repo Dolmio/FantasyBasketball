@@ -1,9 +1,8 @@
-package fantasy.domain.scraping;
+package fantasy.util;
 
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,17 @@ import org.jsoup.select.Elements;
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
 
-
+/**
+ * 
+ * @author Juho Salmio
+ *
+ */
 public class DataScraper implements Serializable {
 
+	/**
+	 * Scrapes http://www.basketball-reference.com and updates player's stats collection if new stat is found.
+	 */
+	private static final long serialVersionUID = 1L;
 	private LocalDate date;
 	
 	/**
@@ -29,6 +36,7 @@ public class DataScraper implements Serializable {
 	public void updateStats(LocalDate startDate, LocalDate endDate) throws IOException{
 		LocalDate currentDate = startDate;
 		
+		//collect failed updates to string
 		String failedDates = "";
 		while(currentDate.toDate().getTime() <= endDate.toDate().getTime()){
 			try{
@@ -93,7 +101,6 @@ public class DataScraper implements Serializable {
 		boolean foundExistingStat = false;
 		for(GameStat existingStat: player.getStats()){
 			if(existingStat.getDateWhen().equals(date.toDate())){
-				System.out.println("Vanha statsi löytynyt");
 				stat = existingStat;
 				foundExistingStat = true;
 				break;
@@ -102,9 +109,9 @@ public class DataScraper implements Serializable {
 		if(!foundExistingStat){
 			stat = new GameStat();
 			stat.setPlayer(player);
-			//player.addGameStat(stat);
-			System.out.println("uusiStatsi");
+			
 		}
+		
 		//parse meaningful information
 		stat.setFgMade(Integer.parseInt(playerElement.child(2).text()));
 		stat.setFgAttempts(Integer.parseInt(playerElement.child(3).text()));
@@ -118,10 +125,6 @@ public class DataScraper implements Serializable {
 		stat.setPoints(Integer.parseInt(playerElement.child(19).text()));
 		stat.setDateWhen(date.toDate());
 
-		//player.flush();
-		//GameStat savedStat = stat.merge();
-		//stat.setId(savedStat.getId());
-		//stat.setVersion(savedStat.getVersion());
 		stat.getPlayer().merge();
 
 	}
@@ -139,7 +142,6 @@ public class DataScraper implements Serializable {
 		for(Player onePlayer: Player.findAllPlayers()){
 			if(onePlayer.getFirstName().equalsIgnoreCase(firstName) && 
 					onePlayer.getLastName().equalsIgnoreCase(lastName)){
-				System.out.println("Pelaaja löytnyt: " + onePlayer);
 				return onePlayer;
 			}
 		}
@@ -184,7 +186,12 @@ public class DataScraper implements Serializable {
 
 	public static void main(String[] args){
 		DataScraper scraper = new DataScraper();
-		//scraper.updateStats(new LocalDate(2011, 12, 25));
+		try{
+			scraper.updateStats(new LocalDate(2011, 12, 25));
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

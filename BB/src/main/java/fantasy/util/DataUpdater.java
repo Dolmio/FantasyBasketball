@@ -10,10 +10,6 @@ import java.util.Set;
 import javax.persistence.OptimisticLockException;
 
 import org.joda.time.LocalDate;
-import org.springframework.beans.factory.parsing.BeanComponentDefinition;
-import org.springframework.transaction.TransactionSystemException;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import fantasy.domain.Game;
 import fantasy.domain.GameStat;
@@ -29,14 +25,18 @@ public class DataUpdater implements Serializable {
 
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Updates or creates new RoundTotal for every team playing this round.
 	 * @param round
 	 */
 	public void updateAllRoundTotals (Round round) throws OptimisticLockException{
 
 		Set<Team> teamsInRound = getTeamsInRound(round);
-		System.out.println("TeamsSIze:" + teamsInRound.size());
-
+	
 		for(Team team : teamsInRound){
 			RoundTotal total = null;
 			for(RoundTotal existingTotal : team.getRoundTotals()){
@@ -54,14 +54,8 @@ public class DataUpdater implements Serializable {
 			}
 			total.resetStats();
 			
-			//team.addRoundTotal(total);
-			
-			//update roundTotal
 			updateRoundTotal(total, round, team);
 			team.merge();
-			
-			
-			
 		}
 
 
@@ -75,6 +69,8 @@ public class DataUpdater implements Serializable {
 	 * @param team
 	 */
 	private void updateRoundTotal(RoundTotal rt, Round round, Team team){
+		//we use LocalDate which resets hours, minutes etc to zero so it doesn't
+		//matter that in db startDates and endDates can have hours in them.
 		LocalDate startDate = new LocalDate(round.getStartDate());
 		LocalDate endDate = new LocalDate(round.getEndDate());
 
@@ -117,15 +113,17 @@ public class DataUpdater implements Serializable {
 	private Set<Team> getTeamsInRound(Round round){
 		Set<Team> teamsInRound = new HashSet<Team>();
 		for(Game game : round.getGames()){
-
-			System.out.println("Lisätään peli");
 			teamsInRound.add(game.getHomeTeam());
 			teamsInRound.add(game.getAwayTeam());
 		}
 		return teamsInRound;
 	}
 
-
+	/**
+	 * Updates every LeaguePoints category
+	 * @param round
+	 */
+	@SuppressWarnings("unchecked")
 	public void updateRoundLeaguePoints(Round round){
 		Set<Team> teams = getTeamsInRound(round);
 		List<RoundTotal> totals = new ArrayList<RoundTotal>();
@@ -138,17 +136,17 @@ public class DataUpdater implements Serializable {
 				}
 			}
 		}
-		System.out.println("RoundTotalSize: " + totals.size());
+	
 		//update all leaguePoints properties 
 		for(StatType currentStatType: StatType.values()){
 			//sort totals  in order according to one stat
 			Collections.sort(totals, new BeanComparator(RoundTotal.class, RoundTotal.getMethodSignature(currentStatType) , false));
-			System.out.println("CurrentStat: " + currentStatType + " totals: " + totals );
+			
 			for(int i = 0; i< totals.size(); i++){
 				RoundTotal total = totals.get(i);
 				//highest value and first
 				if(i == 0){
-					total.setLeaguePoints(currentStatType, ( totals.size() - i)  * currentStatType.getMultiplier());
+					total.setLeaguePoints(currentStatType,  totals.size()  * currentStatType.getMultiplier());
 				}
 				else{
 					//if two totals have equal value in certain stat they both get equal (better) points. So we skip the lesser value.
@@ -195,9 +193,7 @@ public class DataUpdater implements Serializable {
 	}
 
 	private RoundTotal getMatchingRoundTotal(Set<RoundTotal> totals, Round round){
-		System.out.println("RoundID: " + round.getId());
 		for(RoundTotal total : totals){
-			System.out.println("totalId: " + total.getRound().getId());
 			if(total.getRound().getId().equals(round.getId())){
 				return total;
 			}

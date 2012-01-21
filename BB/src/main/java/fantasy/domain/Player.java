@@ -47,6 +47,7 @@ public class Player implements Serializable {
     private String lastName;
 
     @ElementCollection
+    @Enumerated(EnumType.STRING)
     private Set<PlayerPosition> possiblePositions = new HashSet<PlayerPosition>();
     
     /*We have to use dummy-copy of possiblePositions because Vaadin

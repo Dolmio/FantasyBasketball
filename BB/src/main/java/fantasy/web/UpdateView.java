@@ -28,7 +28,7 @@ import com.vaadin.ui.Select;
 import com.vaadin.ui.VerticalLayout;
 
 import fantasy.domain.Round;
-import fantasy.domain.scraping.DataScraper;
+import fantasy.util.DataScraper;
 import fantasy.util.DataUpdater;
 
 import com.vaadin.ui.Window;

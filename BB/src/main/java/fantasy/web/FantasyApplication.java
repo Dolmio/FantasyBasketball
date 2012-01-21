@@ -27,7 +27,7 @@ import fantasy.domain.UserClass;
 import fantasy.domain.authentication.Role;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.domain.positions.TeamPosition;
-import fantasy.domain.scraping.DataScraper;
+import fantasy.util.DataScraper;
 import fantasy.web.authentication.LoginWindow;
 
 
