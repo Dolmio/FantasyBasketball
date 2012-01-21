@@ -154,20 +154,20 @@ privileged aspect RoundTotal_Roo_JavaBean {
         this.lpFieldGoalPercentage = lpFieldGoalPercentage;
     }
     
-    public Round RoundTotal.getRound() {
-        return this.round;
-    }
-    
-    public void RoundTotal.setRound(Round round) {
-        this.round = round;
-    }
-    
     public Double RoundTotal.getLpTurnovers() {
         return this.lpTurnovers;
     }
     
     public void RoundTotal.setLpTurnovers(Double lpTurnovers) {
         this.lpTurnovers = lpTurnovers;
+    }
+    
+    public Round RoundTotal.getRound() {
+        return this.round;
+    }
+    
+    public void RoundTotal.setRound(Round round) {
+        this.round = round;
     }
     
     public Team RoundTotal.getTeam() {

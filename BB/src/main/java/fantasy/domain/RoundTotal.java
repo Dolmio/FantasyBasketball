@@ -3,22 +3,26 @@ package fantasy.domain;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
-import fantasy.domain.Round;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.persistence.ManyToOne;
-import fantasy.domain.Team;
+
+import org.springframework.roo.addon.entity.RooEntity;
+import org.springframework.roo.addon.javabean.RooJavaBean;
+import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
 @RooEntity
-public class RoundTotal implements Serializable, Comparable {
+public class RoundTotal implements Serializable, Comparable<RoundTotal> {
 
-    @Min(0)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Min(0)
     private Integer points = 0;
 
     @Min(0)
@@ -49,47 +53,46 @@ public class RoundTotal implements Serializable, Comparable {
     private Integer fgAttempts = 0;
 
     @Min(0)
-    @Max(20)
     private Integer lpPoints = 0;
 
     @Min(0)
-    @Max(20)
-    private Integer lpRebounds = 0;
+   private Integer lpRebounds = 0;
 
     @Min(0)
-    @Max(20)
     private Integer lpAssists = 0;
 
     @Min(0)
-    @Max(10)
     private Integer lpBlocks = 0;
 
     @Min(0)
-    @Max(10)
     private Integer lpSteals = 0;
 
     @Min(0)
-    @Max(10)
     private Integer lpFtMade = 0;
 
     @Min(0)
-    @Max(10)
     private Integer lpThreePointsMade = 0;
 
     @Min(0)
-    @Max(10)
     private Integer lpFieldGoalPercentage = 0;
 
+    @Max(0)
+    private Double lpTurnovers = Double.valueOf(0);
+    
     @NotNull
     @ManyToOne
     private Round round;
-
-    private Double lpTurnovers = Double.valueOf(0);
+    
+    
 
     @NotNull
     @ManyToOne
     private Team team;
     
+    /**
+     * Sets the team and makes sure bidirectional references are also updated
+     * @param team
+     */
     public void setTeam(Team newTeam){
     	if(this.team != null && newTeam.getId() != this.team.getId()){
     		this.team.removeRoundTotal(this);
@@ -104,15 +107,20 @@ public class RoundTotal implements Serializable, Comparable {
     }
 
     public double getFieldGoalPercentage() {
-        System.out.println("FgAttempts: " + getFgAttempts() + " FgMade: " + getFgMade());
-    	if (getFgAttempts() == 0) return 0;
-    	else{
+       if (getFgAttempts() == 0) return 0;
+    	//cut after second digit
+       	else{
     		 DecimalFormat twoDForm = new DecimalFormat("#.##");
     	     return Double.valueOf(twoDForm.format((double)getFgMade() / (double)getFgAttempts()));
     	
     	}
     }
-
+    
+    /**
+     * Set one category of leaguePoints according to the first parameter.
+     * @param stat
+     * @param points
+     */
     public void setLeaguePoints(StatType stat, Number points) {
         switch(stat) {
             case POINTS:
@@ -210,7 +218,11 @@ public class RoundTotal implements Serializable, Comparable {
                 return null;
         }
     }
-
+    
+    /**
+     * returns sum of all leaguePoints
+     * @return
+     */
     public Double getTotalPoints() {
         return getLpTurnovers() + getLpAssists() + getLpBlocks() + 
         		getLpFieldGoalPercentage() + getLpFtMade() + 
@@ -230,25 +242,34 @@ public class RoundTotal implements Serializable, Comparable {
         assists = 0;
         rebounds = 0;
     }
-
+    /**
+     * Returns 1 if this has more totalPoints than argument or points are equal. -1 if argument has more points than this.
+     * @param o
+     * @return
+     */
 	@Override
-	public int compareTo(Object o) {
-		RoundTotal otherTotal = (RoundTotal) o;
-		if(this.equals(o)) return 0;
+	public int compareTo(RoundTotal otherTotal) {
+	
+		if(this.equals(otherTotal)) return 0;
 		
-		//if total points are equal we let the admin declare real winner manually, because it's rare condition.
+		//if total points are equal we let the admin declare real winner manually, because it's rare condition and not
+		//easy to implement because of the rules. 
 		if(getTotalPoints() == otherTotal.getTotalPoints()){
 			return 1;
 		}
 		else{
 			double pointDifferential = getTotalPoints() - otherTotal.getTotalPoints();
+			//we have to make sure numbers between -1 and 1 aren't rounded to 0. 
 			return (int) (pointDifferential < 0 ? Math.floor(pointDifferential) : Math.ceil(pointDifferential));
 			
 		}
 		
 	}
 	
-	
+	/**
+     * Saves the entity and makes sure all bidirectional references are updated to db.
+     * Is used when entity form is saved.
+     */
 	public void saveEntity(){
 		RoundTotal savedTotal = merge();
 		setId(savedTotal.getId());
@@ -258,6 +279,10 @@ public class RoundTotal implements Serializable, Comparable {
 		}
 	}
 	
+	/**
+     * Deletes the entity and sure all bidirectional references are deleted and updated to db.
+     * Is used when entity is deleted via entity form
+     */
 	public void deleteEntity(){
 		if(getTeam() != null){
 			getTeam().removeRoundTotal(this);
@@ -267,5 +292,7 @@ public class RoundTotal implements Serializable, Comparable {
 		remove();
 		
 	}
+
+	
 	
 }
