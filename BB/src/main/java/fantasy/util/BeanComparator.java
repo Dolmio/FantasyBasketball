@@ -33,7 +33,7 @@ public class BeanComparator implements Comparator, Serializable
 	/*
 	 *	Sort using default sort properties
 	 */
-	BeanComparator(Class<?> beanClass, String methodName)
+	public BeanComparator(Class<?> beanClass, String methodName)
 	{
 		this(beanClass, methodName, true);
 	}
@@ -41,7 +41,7 @@ public class BeanComparator implements Comparator, Serializable
 	/*
 	 *	Sort in the specified order with the remaining default properties
 	 */
-	BeanComparator(Class<?> beanClass, String methodName, boolean isAscending)
+	public BeanComparator(Class<?> beanClass, String methodName, boolean isAscending)
 	{
 		this(beanClass, methodName, isAscending, true);
 	}
@@ -50,7 +50,7 @@ public class BeanComparator implements Comparator, Serializable
 	 *	Sort in the specified order and case sensitivity with the
 	 *  remaining default properties
 	 */
-	BeanComparator(Class<?> beanClass, String methodName, boolean isAscending, boolean isIgnoreCase)
+	public BeanComparator(Class<?> beanClass, String methodName, boolean isAscending, boolean isIgnoreCase)
 	{
 		setAscending( isAscending );
 		setIgnoreCase( isIgnoreCase );
