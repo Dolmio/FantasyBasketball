@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,6 +25,7 @@ import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
 import fantasy.domain.positions.TeamPosition;
+import fantasy.web.FantasyApplication;
 
 public class OwnTeamView extends CustomComponent {
 

@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui;
 
 import java.util.ArrayList;
 import java.util.List;

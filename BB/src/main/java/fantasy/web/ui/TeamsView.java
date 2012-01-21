@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui;
 
 
 import com.vaadin.addon.jpacontainer.fieldfactory.FieldFactory;

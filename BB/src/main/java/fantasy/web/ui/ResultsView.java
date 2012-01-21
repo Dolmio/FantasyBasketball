@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

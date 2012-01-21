@@ -1,4 +1,4 @@
-package fantasy.web;
+package fantasy.web.ui;
 
 
 import java.text.DecimalFormat;
@@ -32,6 +32,7 @@ import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.UserClass;
 import fantasy.domain.authentication.Role;
+import fantasy.web.FantasyApplication;
 import fantasy.web.ui.admin.GameStatView;
 public class PlayersView extends CustomComponent {
 
