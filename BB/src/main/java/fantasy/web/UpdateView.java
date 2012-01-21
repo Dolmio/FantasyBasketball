@@ -27,9 +27,10 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.VerticalLayout;
 
-import fantasy.domain.DataUpdater;
 import fantasy.domain.Round;
 import fantasy.domain.scraping.DataScraper;
+import fantasy.util.DataUpdater;
+
 import com.vaadin.ui.Window;
 public class UpdateView extends CustomComponent {
 

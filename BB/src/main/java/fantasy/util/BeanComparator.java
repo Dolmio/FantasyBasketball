@@ -1,4 +1,4 @@
-package fantasy.domain;
+package fantasy.util;
 
 import java.io.Serializable;
 import java.lang.reflect.*;

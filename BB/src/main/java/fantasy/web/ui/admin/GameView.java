@@ -32,38 +32,11 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
 	 * @return
 	 */
 	@Override
-	@Transactional
 	public boolean doCommit() {
 		try {
 			getForm().commit();
 			Game game = (Game) getEntityForItem(getForm().getItemDataSource());
-
-			EntityManager em = game.giveEntityManager();
-			//we have to make merging in two parts because when we first merge game savedGame 
-			//doesn't have information about updates made to reference relationships because they
-			//aren't yet part of the Persistence context. We can't also merge references first because
-			//game doesn't have id yet.
-
-			Game savedGame = em.merge(game);
-			em.flush();
-
-
-			game.setId(savedGame.getId());
-			game.setVersion(savedGame.getVersion());
-			if(game.getAwayTeam() != null){
-				em.merge(game.getAwayTeam());
-			}
-			if(game.getHomeTeam() != null){
-				em.merge(game.getHomeTeam().merge());
-			}
-			if(game.getRound() != null){
-				em.merge(game.getRound().merge());
-			}
-
-			em.flush();
-
-
-
+			game.saveEntity();
 			return true;
 		} catch (InvalidValueException e) {
 			// show validation error also on the save button
@@ -71,25 +44,15 @@ public class GameView extends AbstractEntityView<fantasy.domain.Game> {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Method deletes entity and manages bidirectional relationships so they are also updated.
+	 * @return
+	 **/
 	@Override
 	public void doDelete() {
 		Game game = (Game) getEntityForItem(getForm().getItemDataSource());   
-		//remove refrences to this entity before deleting
-		if(game.getAwayTeam() != null){
-			game.getAwayTeam().removeAwayGame(game);
-			game.getAwayTeam().merge();
-		}
-		if(game.getHomeTeam() != null){
-			game.getHomeTeam().removeHomeGame(game);
-			game.getHomeTeam().merge();
-		}
-		if(game.getRound() != null){
-			game.getRound().removeGame(game);
-			game.getRound().merge();
-		}
-
-		deleteEntity(game);
+		game.deleteEntity();
 	}
 
 }

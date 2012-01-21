@@ -10,6 +10,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import fantasy.util.BeanComparator;
+
 public class DataUpdaterTester {
 
 	@Test

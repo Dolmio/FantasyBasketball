@@ -1,4 +1,4 @@
-package fantasy.domain;
+package fantasy.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,14 @@ import org.springframework.transaction.TransactionSystemException;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import fantasy.domain.Game;
+import fantasy.domain.GameStat;
+import fantasy.domain.GameWinner;
+import fantasy.domain.Player;
+import fantasy.domain.Round;
+import fantasy.domain.RoundTotal;
+import fantasy.domain.StatType;
+import fantasy.domain.Team;
 import fantasy.domain.positions.TeamPosition;
 
 public class DataUpdater implements Serializable {
