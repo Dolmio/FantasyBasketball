@@ -6,7 +6,9 @@ import com.vaadin.ui.Table;
 @RooVaadinEntityView(formBackingObject = fantasy.domain.News.class)
 public class NewsView extends AbstractEntityView<fantasy.domain.News> {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected EntityEditor createForm() {
         return new NewsForm();
     }

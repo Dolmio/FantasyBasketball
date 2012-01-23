@@ -15,13 +15,20 @@ import com.vaadin.ui.ComboBox;
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.GameStat.class)
 public class GameStatForm extends AutomaticEntityForm<fantasy.domain.GameStat> {
 
-    public GameStatForm() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public GameStatForm() {
         super(fantasy.domain.GameStat.class);
 
         getForm().setFormFieldFactory(getFormFieldFactory());
     }
     
-    
+    /**
+     * returns list of fields to show in form
+     */
     @Override
 	protected Collection<?> getItemPropertyIds(Item item){
     	List<String> fields = 
@@ -44,7 +51,8 @@ public class GameStatForm extends AutomaticEntityForm<fantasy.domain.GameStat> {
    
     return fields;	
     }
-
+    
+    //show player's name in comboBox instead of id
     public ComboBox buildPlayerCombo() {
         BeanContainer<Long, Player> playerContainer = getContainerForPlayers();
         

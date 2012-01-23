@@ -19,7 +19,8 @@ import com.vaadin.ui.Table.ColumnGenerator;
  */
 public class EntityTableColumnGenerator implements ColumnGenerator {
 
-    private final String displayProperty;
+	private static final long serialVersionUID = 1L;
+	private final String displayProperty;
 
     public EntityTableColumnGenerator(String displayProperty) {
         this.displayProperty = displayProperty;
@@ -36,7 +37,7 @@ public class EntityTableColumnGenerator implements ColumnGenerator {
             Iterator<?> it = ((Collection<?>) cellContent).iterator();
             while (it.hasNext()) {
                 if (displayProperty != null) {
-                    Object value = new MethodProperty(it.next(),
+                    Object value = new MethodProperty<Object>(it.next(),
                             displayProperty).getValue();
                     sb.append(value);
                 } else {
@@ -50,7 +51,7 @@ public class EntityTableColumnGenerator implements ColumnGenerator {
         } else if (cellContent != null) {
             Object value = cellContent;
             if (displayProperty != null) {
-                value = new MethodProperty(cellContent, displayProperty)
+                value = new MethodProperty<Object>(cellContent, displayProperty)
                         .getValue();
             }
             return new Label(value != null ? value.toString() : "");

@@ -1,20 +1,18 @@
 package fantasy.web.ui.admin;
 
-import javax.persistence.EntityManager;
-
-import fantasy.domain.Game;
-import fantasy.domain.GameStat;
-import fantasy.web.ui.admin.AbstractEntityView;
-import fantasy.web.ui.admin.EntityEditor;
-
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
+import fantasy.domain.GameStat;
+
 @RooVaadinEntityView(formBackingObject = fantasy.domain.GameStat.class)
 public class GameStatView extends AbstractEntityView<fantasy.domain.GameStat> {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	public static final Object[]  VISIBLE_COLUMNS = new Object[]{"player.lastName", "dateWhen","points", "rebounds", "assists", "blocks",
 																"steals", "turnovers", "fgMade", "fgAttempts", "ftMade", "threePointsMade"};
 	
@@ -47,6 +45,10 @@ public class GameStatView extends AbstractEntityView<fantasy.domain.GameStat> {
         return container;
     }
     
+    /**
+     * Saves entity according to the form values
+     * @return
+     */
     @Override
     public boolean doCommit() {
 		try {

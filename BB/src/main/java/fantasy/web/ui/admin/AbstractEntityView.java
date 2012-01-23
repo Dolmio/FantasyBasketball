@@ -25,7 +25,11 @@ import com.vaadin.ui.themes.Reindeer;
 @RooVaadinAbstractEntityView()
 public abstract class AbstractEntityView<E> extends CustomComponent implements Navigator.View {
 
-    private VerticalSplitPanel mainLayout;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private VerticalSplitPanel mainLayout;
     private Table table;
     private EntityEditor form;
     private Navigator navigator;
@@ -148,7 +152,12 @@ public abstract class AbstractEntityView<E> extends CustomComponent implements N
      */
     protected void addListeners() {
         getTable().addListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
                 Object value = event.getProperty().getValue();
                 if (value != null) {
                     navigateToFragment("edit/"+String.valueOf(value).replaceAll("[^0-9]", ""));
@@ -157,7 +166,12 @@ public abstract class AbstractEntityView<E> extends CustomComponent implements N
         });
 
         getForm().addSaveActionListener(new ClickListener() {
-            public void buttonClick(ClickEvent event) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void buttonClick(ClickEvent event) {
                 if (doCommit()) {
                     setDirty(false);
                     navigateToFragment(null);
@@ -165,14 +179,24 @@ public abstract class AbstractEntityView<E> extends CustomComponent implements N
             }
         });
         getForm().addDeleteActionListener(new ClickListener() {
-            public void buttonClick(ClickEvent event) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void buttonClick(ClickEvent event) {
                 doDelete();
                 setDirty(false);
                 navigateToFragment(null);
             }
         });
         getForm().addCancelActionListener(new ClickListener() {
-            public void buttonClick(ClickEvent event) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void buttonClick(ClickEvent event) {
                 setDirty(false);
                 navigateToFragment(null);
             }

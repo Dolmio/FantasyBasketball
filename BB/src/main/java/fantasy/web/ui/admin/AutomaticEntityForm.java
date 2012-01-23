@@ -7,7 +7,6 @@ import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.terminal.UserError;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
@@ -19,7 +18,9 @@ import com.vaadin.ui.themes.Reindeer;
 
 public class AutomaticEntityForm<T> extends CustomComponent implements EntityEditor {
 
-    private Button deleteButton;
+   
+	private static final long serialVersionUID = 1L;
+	private Button deleteButton;
     private Button cancelButton;
     private Button saveButton;
 
