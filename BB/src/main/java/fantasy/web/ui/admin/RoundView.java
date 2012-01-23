@@ -1,16 +1,14 @@
 package fantasy.web.ui.admin;
 
-import java.util.Arrays;
-
-import fantasy.web.ui.admin.AbstractEntityView;
-import fantasy.web.ui.admin.EntityEditor;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
 @RooVaadinEntityView(formBackingObject = fantasy.domain.Round.class)
 public class RoundView extends AbstractEntityView<fantasy.domain.Round> {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected EntityEditor createForm() {
         return new RoundForm();
     }

@@ -99,3 +99,4 @@ field string --fieldName text
 entity --class fantasy.domain.rules --testAutomatically 
 vaadin generate all --package fantasy.web.ui
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-20 15:01:42
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-23 02:57:19

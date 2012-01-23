@@ -2,17 +2,16 @@ package fantasy.web.ui.admin;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import fantasy.domain.RoundTotal;
-import fantasy.domain.Team;
-import fantasy.web.ui.admin.AbstractEntityView;
-import fantasy.web.ui.admin.EntityEditor;
-
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
+import fantasy.domain.RoundTotal;
+
 @RooVaadinEntityView(formBackingObject = fantasy.domain.RoundTotal.class)
 public class RoundTotalView extends AbstractEntityView<fantasy.domain.RoundTotal> {
+
+	private static final long serialVersionUID = 1L;
 
 
 

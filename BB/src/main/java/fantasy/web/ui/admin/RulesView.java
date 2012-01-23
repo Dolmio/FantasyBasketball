@@ -6,7 +6,10 @@ import com.vaadin.ui.Table;
 @RooVaadinEntityView(formBackingObject = fantasy.domain.Rules.class)
 public class RulesView extends AbstractEntityView<fantasy.domain.Rules> {
 
-    @Override
+   
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected EntityEditor createForm() {
         return new RulesForm();
     }

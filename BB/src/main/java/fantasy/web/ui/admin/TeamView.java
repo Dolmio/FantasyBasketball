@@ -3,12 +3,12 @@ package fantasy.web.ui.admin;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
-import fantasy.domain.Team;
-
 @RooVaadinEntityView(formBackingObject = fantasy.domain.Team.class)
 public class TeamView extends AbstractEntityView<fantasy.domain.Team> {
 
-    @Override
+   private static final long serialVersionUID = 1L;
+
+	@Override
     protected EntityEditor createForm() {
     	return new TeamForm();
     }

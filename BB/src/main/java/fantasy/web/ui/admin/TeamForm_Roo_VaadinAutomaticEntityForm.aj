@@ -3,24 +3,12 @@
 
 package fantasy.web.ui.admin;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.DateField;
-import com.vaadin.ui.DefaultFieldFactory;
-import com.vaadin.ui.Field;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
+
 import fantasy.domain.Game;
-import fantasy.domain.Player;
 import fantasy.domain.RoundTotal;
 import fantasy.domain.Team;
-import java.lang.Class;
-import java.lang.Long;
-import java.lang.Object;
-import java.lang.String;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
     

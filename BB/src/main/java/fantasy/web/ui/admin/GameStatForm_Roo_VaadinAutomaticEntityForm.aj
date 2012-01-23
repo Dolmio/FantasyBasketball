@@ -3,6 +3,9 @@
 
 package fantasy.web.ui.admin;
 
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.ComboBox;
@@ -12,14 +15,9 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
+
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
-import java.lang.Class;
-import java.lang.Long;
-import java.lang.Object;
-import java.lang.String;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
 
 privileged aspect GameStatForm_Roo_VaadinAutomaticEntityForm {
     

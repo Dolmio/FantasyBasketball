@@ -12,9 +12,14 @@ import com.vaadin.ui.RichTextArea;
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Rules.class)
 public class RulesForm extends AutomaticEntityForm<fantasy.domain.Rules> {
 
-    public RulesForm() {
+   private static final long serialVersionUID = 1L;
+
+	public RulesForm() {
         super(fantasy.domain.Rules.class);
         FormFieldFactory fff =   new DefaultFieldFactory() {
+			
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Field createField(Item item, Object propertyId, Component uiContext) {
 				if(propertyId.equals("text")){

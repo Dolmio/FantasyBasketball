@@ -3,6 +3,13 @@
 
 package fantasy.web.ui.admin;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
+import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
@@ -14,19 +21,11 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
+
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.positions.TeamPosition;
-import java.lang.Class;
-import java.lang.Long;
-import java.lang.Object;
-import java.lang.String;
-import java.util.Arrays;
-import java.util.Collection;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
-import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect PlayerForm_Roo_VaadinAutomaticEntityForm {
     

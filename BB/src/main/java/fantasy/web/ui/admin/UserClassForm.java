@@ -4,29 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
-
-import fantasy.domain.Team;
-import fantasy.web.FantasyApplication;
-import fantasy.web.ui.admin.AutomaticEntityForm;
-
 import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.DateField;
-import com.vaadin.ui.DefaultFieldFactory;
-import com.vaadin.ui.Field;
-import com.vaadin.ui.FormFieldFactory;
-import com.vaadin.ui.TextField;
-import java.util.List;
+
+import fantasy.web.FantasyApplication;
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.UserClass.class)
 public class UserClassForm extends AutomaticEntityForm<fantasy.domain.UserClass> {
 
-    public UserClassForm() {
+   
+	private static final long serialVersionUID = 1L;
+
+	public UserClassForm() {
         super(fantasy.domain.UserClass.class);
 
         getForm().setFormFieldFactory(getFormFieldFactory());

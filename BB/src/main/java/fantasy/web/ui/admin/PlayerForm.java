@@ -3,21 +3,11 @@ package fantasy.web.ui.admin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 
-import org.joda.time.LocalDate;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.vaadin.addon.customfield.beanfield.BeanFieldWrapper;
-import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
-
-import fantasy.domain.GameStat;
-import fantasy.domain.Player;
-import fantasy.domain.Team;
-import fantasy.domain.positions.PlayerPosition;
 
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 import com.vaadin.ui.ComboBox;
@@ -29,15 +19,23 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 
+import fantasy.domain.Team;
+import fantasy.domain.positions.PlayerPosition;
+
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Player.class)
 public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
-	 private BeanItemContainer<PlayerPosition> containerForPlayerPositions;
+	
+	private static final long serialVersionUID = 1L;
+	private BeanItemContainer<PlayerPosition> containerForPlayerPositions;
 	
 	public PlayerForm() {
 		super(fantasy.domain.Player.class);
 		
 		
 		FormFieldFactory fff =   new DefaultFieldFactory() {
+			
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Field createField(Item item, Object propertyId, Component uiContext) {
 				Field field = null;
@@ -48,16 +46,7 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 					field.setCaption("Possible Positions");
 					
 				} 
-			else if ("possiblePositions".equals(propertyId)) {
-				field = buildPossiblePositionsMultiSelect();
-				field.setCaption(createCaptionByPropertyId(propertyId));
-			}
-			else if ("stats".equals(propertyId)) {
-				TwinColSelect select = buildStatsMultiSelect();
-				 field = new BeanSetFieldWrapper<GameStat>(select, GameStat.class, getContainerForGameStats(), "id");
-				field.setCaption(createCaptionByPropertyId(propertyId));
-			}
-			else if ("team".equals(propertyId)) {
+				else if ("team".equals(propertyId)) {
 					ComboBox combo = buildTeamCombo();
 					field = new BeanFieldWrapper<Team>(combo, Team.class, getContainerForTeams(), "id");
 					field.setCaption(createCaptionByPropertyId(propertyId));
@@ -81,47 +70,18 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 	}
 	
 	
-	
+	/**
+	 * returns fields to show in the form
+	 */
 	@Override
 	protected Collection<?> getItemPropertyIds(Item item) {
-		if (null == item) {
-			return Collections.emptyList();
-		}
-	
+		
 		ArrayList<Object> properties = new ArrayList<Object>(Arrays.asList(new Object[] {"firstName", "lastName", "team","value", "possiblePositionsImp", 
 				"currentPosition"}));
 		
 		
 		return properties;
 	}
-	
-	 public TwinColSelect buildStatsMultiSelect(){
-		 BeanContainer<Long, GameStat> stats = getContainerForGameStats();
-		 TwinColSelect select = new TwinColSelect(null, stats);
-		 	
-	        //change item caption values to "id + date + lastname"
-		 	for(Long id : stats.getItemIds()){
-	        	Player statsPlayer = (Player) stats.getItem(id).getItemProperty("player").getValue();
-	        	String playerName = "";
-	        	//we want just the day (1-11-2012)
-	        	LocalDate statDate = new LocalDate(((Date)stats.getItem(id).getItemProperty("dateWhen").getValue()).getTime());
-	   	        	
-	        	if (statsPlayer != null){
-	        		playerName = statsPlayer.getLastName();
-	        	}
-	        	
-		 		select.setItemCaption(id,  stats.getItem(id).getItemProperty("id").getValue() + "  " +
-	        			 statDate + " " + playerName);
-	        }
-	       
-		 	  Object captionPropertyId = getGameStatCaptionPropertyId();
-		        if (captionPropertyId != null) {
-		            select.setItemCaptionPropertyId(captionPropertyId);
-		        }
-		        select.setWidth("500px");
-		      
-	        return select;
-	 }
 	
 	 public TwinColSelect buildPossiblePositionsMultiSelect() {
 	        TwinColSelect select = new TwinColSelect(null, getContainerForPlayerPositions());
@@ -134,7 +94,8 @@ public class PlayerForm extends AutomaticEntityForm<fantasy.domain.Player> {
 	 public BeanItemContainer<PlayerPosition> getContainerForPlayerPositions() {
 	        if (containerForPlayerPositions == null) {
 	            Collection<PlayerPosition> items = Arrays.asList(PlayerPosition.class.getEnumConstants());
-	            BeanItemContainer<PlayerPosition> container = new BeanItemContainer<PlayerPosition>(items);
+	            @SuppressWarnings("deprecation")
+				BeanItemContainer<PlayerPosition> container = new BeanItemContainer<PlayerPosition>(items);
 	            containerForPlayerPositions = container;
 	        }
 	        return containerForPlayerPositions;

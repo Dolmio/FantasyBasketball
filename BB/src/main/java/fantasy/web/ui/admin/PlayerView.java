@@ -1,20 +1,20 @@
 package fantasy.web.ui.admin;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
-import fantasy.domain.Game;
 import fantasy.domain.Player;
 
 @RooVaadinEntityView(formBackingObject = fantasy.domain.Player.class)
 public class PlayerView extends AbstractEntityView<fantasy.domain.Player> {
 
-    @Override
+    
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected EntityEditor createForm() {
         return new PlayerForm();
     }

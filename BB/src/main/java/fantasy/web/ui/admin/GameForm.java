@@ -2,7 +2,6 @@ package fantasy.web.ui.admin;
 
 
 
-import fantasy.web.ui.admin.AutomaticEntityForm;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
 
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Game.class)
