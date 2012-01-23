@@ -3,14 +3,35 @@
 
 package fantasy.web.ui.admin;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanContainer;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
-
 import fantasy.domain.Game;
+import fantasy.domain.Player;
 import fantasy.domain.RoundTotal;
 import fantasy.domain.Team;
+import java.lang.Class;
+import java.lang.Long;
+import java.lang.Object;
+import java.lang.String;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.vaadin.addon.customfield.beanfield.BeanSetFieldWrapper;
 
 privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
+    
+    public TwinColSelect TeamForm.buildPlayersMultiSelect() {
+        TwinColSelect select = new TwinColSelect(null, getContainerForPlayers());
+        Object captionPropertyId = getPlayerCaptionPropertyId();
+        if (captionPropertyId != null) {
+            select.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return select;
+    }
     
     public TwinColSelect TeamForm.buildHomeGamesMultiSelect() {
         TwinColSelect select = new TwinColSelect(null, getContainerForGames());
@@ -28,6 +49,24 @@ privileged aspect TeamForm_Roo_VaadinAutomaticEntityForm {
             select.setItemCaptionPropertyId(captionPropertyId);
         }
         return select;
+    }
+    
+    public TwinColSelect TeamForm.buildRoundTotalsMultiSelect() {
+        TwinColSelect select = new TwinColSelect(null, getContainerForRoundTotals());
+        Object captionPropertyId = getRoundTotalCaptionPropertyId();
+        if (captionPropertyId != null) {
+            select.setItemCaptionPropertyId(captionPropertyId);
+        }
+        return select;
+    }
+    
+    public BeanContainer<Long, Player> TeamForm.getContainerForPlayers() {
+        BeanContainer<Long, Player> container = new BeanContainer<Long, Player>(Player.class);
+        container.setBeanIdProperty("id");
+        for (Player entity : Player.findAllPlayers()) {
+            container.addBean(entity);
+        }
+        return container;
     }
     
     public BeanContainer<Long, RoundTotal> TeamForm.getContainerForRoundTotals() {

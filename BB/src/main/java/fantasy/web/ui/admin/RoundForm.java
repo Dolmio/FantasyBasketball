@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import com.vaadin.data.Item;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinAutomaticEntityForm;
+import com.vaadin.ui.FormFieldFactory;
 @RooVaadinAutomaticEntityForm(formBackingObject = fantasy.domain.Round.class)
 public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 
@@ -32,6 +33,10 @@ public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 		return  new ArrayList<Object>(Arrays.asList(new Object[] {"name", "startDate", "endDate"}));
 		
 	}
+    
+    public FormFieldFactory getFormFieldFactory(){
+    	return null;
+    }
     
     
    

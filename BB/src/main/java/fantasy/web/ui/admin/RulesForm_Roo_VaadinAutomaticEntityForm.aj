@@ -3,8 +3,6 @@
 
 package fantasy.web.ui.admin;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-
 import com.vaadin.data.Item;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
@@ -12,8 +10,10 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
-
 import fantasy.domain.Rules;
+import java.lang.Class;
+import java.lang.String;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 privileged aspect RulesForm_Roo_VaadinAutomaticEntityForm {
     

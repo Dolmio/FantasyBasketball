@@ -100,3 +100,22 @@ entity --class fantasy.domain.rules --testAutomatically
 vaadin generate all --package fantasy.web.ui
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-20 15:01:42
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-23 02:57:19
+addon install bundle --bundleSymbolicName vaadin
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-23 03:23:58
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-23 11:05:39
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+download accept terms of use
+pgp trust --keyId 0xBF0451C0
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+addon upgrade bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-23 11:14:43
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-23 11:15:23
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+addon search vaadin
+osgi obr url add --url http://vaadin.com/springroo/repository.xml
+osgi obr start --bundleSymbolicName com.vaadin.spring.roo.addon
+osgi obr url remove --url http://vaadin.com/springroo/repository.xml
+addon install id 01
+vaadin generate all --package fantasy.web.auto
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-23 16:02:28

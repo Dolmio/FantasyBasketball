@@ -3,13 +3,15 @@
 
 package fantasy.web.ui.admin;
 
-import java.util.List;
-
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Table;
-
 import fantasy.domain.GameStat;
+import fantasy.web.ui.admin.EntityTableColumnGenerator;
+import java.lang.Class;
+import java.lang.Object;
+import java.lang.String;
+import java.util.List;
 
 privileged aspect GameStatView_Roo_VaadinEntityView {
     
