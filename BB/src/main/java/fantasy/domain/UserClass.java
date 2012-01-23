@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.roo.addon.entity.RooEntity;
@@ -16,6 +18,7 @@ import fantasy.domain.authentication.Role;
 @RooJavaBean
 @RooToString
 @RooEntity
+@Table(name = "USERCLASS", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 public class UserClass implements Serializable{
 	
 	

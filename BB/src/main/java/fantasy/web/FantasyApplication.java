@@ -12,6 +12,7 @@ import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
 
 import fantasy.domain.UserClass;
+import fantasy.util.DatabaseFactory;
 
 
 //TODO Jos poistaa pelaajan joukkuuesta tuhoutuu pelaaja samalla

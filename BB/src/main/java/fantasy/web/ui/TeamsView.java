@@ -60,20 +60,7 @@ public class TeamsView extends CustomComponent implements ContentUpdateable{
 			}
 		});
 
-		teamTable.setTableFieldFactory(new TableFieldFactory() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Field createField(Container container, Object itemId,
-					Object propertyId, Component uiContext) {
-				if(propertyId.equals("firstName")){
-					return new FieldFactory().createField(container, itemId, propertyId, uiContext);
-
-				}
-				return null;
-			}
-		});
+		
 
 
 	}
