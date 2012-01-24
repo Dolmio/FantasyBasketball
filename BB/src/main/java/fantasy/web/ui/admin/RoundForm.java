@@ -34,9 +34,7 @@ public class RoundForm extends AutomaticEntityForm<fantasy.domain.Round> {
 		
 	}
     
-    public FormFieldFactory getFormFieldFactory(){
-    	return null;
-    }
+  
     
     
    

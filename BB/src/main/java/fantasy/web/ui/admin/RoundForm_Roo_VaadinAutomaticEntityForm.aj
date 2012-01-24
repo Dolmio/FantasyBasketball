@@ -9,6 +9,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import fantasy.domain.Game;
@@ -29,6 +30,32 @@ privileged aspect RoundForm_Roo_VaadinAutomaticEntityForm {
             select.setItemCaptionPropertyId(captionPropertyId);
         }
         return select;
+    }
+    
+    public FormFieldFactory RoundForm.getFormFieldFactory() {
+        return new DefaultFieldFactory() {
+            @Override
+            public Field createField(Item item, Object propertyId, Component uiContext) {
+                Field field = null;
+                if (getIdProperty().equals(propertyId) || getVersionProperty().equals(propertyId)) {
+                    return null;
+                } else if ("games".equals(propertyId)) {
+                    TwinColSelect select = buildGamesMultiSelect();
+                    field = new BeanSetFieldWrapper<Game>(select, Game.class, getContainerForGames(), "id");
+                    field.setCaption(createCaptionByPropertyId(propertyId));
+                } else {
+                    field = super.createField(item, propertyId, uiContext);
+                    if (field instanceof TextField) {
+                        ((TextField) field).setNullRepresentation("");
+                    }
+                    if (field instanceof DateField) {
+                        ((DateField) field).setLocale(LocaleContextHolder.getLocale());
+                        field.setInvalidAllowed(true);
+                    }
+                }
+                return field;
+            }
+        };
     }
     
     public BeanContainer<Long, Game> RoundForm.getContainerForGames() {
