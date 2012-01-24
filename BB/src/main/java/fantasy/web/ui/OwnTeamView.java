@@ -21,6 +21,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.VerticalLayout;
 
+import fantasy.domain.AdminSwitch;
 import fantasy.domain.Player;
 import fantasy.domain.Team;
 import fantasy.domain.positions.PlayerPosition;
@@ -72,9 +73,9 @@ public class OwnTeamView extends CustomComponent implements ContentUpdateable {
 			public Field createField(Container container, Object itemId,
 					Object propertyId, Component uiContext) {
 
-				//only currentPosition is editable field
-
-				if(propertyId.equals("currentPosition")){
+				//check if manager can edit his lineup. if he can only currentPosition is editable field
+				Boolean positionsEditable = AdminSwitch.findAdminSwitchEntries(0, 1).get(0).getPositionsEditable();
+				if(positionsEditable && propertyId.equals("currentPosition")){
 					Select select = new Select();
 					select.setImmediate(true);
 					Collection<TeamPosition> items = Arrays.asList(TeamPosition.class.getEnumConstants());

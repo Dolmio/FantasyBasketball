@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import fantasy.domain.AdminSwitch;
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
 import fantasy.domain.Team;
@@ -126,15 +127,21 @@ public class DatabaseFactory {
 			round.flush();
 		 */
 
-
-		UserClass user = new UserClass();
-
-		user.setUsername("admin");
-		user.setPassword(FantasyApplication.getHash("sana"));
-		user.setUserRole(Role.ADMIN);
-		//user.setTeam(t);
-		user.persist();
-		user.flush();
+		if(UserClass.countUserClasses() == 0){
+			UserClass user = new UserClass();
+			user.setUsername("admin");
+			user.setPassword(FantasyApplication.getHash("sana"));
+			user.setUserRole(Role.ADMIN);
+			//user.setTeam(t);
+			user.persist();
+			user.flush();
+		}
+		if(AdminSwitch.countAdminSwitches() == 0){
+			AdminSwitch aSwitch = new AdminSwitch();
+			aSwitch.setPositionsEditable(false);
+			aSwitch.persist();
+			aSwitch.flush();
+		}
 		//users.addEntity(user);
 		/*
 			UserClass manager = new UserClass();

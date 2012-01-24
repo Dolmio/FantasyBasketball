@@ -15,7 +15,6 @@ import fantasy.domain.UserClass;
 import fantasy.util.DatabaseFactory;
 
 
-//TODO Jos poistaa pelaajan joukkuuesta tuhoutuu pelaaja samalla
 
 public class FantasyApplication extends Application implements ApplicationContext.TransactionListener {
 	
@@ -37,7 +36,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	@Override
 	public void init() {
 		//usercode
-		//DatabaseFactory.initDB();		
+		DatabaseFactory.initDB();		
 		currentUser = VISITOR;
 		getContext().addTransactionListener ( this );
 		

@@ -197,7 +197,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 					statsTable.setColumnFooter(columnId, String.valueOf(getColumnAverage(columnId)));
 				}
 			}
-			statsTable.setColumnFooter("dateWhen", "Sum");
+			statsTable.setColumnFooter("dateWhen", "Average");
 			statsTable.setFooterVisible(true);
 			//sort by date
 			statsTable.sort(new Object[]{"dateWhen", "points"}, new boolean[]{false, false});

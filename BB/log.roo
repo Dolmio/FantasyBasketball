@@ -119,3 +119,9 @@ osgi obr url remove --url http://vaadin.com/springroo/repository.xml
 addon install id 01
 vaadin generate all --package fantasy.web.auto
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-23 16:02:28
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2012-01-23 18:25:06
+entity --class fantasy.domain.AdminSwitch --testAutomatically 
+// [failed] field boolean --fieldName positionsEditable
+field boolean --fieldName positionsEditable
+vaadin generate all --package fantasy.web.ui.temp
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2012-01-24 17:32:58

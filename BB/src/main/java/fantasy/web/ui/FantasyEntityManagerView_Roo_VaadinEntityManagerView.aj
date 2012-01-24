@@ -3,6 +3,7 @@
 
 package fantasy.web.ui;
 
+import fantasy.web.ui.admin.AdminSwitchView;
 import fantasy.web.ui.admin.GameStatView;
 import fantasy.web.ui.admin.GameView;
 import fantasy.web.ui.admin.NewsView;
@@ -30,6 +31,7 @@ privileged aspect FantasyEntityManagerView_Roo_VaadinEntityManagerView {
         result.put("News",NewsView.class);
         result.put("Game",GameView.class);
         result.put("Game Stat",GameStatView.class);
+        result.put("Admin Switch",AdminSwitchView.class);
         return result;
     }
     
