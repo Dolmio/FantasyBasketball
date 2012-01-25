@@ -84,7 +84,7 @@ public class LoginForm extends CustomComponent {
 		
 		// userNameField
 		userNameField = new TextField();
-		userNameField.setCaption("Username");
+		userNameField.setCaption("Käyttäjänimi:");
 		userNameField.setImmediate(false);
 		userNameField.setWidth("-1px");
 		userNameField.setHeight("-1px");
@@ -93,7 +93,7 @@ public class LoginForm extends CustomComponent {
 		
 		// passwordField
 		passwordField = new PasswordField();
-		passwordField.setCaption("Password");
+		passwordField.setCaption("Salasana:");
 		passwordField.setImmediate(false);
 		passwordField.setWidth("-1px");
 		passwordField.setHeight("-1px");
@@ -121,7 +121,7 @@ public class LoginForm extends CustomComponent {
 		
 		// loginButton
 		loginButton = new Button();
-		loginButton.setCaption("Login");
+		loginButton.setCaption("Kirjaudu");
 		loginButton.setImmediate(true);
 		loginButton.setWidth("-1px");
 		loginButton.setHeight("-1px");

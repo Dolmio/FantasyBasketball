@@ -141,7 +141,8 @@ public class OwnTeamView extends CustomComponent implements ContentUpdateable {
 		tableUpdateInProgress = true;
 		teamTable.setContainerDataSource(getTeamPlayers());
 		setTableFieldFactory();
-		teamTable.setVisibleColumns(new String[] {"lastName", "firstName", "possiblePositions", "currentPosition"});
+		teamTable.setVisibleColumns(new String[] {"lastName","value", "firstName", "possiblePositions", "currentPosition"});
+		teamTable.setColumnHeaders(new String[]{"Sukunimi", "Etunimi","Arvo", "Mahd. pelipaikat", "Pelipaikka"});
 		teamTable.setSortDisabled(true);
 		tableUpdateInProgress = false;
 	}
@@ -164,7 +165,7 @@ public class OwnTeamView extends CustomComponent implements ContentUpdateable {
 		label_1.setImmediate(false);
 		label_1.setWidth("-1px");
 		label_1.setHeight("-1px");
-		label_1.setValue("My Team");
+		label_1.setValue("Joukkueeni");
 		mainLayout.addComponent(label_1);
 		mainLayout.setComponentAlignment(label_1, new Alignment(20));
 		

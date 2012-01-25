@@ -10,6 +10,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
+import fantasy.domain.Player;
 import fantasy.domain.Team;
 
 public class StandingsView extends CustomComponent implements ContentUpdateable{
@@ -34,7 +35,8 @@ public class StandingsView extends CustomComponent implements ContentUpdateable{
 	public StandingsView() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-
+		
+		standingsTable.setPageLength((int)Team.countTeams());
 		updateContent();
 		
 	}
@@ -47,11 +49,12 @@ public class StandingsView extends CustomComponent implements ContentUpdateable{
 		
 		standingsTable.setContainerDataSource(teamContainer);
 		standingsTable.setVisibleColumns(new Object[] { "name", "winCount", "finishedGameCount"});
-		standingsTable.setColumnHeaders(new String[] {"Team", "Wins", "Games"});
+		standingsTable.setColumnHeaders(new String[] {"Joukkue", "Voitot", "Ottelut"});
 		
 		//sort criterias:wins, games, name.  wins are in descending order
 		standingsTable.sort(new Object[] {"winCount", "gameCount", "name"}, new boolean[]{false, true, true});
 		standingsTable.setSortDisabled(true);
+		
 		
 	}
 
@@ -78,7 +81,7 @@ public class StandingsView extends CustomComponent implements ContentUpdateable{
 		header.setImmediate(false);
 		header.setWidth("-1px");
 		header.setHeight("35px");
-		header.setValue("Standings");
+		header.setValue("Sarjataulukko");
 		mainLayout.addComponent(header);
 		mainLayout.setComponentAlignment(header, new Alignment(20));
 		

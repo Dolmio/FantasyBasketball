@@ -113,7 +113,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 				updateStatsTable();
 				if(players.size() != 0 && playerSelect.getValue() != null)  {
 					String playersTeam = ((Team) (players.getItem(playerSelect.getValue()).getItemProperty("team").getValue())).getName();
-					teamLabel.setValue("Team: " + playersTeam);
+					teamLabel.setValue("Joukkue: " + playersTeam);
 				}
 			}
 		});
@@ -310,7 +310,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 		
 		// playerSelect
 		playerSelect = new Select();
-		playerSelect.setCaption("Players:");
+		playerSelect.setCaption("Pelaajat:");
 		playerSelect.setImmediate(false);
 		playerSelect.setWidth("-1px");
 		playerSelect.setHeight("-1px");
@@ -318,7 +318,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 		
 		// justOwnPlayersCB
 		justOwnPlayersCB = new CheckBox();
-		justOwnPlayersCB.setCaption("Just own players");
+		justOwnPlayersCB.setCaption("Vain omat pelaajani");
 		justOwnPlayersCB.setImmediate(false);
 		justOwnPlayersCB.setWidth("-1px");
 		justOwnPlayersCB.setHeight("-1px");
@@ -326,7 +326,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 		
 		// startDateField
 		startDateField = new PopupDateField();
-		startDateField.setCaption("From:");
+		startDateField.setCaption("Mistä:");
 		startDateField.setImmediate(false);
 		startDateField.setWidth("-1px");
 		startDateField.setHeight("-1px");
@@ -335,7 +335,7 @@ public class PlayersView extends CustomComponent implements ContentUpdateable{
 		
 		// endDateField
 		endDateField = new PopupDateField();
-		endDateField.setCaption("To:");
+		endDateField.setCaption("Mihin:");
 		endDateField.setImmediate(false);
 		endDateField.setWidth("-1px");
 		endDateField.setHeight("-1px");

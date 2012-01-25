@@ -71,7 +71,7 @@ public class TeamsView extends CustomComponent implements ContentUpdateable{
 		teamTable.setContainerDataSource(players);
 		teamTable.setVisibleColumns(
 				new String[] { "lastName", "firstName","value", "currentPosition", "possiblePositions"} );
-		teamTable.setColumnHeaders(new String[]{"Lastname", "Firstname", "Value", "Current position", "Possible positions"});
+		teamTable.setColumnHeaders(new String[]{"Sukunimi", "Etunimi", "Arvo", "Pelipaikka", "Mahd. Pelipaikat"});
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class TeamsView extends CustomComponent implements ContentUpdateable{
 		
 		// teamChoiceSelect
 		teamChoiceSelect = new Select();
-		teamChoiceSelect.setCaption("Select Team:");
+		teamChoiceSelect.setCaption("Valitse joukkue:");
 		teamChoiceSelect.setImmediate(true);
 		teamChoiceSelect.setWidth("-1px");
 		teamChoiceSelect.setHeight("-1px");
