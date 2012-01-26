@@ -14,6 +14,7 @@ privileged aspect Round_Roo_ToString {
         sb.append("Games: ").append(getGames() == null ? "null" : getGames().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
+        sb.append("RoundsWithGames: ").append(getRoundsWithGames() == null ? "null" : getRoundsWithGames().size()).append(", ");
         sb.append("StartDate: ").append(getStartDate()).append(", ");
         sb.append("Version: ").append(getVersion());
         return sb.toString();

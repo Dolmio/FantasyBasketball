@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -46,7 +47,7 @@ public class Player implements Serializable {
     @Size(min = 2)
     private String lastName;
 
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<PlayerPosition> possiblePositions = new HashSet<PlayerPosition>();
     

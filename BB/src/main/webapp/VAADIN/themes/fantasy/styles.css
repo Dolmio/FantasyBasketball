@@ -34,3 +34,13 @@
 	padding-top: 0px;
 }
 
+.v-caption-resultTable {
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 15px;
+   
+}
+
+.v-table{
+	margin-bottom: 40px;
+}

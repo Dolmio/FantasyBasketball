@@ -1,8 +1,12 @@
 package fantasy.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -60,6 +64,16 @@ public class Round implements Serializable  {
 	  games.remove(game);
   }
   
+  public static Collection<Round> getRoundsWithGames(){
+	  List<Round> allRounds = Round.findAllRounds();
+	  List<Round> roundsWithGames = new LinkedList<Round>();
+	  for(Round round : allRounds){
+		  if(round.getGameCount() != 0){
+			  roundsWithGames.add(round);
+		  }
+	  }
+	  return roundsWithGames;
+  }
   
   
 }
