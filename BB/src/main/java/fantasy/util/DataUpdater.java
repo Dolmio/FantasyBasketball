@@ -76,7 +76,7 @@ public class DataUpdater implements Serializable {
 
 		//iterate over all players and their stats if they are in the game
 		for(Player player : team.getPlayers()){
-			if(player.getCurrentPosition() != TeamPosition.BENCH ){
+			if( ! TeamPosition.getOutOfTheFieldPositions().contains(player.getCurrentPosition())){
 				for(GameStat stat : player.getStats()){
 
 					long statTime = stat.getDateWhen().getTime();

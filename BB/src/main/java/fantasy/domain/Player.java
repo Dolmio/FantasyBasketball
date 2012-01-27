@@ -60,7 +60,7 @@ public class Player implements Serializable {
     private HashSet<PlayerPosition> possiblePositionsImp = new HashSet<PlayerPosition>();
 
     @Enumerated(EnumType.STRING)
-    private TeamPosition currentPosition = TeamPosition.BENCH;
+    private TeamPosition currentPosition = TeamPosition.BENCH1;
 
     @ManyToOne
     private Team team;

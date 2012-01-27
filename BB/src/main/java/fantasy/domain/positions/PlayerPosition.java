@@ -1,5 +1,7 @@
 package fantasy.domain.positions;
 
+import java.util.ArrayList;
+
 public enum PlayerPosition {
 	PG,
 	SG,
@@ -15,7 +17,8 @@ public enum PlayerPosition {
  */
 public boolean canPlay(TeamPosition tp){
 		
-		if(tp == TeamPosition.ANY || tp == TeamPosition.BENCH){
+		
+		if(tp == TeamPosition.ANY ||  TeamPosition.getOutOfTheFieldPositions().contains(tp)){
 			return true;
 		}
 		

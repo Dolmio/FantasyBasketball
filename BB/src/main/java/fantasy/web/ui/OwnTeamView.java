@@ -96,7 +96,7 @@ public class OwnTeamView extends CustomComponent implements ContentUpdateable {
 					//remove positions which already exist in team
 					for(Object playerId : players.getItemIds()){
 						TeamPosition currentPosition = (TeamPosition) players.getItem(playerId).getItemProperty("currentPosition").getValue();
-						if(currentPosition != TeamPosition.BENCH && playerId != itemId){
+						if(playerId != itemId){
 							select.removeItem(currentPosition);
 						}
 					}
