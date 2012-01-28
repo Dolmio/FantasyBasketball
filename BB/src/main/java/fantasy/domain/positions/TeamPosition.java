@@ -20,7 +20,8 @@ public enum TeamPosition {
 	BENCH4,
 	BENCH5,
 	BENCH6,
-	IR;
+	IR,
+	TEMP;
 	
 	public static final Set<TeamPosition>getOutOfTheFieldPositions(){
 		return new HashSet<TeamPosition>(Arrays.asList(new TeamPosition[]{
@@ -30,7 +31,8 @@ public enum TeamPosition {
 				BENCH4,
 				BENCH5,
 				BENCH6,
-				IR
+				IR,
+				TEMP
 		}));
 	}
 }
