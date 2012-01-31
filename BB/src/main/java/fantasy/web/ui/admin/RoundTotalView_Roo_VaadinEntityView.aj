@@ -4,13 +4,11 @@
 package fantasy.web.ui.admin;
 
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Table;
 import fantasy.domain.RoundTotal;
 import fantasy.web.ui.admin.EntityTableColumnGenerator;
 import java.lang.Class;
-import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
 import java.util.List;
@@ -69,15 +67,6 @@ privileged aspect RoundTotalView_Roo_VaadinEntityView {
     
     public RoundTotal RoundTotalView.createEntityInstance() {
         return new RoundTotal();
-    }
-    
-    public BeanContainer<Long, RoundTotal> RoundTotalView.getTableContainer() {
-        BeanContainer<Long, RoundTotal> container = new BeanContainer<Long, RoundTotal>(RoundTotal.class);
-        container.setBeanIdProperty("id");
-        for (RoundTotal entity : RoundTotal.findAllRoundTotals()) {
-            container.addBean(entity);
-        }
-        return container;
     }
     
     public Item RoundTotalView.getItemForEntity(RoundTotal entity) {

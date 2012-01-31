@@ -163,7 +163,7 @@ public class Player implements Serializable {
      * Returns the stat which date is the biggest
      * @return
      */
-    public GameStat getNewestStat(){
+    public GameStat giveNewestStat(){
 		GameStat latestStat = null;
     	for(GameStat stat : stats){
 			if(latestStat == null){

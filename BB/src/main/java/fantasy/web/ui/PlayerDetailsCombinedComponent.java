@@ -39,7 +39,7 @@ public class PlayerDetailsCombinedComponent extends CustomComponent {
 	}
 
 	public void updateContent(Player player) {
-		GameStat newestStat = player.getNewestStat();
+		GameStat newestStat = player.giveNewestStat();
 		updateNewestStatComponent(newestStat);
 		updateAverageStatComponent(player);
 
@@ -64,7 +64,7 @@ public class PlayerDetailsCombinedComponent extends CustomComponent {
 					stat.getSteals().toString(),
 					stat.getFgMade().toString(),
 					stat.getFgAttempts().toString(),
-					stat.getFieldGoalPercentage().toString(),
+					stat.giveFieldGoalPercentage().toString(),
 					stat.getThreePointsMade().toString(),
 					stat.getFtMade().toString(),
 					stat.getTurnovers().toString()
@@ -91,7 +91,7 @@ public class PlayerDetailsCombinedComponent extends CustomComponent {
 			statSums[4] += stat.getSteals();
 			statSums[5] += stat.getFgMade();
 			statSums[6] += stat.getFgAttempts();
-			statSums[7] += stat.getFieldGoalPercentage();
+			statSums[7] += stat.giveFieldGoalPercentage();
 			statSums[8] += stat.getThreePointsMade();
 			statSums[9] += stat.getFtMade();
 			statSums[10] += stat.getTurnovers();

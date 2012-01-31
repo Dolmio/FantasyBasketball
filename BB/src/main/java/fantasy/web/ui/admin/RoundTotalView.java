@@ -3,6 +3,7 @@ package fantasy.web.ui.admin;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.data.Validator.InvalidValueException;
+import com.vaadin.data.util.BeanContainer;
 import com.vaadin.spring.roo.addon.annotations.RooVaadinEntityView;
 import com.vaadin.ui.Table;
 
@@ -26,8 +27,8 @@ public class RoundTotalView extends AbstractEntityView<fantasy.domain.RoundTotal
 
 
 		setupGeneratedColumns(table);
-
-		Object[] visibleColumns = new Object[] {"id", "team", "round", "points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
+	
+		Object[] visibleColumns = new Object[] {"id", "team", "round.name", "points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
 				"blocks", "lpBlocks", "steals", "lpSteals", "turnovers", "lpTurnovers", "ftMade", "lpFtMade", "threePointsMade",
 				"lpThreePointsMade", "fgMade", "fgAttempts","fieldGoalPercentage", "lpFieldGoalPercentage", "totalPoints"};
 
@@ -37,6 +38,17 @@ public class RoundTotalView extends AbstractEntityView<fantasy.domain.RoundTotal
 		table.setColumnHeaders(columnHeaders);
 
 	}
+	
+	public BeanContainer<Long, RoundTotal> getTableContainer() {
+        BeanContainer<Long, RoundTotal> container = new BeanContainer<Long, RoundTotal>(RoundTotal.class);
+        container.setBeanIdProperty("id");
+        //add nested property so we can sort by round
+        container.addNestedContainerProperty("round.name");
+        for (RoundTotal entity : RoundTotal.findAllRoundTotals()) {
+            container.addBean(entity);
+        }
+        return container;
+    }
 
 	/**
 	 * Method saves entity and manages bidirectional relationships so they are also updated.

@@ -82,7 +82,7 @@ public class GameStat implements Serializable {
     	
     }
     
-    public Double getFieldGoalPercentage(){
+    public Double giveFieldGoalPercentage(){
     	if (getFgAttempts() == 0) return Double.valueOf(0);
     	//cut after second digit
        	else{
