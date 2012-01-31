@@ -111,7 +111,7 @@ public class RoundTotal implements Serializable, Comparable<RoundTotal> {
     	//cut after second digit
        	else{
     		 DecimalFormat twoDForm = new DecimalFormat("#.##");
-    	     return Double.valueOf(twoDForm.format((double)getFgMade() / (double)getFgAttempts()));
+    	     return Double.valueOf(twoDForm.format(100 * (double)getFgMade() / (double)getFgAttempts()));
     	
     	}
     }

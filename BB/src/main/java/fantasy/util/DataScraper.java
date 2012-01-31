@@ -12,8 +12,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Like;
+
 import fantasy.domain.GameStat;
 import fantasy.domain.Player;
+import fantasy.web.FantasyApplication;
 
 /**
  * 
@@ -139,11 +146,12 @@ public class DataScraper implements Serializable {
 		String[] nameSplitted = name.split(",");
 		String lastName = nameSplitted[0];
 		String firstName = nameSplitted[1];
-		for(Player onePlayer: Player.findAllPlayers()){
-			if(onePlayer.getFirstName().equalsIgnoreCase(firstName) && 
-					onePlayer.getLastName().equalsIgnoreCase(lastName)){
-				return onePlayer;
-			}
+		JPAContainer<Player> playerContainer = JPAContainerFactory.make(Player.class, FantasyApplication.PERSISTENCE_UNIT);
+		//find the matching player
+		playerContainer.addContainerFilter(new And( new Compare.Equal( "lastName", lastName) , new Compare.Equal("firstName", firstName)));
+		playerContainer.applyFilters();
+		if(playerContainer.size() == 1){
+			return playerContainer.getItem(playerContainer.getIdByIndex(0)).getEntity();
 		}
 		return null;
 	}

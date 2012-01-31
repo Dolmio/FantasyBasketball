@@ -42,22 +42,6 @@ public class TabPanel extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
-	
-
-	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
-	
-
-	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
-	
-
-	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
-	
-
-	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The constructor should first build the main layout, set the
@@ -191,7 +175,7 @@ public class TabPanel extends CustomComponent {
 		// rulesView
 		rulesView = new RulesView();
 		rulesView.setImmediate(false);
-		rulesView.setWidth("100.0%");
+		rulesView.setWidth("-1px");
 		rulesView.setHeight("100.0%");
 		tabSheet.addTab(rulesView, "Säännöt", null);
 		

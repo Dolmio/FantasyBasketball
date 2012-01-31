@@ -36,7 +36,7 @@ public class StandingsView extends CustomComponent implements ContentUpdateable{
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		
-		standingsTable.setPageLength((int)Team.countTeams());
+		standingsTable.setPageLength(0);
 		updateContent();
 		
 	}
@@ -45,7 +45,11 @@ public class StandingsView extends CustomComponent implements ContentUpdateable{
 		List<Team> teams = Team.findAllTeams();
 		BeanContainer<Long, Team> teamContainer = new BeanContainer<Long, Team>(Team.class);
 		teamContainer.setBeanIdProperty("id");
-		teamContainer.addAll(teams);
+		for(Team team : teams){
+			if(team.getGameCount() != 0){
+				teamContainer.addBean(team);
+			}
+		}
 		
 		standingsTable.setContainerDataSource(teamContainer);
 		standingsTable.setVisibleColumns(new Object[] { "name", "winCount", "finishedGameCount"});

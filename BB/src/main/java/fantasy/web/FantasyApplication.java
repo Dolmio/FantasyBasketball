@@ -3,9 +3,13 @@ package fantasy.web;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.security.auth.login.FailedLoginException;
+
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Like;
 import com.vaadin.service.ApplicationContext;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
@@ -50,7 +54,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 	 * @param password
 	 * @throws Exception
 	 */
-	public void authenticate( String username, String password) throws Exception
+	public void authenticate( String username, String password) throws FailedLoginException
     {
         //passwords are hashed in db so get hash from input pw
 		String hash = getHash(password);
@@ -58,7 +62,7 @@ public class FantasyApplication extends Application implements ApplicationContex
 		//find the user
 		UserClass user = getUser(username, hash);
 		if(user == null){
-			throw new Exception("Login failed!");
+			throw new FailedLoginException("Login failed!");
 		}
 		else{
 			currentUser = user;
@@ -71,9 +75,13 @@ public class FantasyApplication extends Application implements ApplicationContex
 	
 	private UserClass getUser(final String userName, final String password){
 		JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
+		System.out.println(userName + " " + password);
+		//users.addContainerFilter(new And(new Like("username", userName), new Like("password", password)));
+		//users.applyFilters();
 		
 		users.addContainerFilter("username", userName, false, true);
 		users.addContainerFilter("password", password, false, true);
+		System.out.println(users.size());
 		if(users.size() == 1){ 
 			return users.getItem(users.getIdByIndex(0)).getEntity();
 		}
