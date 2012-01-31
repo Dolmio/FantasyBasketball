@@ -84,7 +84,7 @@ public class ResultsView extends CustomComponent implements ContentUpdateable {
 		
 		//make table for every game in round
 		for(Game game : round.getGames()){
-			makeGameTable(round, game);
+			makeTablesForGame(round, game);
 		}
 	}
 	
@@ -112,38 +112,84 @@ public class ResultsView extends CustomComponent implements ContentUpdateable {
 		return format.format(date);
 	}
 	
-	private void makeGameTable(Round round, Game game){
-		Table gameTable = new Table();
-		gameTable.setPageLength(2);
+	
+	
+	private void makeTablesForGame(Round round, Game game){
+	
 		
 		RoundTotal homeRoundTotal = getCurrentRoundTotal(round, game.getHomeTeam());
 		RoundTotal awayRoundTotal = getCurrentRoundTotal(round, game.getAwayTeam());
-		gameTable.setCaption(game.getHomeTeam().getName() + " VS "+ game.getAwayTeam().getName());
 		if(homeRoundTotal == null || awayRoundTotal == null) return;
 		
+		//label for the game
+		Label gameLabel = new Label(game.getHomeTeam().getName() + " VS "+ game.getAwayTeam().getName());
+		gameLabel.setWidth("-1px");
+		gameLabel.setStyleName("gameHeader");
+		roundFrame.setComponentAlignment(gameLabel, new Alignment(Alignment.TOP_CENTER.getBitMask()));
 		
-		//Roundtotals are showed in the table
-		BeanContainer<Long, RoundTotal> totalsContainer = new BeanContainer<Long, RoundTotal>(RoundTotal.class);
-		totalsContainer.setBeanIdProperty("id");
-		
-		totalsContainer.addBean(homeRoundTotal);
-		totalsContainer.addBean(awayRoundTotal);
+		roundFrame.addComponent(gameLabel);
+		//make tables for both roundtotals
+		makeRoundTotalTable(homeRoundTotal);
+		makeRoundTotalTable(awayRoundTotal);
 		
 		
-		gameTable.setContainerDataSource(totalsContainer);
-		totalsContainer.addNestedContainerProperty("team.name");
-		Object[] visibleColumns = new Object[] {"team.name","points", "lpPoints","rebounds", "lpRebounds", "assists", "lpAssists", 
-				"blocks", "lpBlocks", "steals", "lpSteals", "turnovers", "lpTurnovers", "ftMade", "lpFtMade", "threePointsMade",
-				"lpThreePointsMade", "fieldGoalPercentage", "lpFieldGoalPercentage", "totalPoints"};
-		gameTable.setVisibleColumns(visibleColumns);
-		String[] columnHeaders = new String[]{"Teams", "Pts", "LP-Pts", "Reb", "LP-Reb", "Ass", "LP-Ass", "Blk", "LP-Blk", "Stl", "LP-Stl",
-												"To", "LP-To", "Ftm", "LP-Ftm", "3Fgm", "LP-3Fgm",  "Fg%", "LP-Fg%", "Total points"};
-		gameTable.setColumnHeaders(columnHeaders);
-		gameTable.setStyleName("resultTable");
-		roundFrame.addComponent(gameTable);
-		roundFrame.setComponentAlignment(gameTable, new Alignment(Alignment.TOP_CENTER.getBitMask()));
 		
 	}
+	
+	private  void makeRoundTotalTable(RoundTotal total){
+		Table totalTable = new Table();
+		totalTable.setSortDisabled(true);
+		totalTable.setPageLength(2);
+		totalTable.setCaption(total.getTeam().getName());
+		totalTable.addContainerProperty("Title", String.class, "");
+		totalTable.addContainerProperty("PTS", Integer.class, null);
+		totalTable.addContainerProperty("REB", Integer.class, null);
+		totalTable.addContainerProperty("AST", Integer.class, null);
+		totalTable.addContainerProperty("BLK", Integer.class, null);
+		totalTable.addContainerProperty("STL", Integer.class, null);
+		totalTable.addContainerProperty("FG%", Double.class, null);
+		totalTable.addContainerProperty("3FGM", Integer.class, null);
+		totalTable.addContainerProperty("FTM", Integer.class, null);
+		totalTable.addContainerProperty("TO", Double.class, null);
+		totalTable.addContainerProperty("Total", String.class, null);
+		 
+		//first add row which has total number for every individual stat
+		totalTable.addItem(new Object[] {
+			"Total stats",
+			total.getPoints(),
+			total.getRebounds(),
+			total.getAssists(),
+			total.getBlocks(),
+			total.getSteals(),
+			total.getFieldGoalPercentage(),
+			total.getThreePointsMade(),
+			total.getFtMade(),
+			total.getTurnovers(),
+			""
+		}, null);
+		
+		//then add row which has info about how many points team got from that stat category
+		totalTable.addItem(new Object[]{
+				"League Points",
+				total.getLpPoints(),
+				total.getLpRebounds(),
+				total.getLpAssists(),
+				total.getLpBlocks(),
+				total.getLpSteals(),
+				total.getLpFieldGoalPercentage(),
+				total.getLpThreePointsMade(),
+				total.getLpFtMade(),
+				total.getLpTurnovers(),
+				total.getTotalPoints().toString()
+		}, null);
+		
+		totalTable.setStyleName("totalTable");
+		roundFrame.addComponent(totalTable);
+		roundFrame.setComponentAlignment(totalTable, new Alignment(Alignment.TOP_CENTER.getBitMask()));
+		
+		
+	}
+	
 	
 	private RoundTotal getCurrentRoundTotal(Round round, Team team){
 		RoundTotal currentRoundTotal = null;
@@ -182,8 +228,8 @@ public class ResultsView extends CustomComponent implements ContentUpdateable {
 		// roundFrame
 		roundFrame = new VerticalLayout();
 		roundFrame.setImmediate(false);
-		roundFrame.setWidth("-1px");
-		roundFrame.setHeight("-1px");
+		roundFrame.setWidth("100%");
+		roundFrame.setHeight("100%");
 		roundFrame.setMargin(true);
 		roundFrame.setSpacing(true);
 		mainLayout.addComponent(roundFrame);

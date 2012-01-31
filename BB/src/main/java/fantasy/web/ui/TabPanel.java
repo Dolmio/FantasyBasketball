@@ -42,6 +42,10 @@ public class TabPanel extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
+	
+
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The constructor should first build the main layout, set the
@@ -161,7 +165,7 @@ public class TabPanel extends CustomComponent {
 		// resultsView_1
 		resultsView_1 = new ResultsView();
 		resultsView_1.setImmediate(false);
-		resultsView_1.setWidth("-1px");
+		resultsView_1.setWidth("100.0%");
 		resultsView_1.setHeight("-1px");
 		tabSheet.addTab(resultsView_1, "Tulokset", null);
 		
