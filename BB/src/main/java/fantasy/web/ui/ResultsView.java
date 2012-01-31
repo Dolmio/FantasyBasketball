@@ -125,9 +125,9 @@ public class ResultsView extends CustomComponent implements ContentUpdateable {
 		Label gameLabel = new Label(game.getHomeTeam().getName() + " VS "+ game.getAwayTeam().getName());
 		gameLabel.setWidth("-1px");
 		gameLabel.setStyleName("gameHeader");
-		roundFrame.setComponentAlignment(gameLabel, new Alignment(Alignment.TOP_CENTER.getBitMask()));
 		
 		roundFrame.addComponent(gameLabel);
+		roundFrame.setComponentAlignment(gameLabel, new Alignment(Alignment.TOP_CENTER.getBitMask()));
 		//make tables for both roundtotals
 		makeRoundTotalTable(homeRoundTotal);
 		makeRoundTotalTable(awayRoundTotal);
@@ -155,7 +155,7 @@ public class ResultsView extends CustomComponent implements ContentUpdateable {
 		 
 		//first add row which has total number for every individual stat
 		totalTable.addItem(new Object[] {
-			"Total stats",
+			"Total Stats",
 			total.getPoints(),
 			total.getRebounds(),
 			total.getAssists(),

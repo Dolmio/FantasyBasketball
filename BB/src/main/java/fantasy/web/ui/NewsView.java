@@ -16,6 +16,8 @@ public class NewsView extends CustomComponent implements ContentUpdateable {
 	private Label textContent;
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The constructor should first build the main layout, set the
@@ -46,13 +48,13 @@ public class NewsView extends CustomComponent implements ContentUpdateable {
 		// common part: create layout
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("-1px");
+		mainLayout.setWidth("100%");
 		mainLayout.setHeight("-1px");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		
 		// top-level component properties
-		setWidth("-1px");
+		setWidth("100.0%");
 		setHeight("-1px");
 		
 		// textContent
