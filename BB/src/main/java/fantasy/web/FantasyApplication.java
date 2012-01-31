@@ -75,13 +75,9 @@ public class FantasyApplication extends Application implements ApplicationContex
 	
 	private UserClass getUser(final String userName, final String password){
 		JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
-		System.out.println(userName + " " + password);
-		//users.addContainerFilter(new And(new Like("username", userName), new Like("password", password)));
-		//users.applyFilters();
-		
 		users.addContainerFilter("username", userName, false, true);
 		users.addContainerFilter("password", password, false, true);
-		System.out.println(users.size());
+		
 		if(users.size() == 1){ 
 			return users.getItem(users.getIdByIndex(0)).getEntity();
 		}
