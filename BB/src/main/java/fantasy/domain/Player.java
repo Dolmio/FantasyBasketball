@@ -158,4 +158,22 @@ public class Player implements Serializable {
     	this.remove();
     }
     
+    
+    /**
+     * Returns the stat which date is the biggest
+     * @return
+     */
+    public GameStat getNewestStat(){
+		GameStat latestStat = null;
+    	for(GameStat stat : stats){
+			if(latestStat == null){
+				latestStat = stat;
+			}
+			else if(stat.getDateWhen().after( latestStat.getDateWhen() )) {
+				latestStat = stat;
+			}
+		}
+    	return latestStat;
+	}
+    
 }

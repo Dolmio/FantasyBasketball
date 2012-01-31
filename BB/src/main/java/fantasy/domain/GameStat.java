@@ -1,6 +1,7 @@
 package fantasy.domain;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import javax.persistence.ManyToOne;
@@ -79,6 +80,16 @@ public class GameStat implements Serializable {
     	this.player = newPlayer;
     	
     	
+    }
+    
+    public Double getFieldGoalPercentage(){
+    	if (getFgAttempts() == 0) return Double.valueOf(0);
+    	//cut after second digit
+       	else{
+    		 DecimalFormat twoDForm = new DecimalFormat("#.##");
+    	     return Double.valueOf(twoDForm.format(100 * (double)getFgMade() / (double)getFgAttempts()));
+    	
+    	}
     }
     
     /**
