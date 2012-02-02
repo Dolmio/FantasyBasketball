@@ -46,6 +46,14 @@ public class TabPanel extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
+	
+
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+
+	
+
+	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
+
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The constructor should first build the main layout, set the
@@ -173,13 +181,13 @@ public class TabPanel extends CustomComponent {
 		newsView = new NewsView();
 		newsView.setImmediate(false);
 		newsView.setWidth("100.0%");
-		newsView.setHeight("-1px");
+		newsView.setHeight("100.0%");
 		tabSheet.addTab(newsView, "Uutiset", null);
 		
 		// rulesView
 		rulesView = new RulesView();
 		rulesView.setImmediate(false);
-		rulesView.setWidth("-1px");
+		rulesView.setWidth("100.0%");
 		rulesView.setHeight("100.0%");
 		tabSheet.addTab(rulesView, "Säännöt", null);
 		
