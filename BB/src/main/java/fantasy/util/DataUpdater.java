@@ -151,7 +151,7 @@ public class DataUpdater implements Serializable {
 				else{
 					//if two totals have equal value in certain stat they both get equal (better) points. So we skip the lesser value.
 					RoundTotal previousTotal = totals.get( i - 1);
-					if(total.getStat(currentStatType) == previousTotal.getStat(currentStatType)){
+					if(total.getStat(currentStatType).equals(previousTotal.getStat(currentStatType))){
 						total.setLeaguePoints(currentStatType, previousTotal.getLpStat(currentStatType));
 					}
 					//most common case
