@@ -5,11 +5,11 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.security.auth.login.FailedLoginException;
 
+import org.apache.log4j.Logger;
+
 import com.vaadin.Application;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.data.util.filter.And;
-import com.vaadin.data.util.filter.Like;
 import com.vaadin.service.ApplicationContext;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
@@ -23,7 +23,8 @@ import fantasy.util.DatabaseFactory;
 public class FantasyApplication extends Application implements ApplicationContext.TransactionListener {
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	private static Logger log = Logger.getLogger(FantasyApplication.class);
 
 	public static final String PERSISTENCE_UNIT = 
             "persistenceUnit"; 
@@ -75,9 +76,12 @@ public class FantasyApplication extends Application implements ApplicationContex
 	
 	private UserClass getUser(final String userName, final String password){
 		JPAContainer<UserClass> users = JPAContainerFactory.make(UserClass.class, PERSISTENCE_UNIT);
+		log.info("User:  "+ userName + " password: " + password + " trying to log in");
+		log.info("User count: " + users.getItemIds().size());
 		users.addContainerFilter("username", userName, false, true);
 		users.addContainerFilter("password", password, false, true);
-		
+		users.applyFilters();
+		log.info("User count after filtering: " + users.getItemIds().size());
 		if(users.size() == 1){ 
 			return users.getItem(users.getIdByIndex(0)).getEntity();
 		}
