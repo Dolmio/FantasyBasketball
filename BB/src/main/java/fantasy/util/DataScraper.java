@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Between;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Like;
 
@@ -105,18 +106,18 @@ public class DataScraper implements Serializable {
 	 */
 	private void updateGameStatForPlayer(Element playerElement, Player player){
 		GameStat stat = null;
-		boolean foundExistingStat = false;
-		for(GameStat existingStat: player.getStats()){
-			if(existingStat.getDateWhen().equals(date.toDate())){
-				stat = existingStat;
-				foundExistingStat = true;
-				break;
-			}
+		
+		
+		JPAContainer<GameStat> stats = JPAContainerFactory.make(GameStat.class, FantasyApplication.PERSISTENCE_UNIT);
+		//find the matching player
+		stats.addContainerFilter(
+				new And( new Compare.Equal( "player.id", player.getId()) , new Compare.Equal("dateWhen", date.toDate())));
+		if(stats.getItemIds().size() == 1){
+			stat = stats.getItem(stats.getIdByIndex(0)).getEntity();
 		}
-		if(!foundExistingStat){
+		else {
 			stat = new GameStat();
 			stat.setPlayer(player);
-			
 		}
 		
 		//parse meaningful information
@@ -148,7 +149,8 @@ public class DataScraper implements Serializable {
 		String firstName = nameSplitted[1];
 		JPAContainer<Player> playerContainer = JPAContainerFactory.make(Player.class, FantasyApplication.PERSISTENCE_UNIT);
 		//find the matching player
-		playerContainer.addContainerFilter(new And( new Compare.Equal( "lastName", lastName) , new Compare.Equal("firstName", firstName)));
+		playerContainer.addContainerFilter(
+				new And( new Compare.Equal( "lastName", lastName) , new Compare.Equal("firstName", firstName)));
 		playerContainer.applyFilters();
 		if(playerContainer.size() == 1){
 			return playerContainer.getItem(playerContainer.getIdByIndex(0)).getEntity();

@@ -11,6 +11,12 @@ import javax.persistence.OptimisticLockException;
 
 import org.joda.time.LocalDate;
 
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Between;
+import com.vaadin.data.util.filter.Compare;
+
 import fantasy.domain.Game;
 import fantasy.domain.GameStat;
 import fantasy.domain.GameWinner;
@@ -20,6 +26,7 @@ import fantasy.domain.RoundTotal;
 import fantasy.domain.StatType;
 import fantasy.domain.Team;
 import fantasy.domain.positions.TeamPosition;
+import fantasy.web.FantasyApplication;
 
 public class DataUpdater implements Serializable {
 
@@ -77,13 +84,14 @@ public class DataUpdater implements Serializable {
 		//iterate over all players and their stats if they are in the game
 		for(Player player : team.getPlayers()){
 			if( ! TeamPosition.getOutOfTheFieldPositions().contains(player.getCurrentPosition())){
-				for(GameStat stat : player.getStats()){
-
-					long statTime = stat.getDateWhen().getTime();
-					//update totals if stats time between limits
-					if(statTime >= startDate.toDate().getTime() &&  statTime <= endDate.toDate().getTime()){
-						addStatsToTotals(rt, stat);
-					}
+				
+				JPAContainer<GameStat> statsFromPeriod = JPAContainerFactory.make(GameStat.class, FantasyApplication.PERSISTENCE_UNIT);
+				//find the matching player
+				statsFromPeriod.addContainerFilter(
+						new And( new Compare.Equal( "player.id", player.getId()) , new Between("dateWhen", startDate.toDate(), endDate.toDate())));
+				for(Object id : statsFromPeriod.getItemIds()){
+					GameStat statToAdd = statsFromPeriod.getItem(id).getEntity();
+					addStatsToTotals(rt, statToAdd);
 				}
 			}
 		}
