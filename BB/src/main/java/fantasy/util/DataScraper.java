@@ -89,10 +89,13 @@ public class DataScraper implements Serializable {
 		Elements playerElements = getPlayerElements(gameUrl);
 		for (Element element : playerElements) {
 			Element nameElement = element.child(0);
-			Player dbPlayer = getPlayerFromDatabase(nameElement);
-			//if player is in db update it stats
-			if(dbPlayer != null){
-				updateGameStatForPlayer(element, dbPlayer);
+			//check there is every cell to parse
+			if(element.children().size() >= 20){
+				Player dbPlayer = getPlayerFromDatabase(nameElement);
+				//if player is in db update it stats
+				if(dbPlayer != null){
+					updateGameStatForPlayer(element, dbPlayer);
+				}
 			}
 		}
 
